@@ -1,25 +1,41 @@
 package components;
 
+import constants.Status;
+
 public class Point {
+	
+	private static int count;
+	
+	private int id;
+	
+	private Status status;
 	
 	/**
 	 * Coordinates
 	 */
-	private int x;
-	private int y;
-	
-	private boolean isPlayable;
-	
-	public Point(int x, int y) {
+	private int x, y;
+		
+	public Point(int x, int y, Status status) {
 		this.x = x;
 		this.y = y;
+		this.status = status;
+		this.count += 1;
+		this.id = this.count;
+	}
+	
+	public Status getStatus() {
+		return this.status;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	public int getX() {
-		return x;
+		return this.x;
 	}
 	
 	public int getY() {
-		return y;
+		return this.y;
 	}
 }
