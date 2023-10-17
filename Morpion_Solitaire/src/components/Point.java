@@ -4,10 +4,25 @@ import constants.Status;
 
 public class Point {
 	
-	private static int count;
 	
+	/**
+	 * Total number of played points
+	 */
+	private static int playedPointsCount;
+	
+	/**
+	 * Id represent the order in which the current point was played
+	 */
 	private int id;
 	
+	/**
+	 * Represent the status of a point in different moment of the game
+	 * 4 status are possible:
+	 * 	1) PLAYED: different points clicked by the player
+	 * 	2) DEFAULT: points that constitute the cross at the beginning of the game
+	 * 	3) LINE: points that are part of a line
+	 * 	4) NORMAL: points that are not one of the 3 previous type
+	 */
 	private Status status;
 	
 	/**
@@ -19,8 +34,27 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.status = status;
-		this.count += 1;
-		this.id = this.count;
+		if (this.status == Status.PLAYED) {
+			playedPointsCount += 1;
+			this.id = playedPointsCount;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + this.x + "," + this.y + ")";
+	}
+	
+	/**
+	 * Set status and give an id if this a played point
+	 * 
+	 * @param status
+	 */
+	public void setStatus(Status status) {
+		if (status == Status.PLAYED) {
+			playedPointsCount += 1;
+			this.id = playedPointsCount;
+		}
 	}
 	
 	public Status getStatus() {
@@ -37,5 +71,9 @@ public class Point {
 	
 	public int getY() {
 		return this.y;
+	}
+	
+	public static int getPlayedPointsCount() {
+		return playedPointsCount;
 	}
 }
