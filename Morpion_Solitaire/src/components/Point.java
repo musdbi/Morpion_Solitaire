@@ -54,7 +54,7 @@ public class Point {
 		if (status == Status.PLAYED) {
 			playedPointsCount += 1;
 			this.id = playedPointsCount;
-		}
+		}	
 	}
 	
 	public Status getStatus() {

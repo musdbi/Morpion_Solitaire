@@ -26,9 +26,9 @@ public class Line {
 	private Direction direction;
 	
 	public Line(
-		Point playedPoint,
-//		List<Point> points,
-		Direction direction
+			Point playedPoint,
+//			List<Point> points,
+			Direction direction
 		) {
 		this.playedPoint = playedPoint;
 		this.direction = direction;

@@ -24,23 +24,17 @@ public class Grid {
 	 * List of the points that the player can play in the next round
 	 */
 	private List<Point> playablePoints;
-		
-	/**
-	 * The corner of the square where the player can play according to existing lines and points
-	 * Is used to optimize the search for playable points
-	 */
-	private Point minPlayablePoint, maxPlayablePoint;
 
 	public Grid() {
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	/**
 	 * Find all playable points
 	 * The search is limited to the sub grid defined by minPlayablePoint and MaxPlayable Point
 	 */
 	public void updatePlayablePoints() {
+		
 	}
 	
 	/**
@@ -66,14 +60,6 @@ public class Grid {
 		return new ArrayList<>();
 	}
 	
-	
-	/**
-	 * Find and update minPlayablePoint and maxPlayablePoint
-	 * Go through the grid points and keep the min playPoint -1 and the max playPoint +1
-	 */
-	public void updateMinMaxPlayablePoints() {
-	}
-	
 	public void addLine(Line newLine) {
 		this.lines.add(newLine);
 	}
@@ -92,21 +78,5 @@ public class Grid {
 	
 	public List<Point> getPlayablePoints() {
 		return this.playablePoints;
-	}
-	
-	public Point getMinPlayablePoint() {
-		return this.minPlayablePoint;
-	}
-	
-	public void setMinPlayablePoint(Point minPlayablePoint) {
-		this.minPlayablePoint = minPlayablePoint;
-	}
-	
-	public Point getMaxPlayablePoint() {
-		return this.maxPlayablePoint;
-	}
-	
-	public void setMaxPlayablePoint(Point maxPlayablePoint) {
-		this.maxPlayablePoint = maxPlayablePoint;
 	}
 }
