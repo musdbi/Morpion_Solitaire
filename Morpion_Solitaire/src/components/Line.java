@@ -43,7 +43,7 @@ public class Line {
 	                direction == Direction.DIAGONAL ? new Point(playedPoint.getX() + i, playedPoint.getY() + i, Status.LINE) :
 	                null
 			);
-		}
+		}	
 	};
 	
 	@Override
