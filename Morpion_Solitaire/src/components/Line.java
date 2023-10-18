@@ -25,25 +25,12 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(
-			Point playedPoint,
-//			List<Point> points,
-			Direction direction
-		) {
+	public Line(Point playedPoint,List<Point> points, Direction direction) {
 		this.playedPoint = playedPoint;
 		this.direction = direction;
 		this.points = new ArrayList<>();
-//		this.points.addAll(points);
+		this.points.addAll(points);
 		points.add(playedPoint);
-		
-		for (int i = 0; i < 4; i ++) {
-			points.add(
-					direction == Direction.HORIZONTAL ? new Point(playedPoint.getX() + i, playedPoint.getY(), Status.LINE) : 
-	                direction == Direction.VERTICAL ? new Point(playedPoint.getX(), playedPoint.getY() + i, Status.LINE) :
-	                direction == Direction.DIAGONAL ? new Point(playedPoint.getX() + i, playedPoint.getY() + i, Status.LINE) :
-	                null
-			);
-		}	
 	};
 	
 	@Override

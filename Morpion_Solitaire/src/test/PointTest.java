@@ -23,9 +23,6 @@ public class PointTest {
 		Point point2 = new Point(0, 0, Status.PLAYED);
 		assertEquals(2, point2.getId());
 		assertEquals(2, Point.getPlayedPointsCount());
-
+		
 	}
-	
-	
-
 }
