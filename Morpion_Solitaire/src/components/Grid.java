@@ -1,6 +1,7 @@
 package components;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 
 public class Grid {
@@ -23,7 +24,7 @@ public class Grid {
 	/**
 	 * List of the points that the player can play in the next round
 	 */
-	private List<Point> playablePoints;
+	private Map<List<Point>, Point> playablePoints;
 
 	public Grid() {
 		// TODO Auto-generated constructor stub
@@ -75,7 +76,7 @@ public class Grid {
 		return this.lines;
 	}
 	
-	public List<Point> getPlayablePoints() {
+	public Map<List<Point>, Point> getPlayablePoints() {
 		return this.playablePoints;
 	}
 }
