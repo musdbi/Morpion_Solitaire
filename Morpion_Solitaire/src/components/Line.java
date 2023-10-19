@@ -1,7 +1,8 @@
 package components;
+
+import java.awt.Point;
 import constants.Direction;
 import constants.Status;
-
 import java.util.List;
 import java.util.ArrayList;
 
