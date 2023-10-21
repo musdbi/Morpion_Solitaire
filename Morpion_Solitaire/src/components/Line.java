@@ -24,8 +24,6 @@ public class Line {
 	public Line(Direction direction) {
 		this.direction = direction;
 		this.points = new ArrayList<>();
-		this.points.addAll(points);
-		points.add(playedPoint);
 	};
 	
 	public void addPoint(Point point) {

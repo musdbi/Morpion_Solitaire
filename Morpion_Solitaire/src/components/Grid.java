@@ -60,6 +60,7 @@ public class Grid {
 //	}
 	
 	public Line findLinesInDirection(Point point, Direction direction) {
+		
 		return new Line(Direction.N);
 	}
 	
