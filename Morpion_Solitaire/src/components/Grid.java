@@ -54,21 +54,17 @@ public class Grid {
 	 * 		where the normal point would be a playable point for the next move.
 	 * 		an empty List if there is no playable point for the next move from the current point
 	 */
-	public Set<Set<Point>> findLinesAround(PlayedPoint point, List<Point> subGridAround) {
-//		for (Point pointAround: subGridAround)
-		return new ArrayList<Point>();
-	}
+//	public Set<> findLinesAround(PlayedPoint point, List<Point> subGridAround) {
+////		for (Point pointAround: subGridAround)
+//		return new Set<Point>();
+//	}
 	
 	/** 
 	 * @param point
 	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point
 	 */
-	public List<Point> getSubGridAround(Point point){
-		ArrayList<Point> subGridAround = new ArrayList<Point>();
-		for (Point gridPoint: gridPoints) {
-			if (PointUtils.distance(point, gridPoint) <= 4 && PointUtils.isNormalPoint(gridPoint)){subGridAround.add(gridPoint);}
-		}
-		return subGridAround;
+	public Set<Point> getSubGrid(Point point){
+		return new HashSet<>();
 	}
 	
 	/**

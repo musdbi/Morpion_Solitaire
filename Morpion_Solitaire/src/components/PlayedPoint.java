@@ -1,7 +1,5 @@
 package components;
 
-import java.awt.Point;
-
 public class PlayedPoint extends Point{
 	
 	/**
