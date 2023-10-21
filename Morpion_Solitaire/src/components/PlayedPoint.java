@@ -12,6 +12,8 @@ public class PlayedPoint extends Point{
 	 */
 	private int id;
 	
+	private Set<Direction> directions;
+	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
 		playedPointsCount += 1;

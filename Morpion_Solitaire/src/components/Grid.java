@@ -45,7 +45,8 @@ public class Grid {
 	 * Find all playable points
 	 * The search is limited to the sub grid defined by minPlayablePoint and MaxPlayable Point
 	 */
-	public void updatePlayablePoints() {		
+	public void updatePlayablePoints() {
+		
 	}
 
 	/**
