@@ -3,6 +3,9 @@ package components;
 import java.awt.Point;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+
 import constants.Direction;
 import java.util.ArrayList;
 import java.lang.Math;
@@ -51,8 +54,8 @@ public class Grid {
 	 * 		where the normal point would be a playable point for the next move.
 	 * 		an empty List if there is no playable point for the next move from the current point
 	 */
-	public List<Point> findLinesAround(PlayedPoint point) {
-		
+	public Set<Set<Point>> findLinesAround(PlayedPoint point, List<Point> subGridAround) {
+//		for (Point pointAround: subGridAround)
 		return new ArrayList<Point>();
 	}
 	
@@ -60,22 +63,12 @@ public class Grid {
 	 * @param point
 	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point
 	 */
-	public List<Point> getSubGridAround(Point point, int distance){
+	public List<Point> getSubGridAround(Point point){
 		ArrayList<Point> subGridAround = new ArrayList<Point>();
 		for (Point gridPoint: gridPoints) {
-			if (Grid.distance(point, gridPoint) <= 4){subGridAround.add(gridPoint);}
+			if (PointUtils.distance(point, gridPoint) <= 4 && PointUtils.isNormalPoint(gridPoint)){subGridAround.add(gridPoint);}
 		}
 		return subGridAround;
-	}
-	
-	/** 
-	 *
-	 * @param p1
-	 * @param p2
-	 * @return The infinite distance in 2-dimension.
-	 */
-	public static int distance(Point p1, Point p2) {
-		return (int) Math.max(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
 	}
 	
 	/**

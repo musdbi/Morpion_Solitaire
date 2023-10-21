@@ -37,4 +37,14 @@ public class PointUtils {
 	public static int distance(Point p1, Point p2) {
 		return (int) Math.max(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
 	}
+	
+	/**
+	 * This method test if a point is a normal point and not a played point
+	 * 
+	 * @param p
+	 * @return true/false
+	 */
+	public static boolean isNormalPoint(Point p) {
+		return ((p instanceof Point) && !(p instanceof PlayedPoint));
+	}
 }
