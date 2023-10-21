@@ -14,11 +14,6 @@ public class Line {
 	private List<Point> points;
 	
 	/**
-	 * The point that created the line
-	 */
-	private Point playedPoint;
-	
-	/**
 	 * The direction of the line
 	 * 	1) Horizontal
 	 * 	2) Vertical
@@ -26,14 +21,16 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(Point playedPoint,List<Point> points, Direction direction) {
-		this.playedPoint = playedPoint;
+	public Line(Direction direction) {
 		this.direction = direction;
 		this.points = new ArrayList<>();
 		this.points.addAll(points);
 		points.add(playedPoint);
 	};
 	
+	public void addPoint(Point point) {
+		this.points.add(point);
+	}
 	@Override
 	public String toString() {
 		String toString = "Direction: " + this.direction + "\nPoints:";

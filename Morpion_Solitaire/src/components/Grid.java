@@ -59,6 +59,10 @@ public class Grid {
 //		return new Set<Point>();
 //	}
 	
+	public Line findLinesInDirection(Point point, Direction direction) {
+		return new Line(Direction.N);
+	}
+	
 	/** 
 	 * @param point
 	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point

@@ -8,5 +8,8 @@ public enum Direction {
 	NW, // North West = top left
 	NE, // North East = top right
 	SW, // South West = bottom left
-	SE; // South East = bottom right
+	SE, // South East = bottom right
+	HORIZONTAL,
+	VERTICAL,
+	DIAGONAL;
 }
