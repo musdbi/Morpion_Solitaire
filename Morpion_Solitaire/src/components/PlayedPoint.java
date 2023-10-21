@@ -1,5 +1,9 @@
 package components;
 
+import java.util.Set;
+
+import constants.Direction;
+
 public class PlayedPoint extends Point{
 	
 	/**
@@ -12,7 +16,7 @@ public class PlayedPoint extends Point{
 	 */
 	private int id;
 	
-	private Set<Direction> directions;
+	private Set<Direction> involvedInDirections;
 	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
@@ -36,5 +40,9 @@ public class PlayedPoint extends Point{
 	
 	public int getCount() {
 		return playedPointsCount;
+	}
+	
+	public Set<Direction> getDirection(){
+		return this.involvedInDirections;
 	}
 }

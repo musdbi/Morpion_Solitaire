@@ -6,7 +6,7 @@ import java.util.Set;
 
 import constants.Direction;
 
-public class Point {
+public abstract class Point {
 	
 	private int x, y;
 
@@ -81,11 +81,11 @@ public class Point {
     public static void main(String[] args) {
         Set<Point> set = new HashSet<>();
 
-        Point p1 = new Point(0, 0);
+        UnplayedPoint p1 = new UnplayedPoint(0, 0);
         set.add(p1);
         System.out.println(set);
 
-        Point p2 = new Point(1, 1);
+        PlayedPoint p2 = new PlayedPoint(1, 1);
         set.add(p2);
         System.out.println(set);
         

@@ -17,6 +17,15 @@ public enum Direction {
 	Direction(Orientation w, Orientation e) {
 	}
 	
+	public static List<Direction> allDirections() {
+		ArrayList<Direction> directions = new ArrayList<>();
+		directions.add(Direction.HORIZONTAL);
+		directions.add(Direction.VERTICAL);
+		directions.add(Direction.DIAGONAL);
+		return directions;
+	}
+	
+	
 	public List<Orientation> orientations() {
 		ArrayList<Orientation> orientations = new ArrayList<>();
 		orientations.add(orientation1);

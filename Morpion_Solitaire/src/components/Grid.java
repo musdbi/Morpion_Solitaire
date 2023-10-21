@@ -61,11 +61,7 @@ public class Grid {
 	 */
 	public Set<Line> findLinesAround(Point point) {
 		HashSet<Line> linesAround = new HashSet<>();
-		ArrayList<Direction> directions = new ArrayList<>();
-		directions.add(Direction.HORIZONTAL);
-		directions.add(Direction.VERTICAL);
-		directions.add(Direction.DIAGONAL);
-		for (Direction direction: directions) {
+		for (Direction direction: Direction.allDirections()) {
 			linesAround.addAll(this.findLinesInDirection(point, direction));
 		}
 		return linesAround;
@@ -80,7 +76,7 @@ public class Grid {
 			// 4 is variable according to the mod
 			for (int i = 0; i< 4; i++) { 
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-				if (memory.get(hash) instanceof Point || memory.get(hash) ) {
+				if (memory.get(hash) instanceof Point || memory.get(hash).getDirections().contains(direction)) {
 					break;
 				}else {
 					linePoints.add(memory.get(hash));
@@ -142,10 +138,13 @@ public class Grid {
 	}
 	
 	public static void maing(String[] args) {
-//		Point p1 = new Point(0,0);
-//		PlayedPoint p2 = new PlayedPoint(1,1);
-//		Grid grid = new Grid();
-//		grid.getMemory().put(1, p1);
-//		grid.getMemory().put(2, p2);
+		ArrayList<Point> points = new ArrayList<>();
+        Point p1 = new Point(0, 0);
+        PlayedPoint p2 = new PlayedPoint(1, 1);
+        points.add(p1);
+        points.add(p2);
+		Grid grid = new Grid();
+		grid.getMemory().put(1, p1);
+		grid.getMemory().put(2, p2);
 	}
 }
