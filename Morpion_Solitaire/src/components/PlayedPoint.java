@@ -3,11 +3,6 @@ package components;
 public class PlayedPoint extends Point{
 	
 	/**
-	 * serializing process ID
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
 	 * Total number of played points
 	 */
 	private static int playedPointsCount;
@@ -19,6 +14,12 @@ public class PlayedPoint extends Point{
 	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
+		playedPointsCount += 1;
+		this.id = playedPointsCount;
+	}
+	
+	public PlayedPoint(Point p) {
+		 super(p.getX(), p.getY());
 		playedPointsCount += 1;
 		this.id = playedPointsCount;
 	}
