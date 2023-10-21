@@ -1,8 +1,15 @@
 package components;
 
+import java.awt.Point;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+
+import constants.Direction;
 import java.util.ArrayList;
+import java.lang.Math;
+
 
 public class Grid {
 	
@@ -14,7 +21,7 @@ public class Grid {
 	/**
 	 * All the points of the grid
 	 */
-	private List<Point> gridPoints;
+	private  List<Point> gridPoints;
 	
 	/**
 	 * All lines of the grid
@@ -36,15 +43,42 @@ public class Grid {
 	 */
 	public void updatePlayablePoints() {		
 	}
+
+	/**
+	 * This method find the possible lines that can be create from a given Played Point
+	 * 
+	 * @param 
+	 * 		point
+	 * @return 
+	 * 		a List of Point composed of n-1 played points (where n is the mode: 5T 4T 6T, etc) and one "normal" point,
+	 * 		where the normal point would be a playable point for the next move.
+	 * 		an empty List if there is no playable point for the next move from the current point
+	 */
+	public Set<Set<Point>> findLinesAround(PlayedPoint point, List<Point> subGridAround) {
+//		for (Point pointAround: subGridAround)
+		return new ArrayList<Point>();
+	}
+	
+	/** 
+	 * @param point
+	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point
+	 */
+	public List<Point> getSubGridAround(Point point){
+		ArrayList<Point> subGridAround = new ArrayList<Point>();
+		for (Point gridPoint: gridPoints) {
+			if (PointUtils.distance(point, gridPoint) <= 4 && PointUtils.isNormalPoint(gridPoint)){subGridAround.add(gridPoint);}
+		}
+		return subGridAround;
+	}
 	
 	/**
 	 * This method check for the playability of a point by looking the possibilities around it
 	 * 
 	 * @param point
-	 * @return 
+	 * @return true/false depending on the presence of the point in the playable points list
 	 */
 	public boolean checkPlayability(Point point) {
-		return false;
+		return this.playablePoints.containsValue(point);
 	}
 	
 	/**

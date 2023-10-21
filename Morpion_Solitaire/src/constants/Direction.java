@@ -1,12 +1,12 @@
 package constants;
 
 public enum Direction {
-	N, // North
-	S, // South
-	W, // West
-	E, // East
-	NW, // North West
-	NE, // North East
-	SW, // South West
-	SE, // South East
+	N, // North - top
+	S, // South - bottom
+	W, // West - left
+	E, // East - right
+	NW, // North West = top left
+	NE, // North East = top right
+	SW, // South West = bottom left
+	SE; // South East = bottom right
 }
