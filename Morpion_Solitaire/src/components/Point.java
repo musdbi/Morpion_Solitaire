@@ -2,8 +2,6 @@ package components;
 
 import java.util.Objects;
 
-import constants.Direction;
-
 public class Point {
 	
 	protected int x, y;
@@ -13,11 +11,6 @@ public class Point {
 		this.y = y;
 	}
 	
-	public Point(PlayedPoint p) {
-		this.x = p.getX();
-		this.y = p.getY();
-	}
-	
 	@Override
 	public String toString() {
 		return "(" + this.x + "," + this.y + ")";
@@ -25,11 +18,18 @@ public class Point {
 	
 	@Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || !(o instanceof Point)) return false;
-        Point otherPoint = (Point) o;
-        return x == otherPoint.x && y == otherPoint.y;
-    }
+		if (this == o) return true;
+	    if (o == null) return false;
+	    if (o instanceof PlayedPoint) {
+	        PlayedPoint otherPoint = (PlayedPoint) o;
+	        return x == otherPoint.x && y == otherPoint.y;
+	    }
+	    if (o instanceof Point) {
+	        Point otherPoint = (Point) o;
+	        return x == otherPoint.x && y == otherPoint.y;
+	    }
+	    return false;
+	}
     
     @Override
     public int hashCode() {

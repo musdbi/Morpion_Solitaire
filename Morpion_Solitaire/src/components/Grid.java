@@ -16,6 +16,7 @@ public class Grid {
 	
 	/**
 	 * Length of the sizes of the grid (a square)
+	 * 
 	 */
 	private int size;
 	
@@ -27,7 +28,7 @@ public class Grid {
 	 * Value (Point): the point with the corresponding hashcode
 	 */
 	private  Map<Integer, Point> grid;
-
+	
 	/**
 	 * All lines of the grid
 	 */
@@ -44,11 +45,27 @@ public class Grid {
 	private Point minPlayablePoint, maxPlayablePoint;
 
 	public Grid() {
+		this.size = 24;
+		Point minPlayablePoint = new Point(8, 8);
+		Point maxPlayablePoint = new Point(18, 18);
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet();
         this.minPlayablePoint = new Point(0,0);
         this.minPlayablePoint = new Point(11, 11);
+	}
+	
+	public void initGrid() {
+		for (int x = 0; x < size; x++) {
+			for(int y = 0; y < size; y++) {
+				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) {
+					grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
+				}
+				else {
+					grid.put(Objects.hash(x,y), new Point(x, y));
+				}
+			}
+		}
 	}
 	
 	public void updateGrid(Point playedPoint){
@@ -100,6 +117,7 @@ public class Grid {
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		HashSet<Line> lines = new HashSet<>();
 		HashSet<Point> points  = new HashSet<>();
+		
 		for (Orientation orientation: direction.orientations()) {
 			List<Integer> moveX = orientation.moveX();
 			List<Integer> moveY = orientation.moveY();
@@ -124,9 +142,11 @@ public class Grid {
 	 * @param point
 	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point
 	 */
-	public Set<Point> getSubGrid(Point minPlayablePoint, Point maxPlayablePoint){
-		return new HashSet<>();
-	}
+//	public Map<Integer, Point> getSubGrid(Point minPlayablePoint, Point maxPlayablePoint){
+//		HashMap<Integer, Point> subGrid = new HashMap<>();
+//		
+//		return new HashSet<>();
+//	}
 	
 	/**
 	 * This method check for the playability of a point by looking the possibilities around it
@@ -173,25 +193,25 @@ public class Grid {
 	
 	public static void main(String[] args) {
 
-		HashSet<Point> points = new HashSet<>();
-		Point p1 = new Point(1,1);
-		Point p2 = new Point(1,1);
-		Point p3 = new Point(1,3);
-		Point p4 = new Point(1,4);
-		Point p5 = new Point(1,5);
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
-		
-		Line line1 = new Line(points, Direction.VERTICAL);
-		Line line2 = new Line(points, Direction.VERTICAL);
-
-		System.out.println(line1.equals(line2));
-
-		System.out.println(line1.hashCode());
-		System.out.println(line2.hashCode());
+//		HashSet<Point> points = new HashSet<>();
+//		Point p1 = new Point(1,1);
+//		Point p2 = new Point(1,1);
+//		Point p3 = new Point(1,3);
+//		Point p4 = new Point(1,4);
+//		Point p5 = new Point(1,5);
+//		points.add(p1);
+//		points.add(p2);
+//		points.add(p3);
+//		points.add(p4);
+//		points.add(p5);
+//		
+//		Line line1 = new Line(points, Direction.VERTICAL);
+//		Line line2 = new Line(points, Direction.VERTICAL);
+//
+//		System.out.println(line1.equals(line2));
+//
+//		System.out.println(line1.hashCode());
+//		System.out.println(line2.hashCode());
 		
 		
 //		ArrayList<Point> points = new ArrayList<>();
@@ -262,5 +282,20 @@ public class Grid {
 //		Point p2 = new PlayedPoint(p1);
 //		grid.getGrid().put(p2.hashCode(), p2);
 //		System.out.println(grid.getGrid());
+		
+		
+		
+//		Grid grid = new Grid();
+//		grid.initGrid();
+//		grid.updatePlayablePoints();
+//		for (Point point: grid.getGrid().values()) {
+//			System.out.println(point);
+//		}
+//		for (Point point: grid.getPlayablePoints().keySet()) {
+//			System.out.println(point);
+//		}
+		Orientation N = Orientation.N;
+		ArrayList<Integer> list =  (ArrayList<Integer>) N.moveX();
+		System.out.println(list);
 	}
 }

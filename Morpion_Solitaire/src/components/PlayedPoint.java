@@ -1,5 +1,6 @@
 package components;
 
+import java.util.Objects;
 import java.util.Set;
 
 import constants.Direction;
@@ -20,8 +21,9 @@ public class PlayedPoint extends Point{
 	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
-		playedPointsCount += 1;
-		this.id = playedPointsCount;
+		if (!(DefaultCoordinates.getValues().contains(Objects.hash(x, y))));
+			playedPointsCount += 1;
+			this.id = playedPointsCount;
 	}
 	
 	public PlayedPoint(Point p) {
@@ -35,7 +37,7 @@ public class PlayedPoint extends Point{
 		return "Played point: (" + this.x + "," + this.y + ")";
 	}
 	
-	public static void resetPlayedPointsCount() {
+	public static void resetCount() {
 		playedPointsCount = 0;
 	}
 	

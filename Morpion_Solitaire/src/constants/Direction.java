@@ -16,7 +16,9 @@ public enum Direction {
 	private Orientation orientation1;
 	private Orientation orientation2;
 	
-	Direction(Orientation w, Orientation e) {
+	Direction(Orientation orientation1, Orientation orientation2) {
+		this.orientation1 = orientation1;
+		this.orientation2 = orientation2;
 	}
 	
 	public static List<Direction> allDirections() {

@@ -25,6 +25,7 @@ public enum Orientation {
 	public List<Integer> moveX(){
 		ArrayList<Integer> moveX = new ArrayList<>();
 		for (int x = 1; x <= 4; x++) {
+			System.out.println(moveX);
 			moveX.add(x * this.x);
 		}
 		return moveX;
@@ -32,8 +33,8 @@ public enum Orientation {
 	
 	public List<Integer> moveY(){
 		ArrayList<Integer> moveY = new ArrayList<>();
-		for (int y = 1; y <= 4; x++) {
-			moveY.add(y * this.y);
+		for (int i = 1; i <= 4; x++) {
+			moveY.add(i);
 		}
 		return moveY;
 	}
