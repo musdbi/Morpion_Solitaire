@@ -1,12 +1,11 @@
 package components;
 
+import java.util.Set;
+
+import constants.Direction;
+
 public class PlayedPoint extends Point{
 	
-	/**
-	 * serializing process ID
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Total number of played points
 	 */
@@ -17,10 +16,23 @@ public class PlayedPoint extends Point{
 	 */
 	private int id;
 	
+	private Set<Direction> involvedInDirections;
+	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
 		playedPointsCount += 1;
 		this.id = playedPointsCount;
+	}
+	
+	public PlayedPoint(Point p) {
+		 super(p.getX(), p.getY());
+		playedPointsCount += 1;
+		this.id = playedPointsCount;
+	}
+	
+	@Override
+	public String toString() {
+		return "Played point: (" + this.x + "," + this.y + ")";
 	}
 	
 	public static void resetPlayedPointsCount() {
@@ -33,5 +45,9 @@ public class PlayedPoint extends Point{
 	
 	public int getCount() {
 		return playedPointsCount;
+	}
+	
+	public Set<Direction> getInvolvedDirection(){
+		return this.involvedInDirections;
 	}
 }

@@ -1,17 +1,16 @@
 package components;
 
-import java.awt.Point;
 import constants.Direction;
-import constants.Status;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Objects;
 
 public class Line {
 	
 	/**
 	 * Points of the line
 	 */
-	private List<Point> points;
+	private Set<Point> points;
 	
 	/**
 	 * The direction of the line
@@ -21,9 +20,10 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(Direction direction) {
+	public Line(Set<Point> points, Direction direction) {
 		this.direction = direction;
-		this.points = new ArrayList<>();
+		this.points = new HashSet<>();
+		this.points.addAll(points);
 	};
 	
 	public void addPoint(Point point) {
@@ -37,16 +37,26 @@ public class Line {
 		}
 		return toString;
 	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Line)) return false;
+        Line otherLine = (Line) o;
+        System.out.println(this.points.equals(otherLine.getPoints()));
+        return this.points.equals(otherLine.getPoints());
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.points.toArray());
+    }
 	
 	public Direction getDirection() {
 		return this.direction;
 	}
 	
-	public List<Point> getPoints(){
+	public Set<Point> getPoints(){
 		return points;
-	}
-	
-	public Point getPlayedPoint(){
-		return playedPoint;
 	}
 }
