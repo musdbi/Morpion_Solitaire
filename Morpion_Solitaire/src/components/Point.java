@@ -6,7 +6,7 @@ import java.util.Set;
 
 import constants.Direction;
 
-public abstract class Point {
+public class Point {
 	
 	private int x, y;
 
@@ -18,8 +18,8 @@ public abstract class Point {
 	public Point(PlayedPoint p) {
 		this.x = p.getX();
 		this.y = p.getY();
-
 	}
+	
 	/**
 	 * This method helps to identify the direction from one point to another
 	 * 
@@ -79,17 +79,33 @@ public abstract class Point {
     }
     
     public static void main(String[] args) {
-        Set<Point> set = new HashSet<>();
-
-        UnplayedPoint p1 = new UnplayedPoint(0, 0);
-        set.add(p1);
-        System.out.println(set);
-
-        PlayedPoint p2 = new PlayedPoint(1, 1);
-        set.add(p2);
-        System.out.println(set);
-        
-        System.out.println(Objects.hash(p1.getX()+1, p1.getY()+1));
-        System.out.println(p2.hashCode());
+//        Set<Point> set = new HashSet<>();
+//
+//        Point p1 = new Point(0, 0);
+//        set.add(p1);
+//        System.out.println(set);
+//
+//        PlayedPoint p2 = new PlayedPoint(1, 1);
+//        set.add(p2);
+//        System.out.println(set);
+//        
+//        System.out.println(Objects.hash(p1.getX()+1, p1.getY()+1));
+//        System.out.println(p2.hashCode());
+    	Point p1 = new Point(0, 0);
+		Point p2 = new PlayedPoint(1, 1);
+		Grid grid = new Grid();
+		grid.getMemory().put(p1.hashCode(), p1);
+		Point p = grid.getMemory().get(p1.hashCode());
+		if (p instanceof Point) {
+			System.out.println("Normal point");
+		}
+		else {
+			System.out.println("Played point");
+		}
+		PlayedPoint point = new PlayedPoint(p1);
+		grid.getMemory().put(p1.hashCode(), new PlayedPoint(p1));
+		if (p2 instanceof PlayedPoint && !(p2 instanceof Point)) {
+			System.out.println("Played point");
+		}
     }
 }

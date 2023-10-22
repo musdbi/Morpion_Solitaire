@@ -1,6 +1,5 @@
 package components;
 
-import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -27,18 +26,21 @@ public class Grid {
 	 */
 	private  Map<Integer, Point> memory;
 	
+	private Set<Point> unplayeddPoints;
+	
 	/**
 	 * All lines of the grid
 	 */
 	private List<Line> lines;
 
 	/**
-	 * List of the points that the player can play in the next round
+	 * List of the points that the player can play in the next move
 	 */
-	private Map<List<Point>, Point> playablePoints;
+	private  Map<Point, Set<Line>> playablePoints;
 
 	public Grid() {
         memory = new HashMap<>();
+        playablePoints = new HashMap<>();
 	}
 	
 	/**
@@ -46,7 +48,12 @@ public class Grid {
 	 * The search is limited to the sub grid defined by minPlayablePoint and MaxPlayable Point
 	 */
 	public void updatePlayablePoints() {
-		
+		for (Point point: this.unplayedPoint) {
+			HashSet<Line> possibleLinesAround = (HashSet<Line>) this.findLinesAround(point);
+			if (!(possibleLinesAround.isEmpty()){
+				playablePoints.add(point);
+			}
+		}
 	}
 
 	/**
@@ -69,21 +76,24 @@ public class Grid {
 	
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		HashSet<Line> lines = new HashSet<>();
-		HashSet<Point> linePoints  = new HashSet<>();
+		HashSet<Point> points  = new HashSet<>();
 		for (Orientation orientation: direction.orientations()) {
 			List<Integer> moveX = orientation.moveX();
 			List<Integer> moveY = orientation.moveY();
 			// 4 is variable according to the mod
 			for (int i = 0; i< 4; i++) { 
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-				if (memory.get(hash) instanceof Point || memory.get(hash).getDirections().contains(direction)) {
+				if (memory.get(hash) instanceof Point || ((PlayedPoint) memory.get(hash)).getDirection().contains(direction)) {
 					break;
+				}else if(points.size() == 4){
+//					créer ligne et ajouter à lines
+					points.clear();
 				}else {
-					linePoints.add(memory.get(hash));
+//					linePoints.add(memory.get(hash));
 				}
 			}
 		}
-		return new HashSet<>();
+		return lines;
 	}
 	
 	/** 
@@ -129,7 +139,7 @@ public class Grid {
 		return this.lines;
 	}
 	
-	public Map<List<Point>, Point> getPlayablePoints() {
+	public Map<Point, Set<Line>> getPlayablePoints() {
 		return this.playablePoints;
 	}
 	
@@ -138,13 +148,19 @@ public class Grid {
 	}
 	
 	public static void maing(String[] args) {
-		ArrayList<Point> points = new ArrayList<>();
-        Point p1 = new Point(0, 0);
-        PlayedPoint p2 = new PlayedPoint(1, 1);
-        points.add(p1);
-        points.add(p2);
+//		ArrayList<Point> points = new ArrayList<>();
+//        Point p1 = new Point(0, 0);
+//        Point p2 = new PlayedPoint(1, 1);
+//        points.add(p1);
+//        points.add(p2);
+//		Grid grid = new Grid();
+//		grid.getMemory().put(1, p1);
+//		grid.getMemory().put(2, p2);
+		
+		Point p1 = new Point(0, 0);
+		Point p2 = new PlayedPoint(1, 1);
 		Grid grid = new Grid();
-		grid.getMemory().put(1, p1);
-		grid.getMemory().put(2, p2);
+		grid.getMemory().put(p1.hashCode(), p1);
+		System.out.println(grid.getMemory().get(p1.hashCode()));
 	}
 }
