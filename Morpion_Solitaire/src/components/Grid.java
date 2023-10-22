@@ -38,6 +38,9 @@ public class Grid {
 	 */
 	private  Map<Point, Set<Line>> playablePoints;
 	
+	/**
+	 * The bottom-left and top-right corners of the sub grid in which one we look for playable point
+	 */
 	private Point minPlayablePoint, maxPlayablePoint;
 
 	public Grid() {
@@ -132,7 +135,7 @@ public class Grid {
 	 * @return true/false depending on the presence of the point in the playable points list
 	 */
 	public boolean checkPlayability(Point point) {
-		return this.playablePoints.containsValue(point);
+		return this.playablePoints.containsKey(point);
 	}
 	
 	/**
