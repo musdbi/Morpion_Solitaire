@@ -1,17 +1,16 @@
 package components;
 
-import java.awt.Point;
 import constants.Direction;
 import constants.Status;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Line {
 	
 	/**
 	 * Points of the line
 	 */
-	private List<Point> points;
+	private Set<Point> points;
 	
 	/**
 	 * The direction of the line
@@ -21,9 +20,10 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(Direction direction) {
+	public Line(Set<Point> points, Direction direction) {
 		this.direction = direction;
-		this.points = new ArrayList<>();
+		this.points = new HashSet<>();
+		this.points.addAll(points);
 	};
 	
 	public void addPoint(Point point) {
@@ -42,7 +42,7 @@ public class Line {
 		return this.direction;
 	}
 	
-	public List<Point> getPoints(){
+	public Set<Point> getPoints(){
 		return points;
 	}
 }

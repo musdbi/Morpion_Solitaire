@@ -8,7 +8,7 @@ import constants.Direction;
 
 public class Point {
 	
-	private int x, y;
+	protected int x, y;
 
 	public Point(int x, int y) {
 		this.x = x;
@@ -42,6 +42,9 @@ public class Point {
 //			));		
 //	}
 	
+	public boolean isPlayed() {
+		return (this instanceof PlayedPoint);
+	}
 	/** 
 	 *
 	 * @param p1
@@ -79,33 +82,19 @@ public class Point {
     }
     
     public static void main(String[] args) {
-//        Set<Point> set = new HashSet<>();
-//
-//        Point p1 = new Point(0, 0);
-//        set.add(p1);
-//        System.out.println(set);
-//
-//        PlayedPoint p2 = new PlayedPoint(1, 1);
-//        set.add(p2);
-//        System.out.println(set);
-//        
-//        System.out.println(Objects.hash(p1.getX()+1, p1.getY()+1));
-//        System.out.println(p2.hashCode());
-    	Point p1 = new Point(0, 0);
-		Point p2 = new PlayedPoint(1, 1);
-		Grid grid = new Grid();
-		grid.getMemory().put(p1.hashCode(), p1);
-		Point p = grid.getMemory().get(p1.hashCode());
-		if (p instanceof Point) {
-			System.out.println("Normal point");
-		}
-		else {
-			System.out.println("Played point");
-		}
-		PlayedPoint point = new PlayedPoint(p1);
-		grid.getMemory().put(p1.hashCode(), new PlayedPoint(p1));
-		if (p2 instanceof PlayedPoint && !(p2 instanceof Point)) {
-			System.out.println("Played point");
-		}
+    	Point oldPoint = new Point(0, 0);
+//		Grid grid = new Grid();
+//		grid.getMemory().put(oldPoint.hashCode(), oldPoint);
+//		
+//		System.out.println(grid.getMemory());
+//		System.out.println(grid.getMemory().get(oldPoint.hashCode()) instanceof Point);
+//		
+//		Point newPoint = new PlayedPoint(grid.getMemory().get(oldPoint.hashCode()));
+//		grid.getMemory().put(newPoint.hashCode(), newPoint);
+//		
+//		System.out.println(grid.getMemory());
+//		System.out.println(grid.getMemory().get(newPoint.hashCode()) instanceof PlayedPoint);
+    	
+    	Point
     }
 }

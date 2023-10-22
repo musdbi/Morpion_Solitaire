@@ -42,7 +42,7 @@ public class PlayedPoint extends Point{
 		return playedPointsCount;
 	}
 	
-	public Set<Direction> getDirection(){
+	public Set<Direction> getInvolvedDirection(){
 		return this.involvedInDirections;
 	}
 }

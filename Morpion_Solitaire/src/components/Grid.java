@@ -20,18 +20,20 @@ public class Grid {
 	private int size;
 	
 	/**
-	 * Artificial memory of the grid
+	 * Memory of the grid. As the point are identified in memory with their hash code,
+	 * we use it to navigate through the grid and especially to find playable points
+	 * 
 	 * Key: the hash code
 	 * Value: the point with the corresponding hashcode
 	 */
-	private  Map<Integer, Point> memory;
+	private  Map<Integer, Point> grid;
 	
-	private Set<Point> unplayeddPoints;
+	private Set<Point> unplayedPoints;
 	
 	/**
 	 * All lines of the grid
 	 */
-	private List<Line> lines;
+	private Set<Line> lines;
 
 	/**
 	 * List of the points that the player can play in the next move
@@ -39,8 +41,9 @@ public class Grid {
 	private  Map<Point, Set<Line>> playablePoints;
 
 	public Grid() {
-        memory = new HashMap<>();
+		grid = new HashMap<>();
         playablePoints = new HashMap<>();
+        lines = new HashSet();
 	}
 	
 	/**
@@ -48,14 +51,14 @@ public class Grid {
 	 * The search is limited to the sub grid defined by minPlayablePoint and MaxPlayable Point
 	 */
 	public void updatePlayablePoints() {
-		for (Point point: this.unplayedPoint) {
+		for (Point point: this.unplayedPoints) {
 			HashSet<Line> possibleLinesAround = (HashSet<Line>) this.findLinesAround(point);
-			if (!(possibleLinesAround.isEmpty()){
-				playablePoints.add(point);
+			if (!(possibleLinesAround.isEmpty())){
+				playablePoints.put(point, possibleLinesAround);
 			}
 		}
 	}
-
+	
 	/**
 	 * This method find the possible lines that can be create from a given Played Point
 	 * 
@@ -83,13 +86,15 @@ public class Grid {
 			// 4 is variable according to the mod
 			for (int i = 0; i< 4; i++) { 
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-				if (memory.get(hash) instanceof Point || ((PlayedPoint) memory.get(hash)).getDirection().contains(direction)) {
+
+				if (!(grid.get(hash).isPlayed()) || ((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction)) {
 					break;
 				}else if(points.size() == 4){
-//					créer ligne et ajouter à lines
+					points.add(point);
+					lines.add(new Line(points, direction));
 					points.clear();
 				}else {
-//					linePoints.add(memory.get(hash));
+					points.add(grid.get(hash));
 				}
 			}
 		}
@@ -135,7 +140,7 @@ public class Grid {
 		return this.size;
 	}
 	
-	public List<Line> getGridLines(){
+	public Set<Line> getLines(){
 		return this.lines;
 	}
 	
