@@ -1,8 +1,6 @@
 package components;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import constants.Direction;
 
@@ -18,41 +16,6 @@ public class Point {
 	public Point(PlayedPoint p) {
 		this.x = p.getX();
 		this.y = p.getY();
-	}
-	
-	/**
-	 * This method helps to identify the direction from one point to another
-	 * 
-	 * @param p1
-	 * @param p2
-	 * @return Direction from p1 to p2. See {@link Direction} for precision on Direction values
-	 */
-//	public static Direction getDirection(Point p1, Point p2) {
-//		return 
-//			((
-//				p2.getX() > p1.getX() && p2.getY() > p1.getY() ? Direction.NE :
-//				p2.getX() > p1.getX() && p2.getY() == p1.getY() ? Direction.E :
-//				p2.getX() > p1.getX() && p2.getY() < p1.getY() ? Direction.SE :
-//				p2.getX() == p1.getX() && p2.getY() < p1.getY() ? Direction.S :
-//				p2.getX() < p1.getX() && p2.getY() < p1.getY() ? Direction.SW :
-//				p2.getX() < p1.getX() && p2.getY() == p1.getY() ? Direction.W :
-//				p2.getX() < p1.getX() && p2.getY() > p1.getY() ? Direction.NW :
-//				p2.getX() == p1.getX() && p2.getY() > p1.getY() ? Direction.N :
-//				null
-//			));		
-//	}
-	
-	public boolean isPlayed() {
-		return (this instanceof PlayedPoint);
-	}
-	/** 
-	 *
-	 * @param p1
-	 * @param p2
-	 * @return The infinite distance in 2-dimension
-	 */
-	public static int distance(Point p1, Point p2) {
-		return (int) Math.max(Math.abs(p1.getX() - p2.getX()), Math.abs(p1.getY() - p2.getY()));
 	}
 	
 	@Override
@@ -73,6 +36,15 @@ public class Point {
         return Objects.hash(x, y);
     }
     
+    public void move(int x, int y) {
+    	this.x = x;
+    	this.y = y;
+    }
+    
+    public boolean isPlayed() {
+		return (this instanceof PlayedPoint);
+	}
+    
     public int getX() {
     	return this.x;
     }
@@ -82,19 +54,6 @@ public class Point {
     }
     
     public static void main(String[] args) {
-    	Point oldPoint = new Point(0, 0);
-//		Grid grid = new Grid();
-//		grid.getMemory().put(oldPoint.hashCode(), oldPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(oldPoint.hashCode()) instanceof Point);
-//		
-//		Point newPoint = new PlayedPoint(grid.getMemory().get(oldPoint.hashCode()));
-//		grid.getMemory().put(newPoint.hashCode(), newPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(newPoint.hashCode()) instanceof PlayedPoint);
     	
-    	Point
     }
 }

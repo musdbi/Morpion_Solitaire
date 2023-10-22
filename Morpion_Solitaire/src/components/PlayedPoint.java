@@ -30,6 +30,11 @@ public class PlayedPoint extends Point{
 		this.id = playedPointsCount;
 	}
 	
+	@Override
+	public String toString() {
+		return "Played point: (" + this.x + "," + this.y + ")";
+	}
+	
 	public static void resetPlayedPointsCount() {
 		playedPointsCount = 0;
 	}

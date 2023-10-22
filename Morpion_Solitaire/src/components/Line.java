@@ -1,9 +1,9 @@
 package components;
 
 import constants.Direction;
-import constants.Status;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Line {
 	
@@ -37,6 +37,20 @@ public class Line {
 		}
 		return toString;
 	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Line)) return false;
+        Line otherLine = (Line) o;
+        System.out.println(this.points.equals(otherLine.getPoints()));
+        return this.points.equals(otherLine.getPoints());
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.points.toArray());
+    }
 	
 	public Direction getDirection() {
 		return this.direction;
