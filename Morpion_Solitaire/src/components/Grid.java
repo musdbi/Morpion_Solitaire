@@ -295,7 +295,7 @@ public class Grid {
 //			System.out.println(point);
 //		}
 		Orientation N = Orientation.N;
-		ArrayList<Integer> list =  (ArrayList<Integer>) N.moveX();
+		ArrayList<Integer> list =  (ArrayList<Integer>) N.moveY();
 		System.out.println(list);
 	}
 }
