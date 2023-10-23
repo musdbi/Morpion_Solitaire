@@ -2,6 +2,7 @@ package components;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
@@ -111,7 +112,7 @@ public class Grid {
 		}
 		return linesAround;
 	}
-	
+
 	/**
 	 * This method search for possible line to form with one point. It searches in on specific direction {@link constants.Direction}
 	 * 
@@ -127,20 +128,23 @@ public class Grid {
 			List<Integer> moveY = orientation.moveY();
 			// 4 is variable according to the mod
 			for (int i = 0; i< 4; i++) {
+//				if (point.equals(new Point(12, 10))) {
+//					System.out.println(points);
+//				}
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
 				if (grid.containsKey(hash)) {
-					if(points.size() == 4){
-						points.add(point);
-						lines.add(new Line(points, direction));
-						points.clear();
-					}else if(!(grid.get(hash).isPlayed()) || ((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction)){
-						break;
+					if ((grid.get(hash).isPlayed()) && !(((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction))) {
+						points.add(grid.get(hash));
+						if(points.size() == 4){
+							points.add(point);
+							lines.add(new Line(points, direction));
+							points.clear();
+						}
 					}
 					else {
-						points.add(grid.get(hash));
+						break;
 					}
 				}
-				
 			}
 		}
 		return lines;
@@ -174,5 +178,20 @@ public class Grid {
 	
 	public Map<Integer, Point> getGrid(){
 		return this.grid;
+	}
+	public static void main(String[] args) {
+		Grid grid = new Grid();
+		grid.initGrid();
+		if (grid.getGrid().get(Objects.hash(16, 10)).isPlayed()) {
+			System.out.println("16, 10 is a played point");
+		}
+		else {
+			System.out.println("no");
+		}
+		grid.updatePlayablePoints();
+		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {
+			System.out.println("\nThe playable point: " + entry.getKey());
+			System.out.print("The lines: " + entry.getValue());
+		}
 	}
 }
