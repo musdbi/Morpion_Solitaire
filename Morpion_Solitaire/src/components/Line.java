@@ -32,9 +32,9 @@ public class Line {
 	}
 	@Override
 	public String toString() {
-		String toString = "Direction: " + this.direction + "\nPoints:";
+		String toString = "";
 		for (Point point: this.points) {
-			toString += " " + point.toString(); 
+			toString += point.toString(); 
 		}
 		return toString;
 	}

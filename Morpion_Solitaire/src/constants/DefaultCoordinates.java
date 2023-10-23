@@ -1,4 +1,4 @@
-package components;
+package constants;
 
 import java.util.HashSet;
 import java.util.Objects;

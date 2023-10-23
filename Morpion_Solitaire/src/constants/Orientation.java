@@ -1,4 +1,4 @@
-package components;
+package constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public enum Orientation {
 	NW(-1,1), 	// North West = top left
 	NE(1,1), 	// North East = top right
 	SW(-1,-1), 	// South West = bottom left
-	SE(-1,1); 	// South East = bottom right
+	SE(1, -1); 	// South East = bottom right
 	
 	
 	private int x;
@@ -25,7 +25,6 @@ public enum Orientation {
 	public List<Integer> moveX(){
 		ArrayList<Integer> moveX = new ArrayList<>();
 		for (int x = 1; x <= 4; x++) {
-			System.out.println(moveX);
 			moveX.add(x * this.x);
 		}
 		return moveX;
@@ -33,9 +32,8 @@ public enum Orientation {
 	
 	public List<Integer> moveY(){
 		ArrayList<Integer> moveY = new ArrayList<>();
-		for (int j = 1; j <= 4; x++) {
-			
-			moveY.add(j);
+		for (int y = 1; y <= 4; y++) {
+			moveY.add(y * this.y);
 		}
 		return moveY;
 	}

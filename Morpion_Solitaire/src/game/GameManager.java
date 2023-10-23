@@ -2,12 +2,13 @@ package game;
 
 import components.Grid;
 import java.lang.System.Logger;
+
 import java.util.Set;
 
 public class GameManager {
 
-    @SuppressWarnings("unused")
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
+//    @SuppressWarnings("unused")
+//    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
     
     private Scoreboard classement;
 
@@ -26,11 +27,11 @@ public class GameManager {
      */
     public GameManager(Integer version){
         if (version != 1) {
-        	LOGGER.info("Created a game in 5D version");
+        	System.out.println("Created a game in 5D version");
         	currentVersion = "5D";
         }
         else if (version ==0) {
-        	LOGGER.info("Created a game in 5T version");
+        	System.out.println("Created a game in 5T version");
         	currentVersion = "5T";
         }
     }
@@ -39,7 +40,8 @@ public class GameManager {
      * Sets up the game
      */
     public void setupGame(){
-        board = new Grid ();
+        board = new Grid();
+        board.initGrid();
         score = 0;
         classement = new Scoreboard();
         if (currentVersion == "5D") {
@@ -85,8 +87,7 @@ public class GameManager {
 		return this.currentVersion;
 	}
 
-    public String displayRanking(){
+    public void displayRanking(){
         classement.write();
     }
-    
 }
