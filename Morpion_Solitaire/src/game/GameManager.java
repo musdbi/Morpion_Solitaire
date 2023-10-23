@@ -25,7 +25,7 @@ public class GameManager {
      *
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
-    public GameManager(int version){
+    public GameManager(int version, String player){
         if (version != 1) {
         	System.out.println("Created a game in 5D version");
         	currentVersion = "5D";
@@ -34,6 +34,7 @@ public class GameManager {
         	System.out.println("Created a game in 5T version");
         	currentVersion = "5T";
         }
+        this.currentPlayer = player;
     }
 
     /**

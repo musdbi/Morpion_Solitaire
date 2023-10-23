@@ -44,21 +44,55 @@ public class Grid {
 	 * Value (Set<Line>): all the line that could be formed with this point
 	 */
 	private  Map<Point, Set<Line>> playablePoints;
+	/**
+	 * Visual of the game on console
+	 */
+	private char [][] visual;
 
 	public Grid() {
 		this.size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet();
+        this.visual = new char [size][size];
 	}
 	
 	public void initGrid() {
 		for (int x = 0; x < size; x++) {
 			for(int y = 0; y < size; y++) {
-				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
-
-				else grid.put(Objects.hash(x,y), new Point(x, y));
+				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) {
+					grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
+					visual[x][y] = 'X';
+				}
+				
+				else {
+					grid.put(Objects.hash(x,y), new Point(x, y));
+					visual[x][y] = '*';
+					
+				}
 			}
+		}
+		this.drawGrid();
+	}
+	
+	public void drawGrid() {
+		for (int x = 0; x < size; x++) {
+			for (int y = 0; y < size; y++) {
+				System.out.print(visual[x][y]+ " ");
+			}
+			System.out.print("\n");
+		}
+		System.out.println("\n-----------------------------------------------\n");
+	}
+	
+	public void updateVisualGrid (int x, int y, char c) {
+		visual[x][y] = c;
+	}
+	
+	public void updateVisualGrid() {
+		Set<Point> keys = playablePoints.keySet();
+		for (Point point: keys) {
+			updateVisualGrid(point.getX(),point.getY(),'?');
 		}
 	}
 	
@@ -93,6 +127,7 @@ public class Grid {
 				}
 			}	
 		}
+		updateVisualGrid();
 	}
 	
 	/**
@@ -182,16 +217,19 @@ public class Grid {
 	public static void main(String[] args) {
 		Grid grid = new Grid();
 		grid.initGrid();
-		if (grid.getGrid().get(Objects.hash(16, 10)).isPlayed()) {
-			System.out.println("16, 10 is a played point");
-		}
-		else {
-			System.out.println("no");
-		}
+		grid.updateVisualGrid(2, 3, 'P');
+		grid.drawGrid();
+//		if (grid.getGrid().get(Objects.hash(16, 10)).isPlayed()) {
+//			System.out.println("16, 10 is a played point");
+//		}
+//		else {
+//			System.out.println("no");
+//		}
 		grid.updatePlayablePoints();
-		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {
-			System.out.println("\nThe playable point: " + entry.getKey());
-			System.out.print("The lines: " + entry.getValue());
-		}
+		grid.drawGrid();
+//		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {
+//			System.out.println("\nThe playable point: " + entry.getKey());
+//			System.out.print("The lines: " + entry.getValue());
+//		}
 	}
 }
