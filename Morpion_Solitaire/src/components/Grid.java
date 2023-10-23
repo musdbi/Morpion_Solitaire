@@ -51,7 +51,7 @@ public class Grid {
 
 	public Grid() {
 		this.size = 24;
-		this.minPlayablePoint = new Point(8, 8);
+		this.minPlayablePoint = new Point(6, 6);
 		this.maxPlayablePoint = new Point(18, 18);
 		this.grid = new HashMap<>();
 		this.subGrid = new HashMap<>();
