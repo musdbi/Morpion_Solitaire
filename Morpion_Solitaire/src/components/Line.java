@@ -1,21 +1,16 @@
 package components;
-import constants.Direction;
-import constants.Status;
 
-import java.util.List;
-import java.util.ArrayList;
+import constants.Direction;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Objects;
 
 public class Line {
 	
 	/**
 	 * Points of the line
 	 */
-	private List<Point> points;
-	
-	/**
-	 * The point that created the line
-	 */
-	private Point playedPoint;
+	private Set<Point> points;
 	
 	/**
 	 * The direction of the line
@@ -25,32 +20,44 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(Point playedPoint,List<Point> points, Direction direction) {
-		this.playedPoint = playedPoint;
+	public Line(Set<Point> points, Direction direction) throws IllegalArgumentException {
+		if (points.size() != 5) throw new IllegalArgumentException("A line should take a set of 5 points in argument");
 		this.direction = direction;
-		this.points = new ArrayList<>();
+		this.points = new HashSet<>();
 		this.points.addAll(points);
-		points.add(playedPoint);
 	};
 	
+	public void addPoint(Point point) {
+		this.points.add(point);
+	}
 	@Override
 	public String toString() {
-		String toString = "Direction: " + this.direction + "\nPoints:";
+		String toString = "";
 		for (Point point: this.points) {
-			toString += " " + point.toString(); 
+			toString += point.toString(); 
 		}
 		return toString;
 	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Line)) return false;
+        Line otherLine = (Line) o;
+        System.out.println(this.points.equals(otherLine.getPoints()));
+        return this.points.equals(otherLine.getPoints());
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.points.toArray());
+    }
 	
 	public Direction getDirection() {
 		return this.direction;
 	}
 	
-	public List<Point> getPoints(){
+	public Set<Point> getPoints(){
 		return points;
-	}
-	
-	public Point getPlayedPoint(){
-		return playedPoint;
 	}
 }

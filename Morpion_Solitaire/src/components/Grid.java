@@ -2,62 +2,158 @@ package components;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.HashSet;
+
+import constants.DefaultCoordinates;
+import constants.Direction;
+import constants.Orientation;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.lang.Math;
+
 
 public class Grid {
 	
 	/**
 	 * Length of the sizes of the grid (a square)
+	 * 
 	 */
 	private int size;
 	
 	/**
-	 * All the points of the grid
+	 * Memory of the grid. As the point are identified in memory with their hash code,
+	 * we use it to navigate through the grid and especially to find playable points
+	 * 
+	 * Key (Integer): the hash code
+	 * Value (Point): the point with the corresponding hashcode
 	 */
-	private List<Point> gridPoints;
-	
+	private  Map<Integer, Point> grid;
+
 	/**
 	 * All lines of the grid
 	 */
-	private List<Line> lines;
+	private Set<Line> lines;
 
 	/**
-	 * List of the points that the player can play in the next round
+	 * List of the points that the player can play in the next move
+	 * Key (Point): the playable point
+	 * Value (Set<Line>): all the line that could be formed with this point
 	 */
-	private Map<List<Point>, Point> playablePoints;
+	private  Map<Point, Set<Line>> playablePoints;
 
 	public Grid() {
-		// TODO Auto-generated constructor stub
+		this.size = 24;
+		this.grid = new HashMap<>();
+        this.playablePoints = new HashMap<>();
+        this.lines = new HashSet();
+	}
+	
+	public void initGrid() {
+		for (int x = 0; x < size; x++) {
+			for(int y = 0; y < size; y++) {
+				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
+
+				else grid.put(Objects.hash(x,y), new Point(x, y));
+			}
+		}
 	}
 	
 	/**
-	 * Find all playable points
-	 * The search is limited to the sub grid defined by minPlayablePoint and MaxPlayable Point
+	 * This method is used to update informations of the grid according to the point that was played.
+	 * 
+	 * @param playedPoint
 	 */
-	public void updatePlayablePoints() {		
+	public void updateGrid(Point playedPoint){
+//		this.grid.put(playedPoint.hashCode(), playedPoint);
+//		if (playedPoint.getX() <= minPlayablePoint.getX() || playedPoint.getY() <= playedPoint.getX()) {
+//			minPlayablePoint.move(playedPoint.getX() -1, playedPoint.getY() - 1);
+//		}
+//		if (playedPoint.getX() >= minPlayablePoint.getX() || playedPoint.getY() >= playedPoint.getX()) {
+//			minPlayablePoint.move(playedPoint.getX() + 1, playedPoint.getY() + 1);
+//		}
+//		this.lines.add();
+//		ajouter la ligne à jouer
+	}
+
+	/**
+	 * Find all playable points
+	 * 
+	 * The search is limited to the sub grid defined by minPlayablePoint and maxPlayablePoint
+	 */
+	public void updatePlayablePoints() {
+		for (Map.Entry<Integer, Point> point: grid.entrySet()) {
+			if (!(point.getValue().isPlayed())){
+				HashSet<Line> possibleLinesAround = (HashSet<Line>) this.findLinesAround(point.getValue());
+				if (!(possibleLinesAround.isEmpty())){
+					playablePoints.put(point.getValue(), possibleLinesAround);
+				}
+			}	
+		}
+	}
+	
+	/**
+	 * This method find the possible lines that can be create from a given Played Point
+	 * 
+	 * @param 
+	 * 		point
+	 * @return 
+	 * 		a List of Point composed of n-1 played points (where n is the mode: 5T 4T 6T, etc) and one "normal" point,
+	 * 		where the normal point would be a playable point for the next move.
+	 * 		an empty List if there is no playable point for the next move from the current point
+	 */
+	public Set<Line> findLinesAround(Point point) {
+		HashSet<Line> linesAround = new HashSet<>();
+		for (Direction direction: Direction.allDirections()) {
+			linesAround.addAll(this.findLinesInDirection(point, direction));
+		}
+		return linesAround;
+	}
+	
+	/**
+	 * This method search for possible line to form with one point. It searches in on specific direction {@link constants.Direction}
+	 * 
+	 * @param point
+	 * @param direction
+	 * @return
+	 */
+	public Set<Line>findLinesInDirection(Point point, Direction direction) {
+		HashSet<Line> lines = new HashSet<>();
+		HashSet<Point> points  = new HashSet<>();
+		for (Orientation orientation: direction.orientations()) {
+			List<Integer> moveX = orientation.moveX();
+			List<Integer> moveY = orientation.moveY();
+			// 4 is variable according to the mod
+			for (int i = 0; i< 4; i++) {
+				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
+				if (grid.containsKey(hash)) {
+					if(points.size() == 4){
+						points.add(point);
+						lines.add(new Line(points, direction));
+						points.clear();
+					}else if(!(grid.get(hash).isPlayed()) || ((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction)){
+						break;
+					}
+					else {
+						points.add(grid.get(hash));
+					}
+				}
+				
+			}
+		}
+		return lines;
 	}
 	
 	/**
 	 * This method check for the playability of a point by looking the possibilities around it
 	 * 
 	 * @param point
-	 * @return 
+	 * @return true/false depending on the presence of the point in the playable points list
 	 */
 	public boolean checkPlayability(Point point) {
-		return false;
-	}
-	
-	/**
-	 * This method is used for different mod "5D" and "5T"
-	 * 
-	 * For example: for 5D, if you find a playable point just next to the point,
-	 * then the point is not playable because the line must be disjoint with another
-	 * 
-	 * @param point
-	 * @return
-	 */
-	public List<Point> findPlayebPointsAround(Point point){
-		return new ArrayList<>();
+		return this.playablePoints.containsKey(point);
 	}
 	
 	public void addLine(Line newLine) {
@@ -68,15 +164,15 @@ public class Grid {
 		return this.size;
 	}
 	
-	public List<Point> getGridPoints(){
-		return this.gridPoints;
-	}
-	
-	public List<Line> getGridLines(){
+	public Set<Line> getLines(){
 		return this.lines;
 	}
 	
-	public Map<List<Point>, Point> getPlayablePoints() {
+	public Map<Point, Set<Line>> getPlayablePoints() {
 		return this.playablePoints;
+	}
+	
+	public Map<Integer, Point> getGrid(){
+		return this.grid;
 	}
 }

@@ -1,43 +1,14 @@
 package components;
 
-import constants.Status;
+import java.util.Objects;
 
 public class Point {
 	
-	
-	/**
-	 * Total number of played points
-	 */
-	private static int playedPointsCount;
-	
-	/**
-	 * Id represent the order in which the current point was played
-	 */
-	private int id;
-	
-	/**
-	 * Represent the status of a point in different moment of the game
-	 * 4 status are possible:
-	 * 	1) PLAYED: different points clicked by the player
-	 * 	2) DEFAULT: points that constitute the cross at the beginning of the game
-	 * 	3) LINE: points that are part of a line
-	 * 	4) NORMAL: points that are not one of the 3 previous type
-	 */
-	private Status status;
-	
-	/**
-	 * Coordinates
-	 */
-	private int x, y;
-		
-	public Point(int x, int y, Status status) {
+	protected int x, y;
+
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.status = status;
-		if (this.status == Status.PLAYED) {
-			playedPointsCount += 1;
-			this.id = playedPointsCount;
-		}
 	}
 	
 	@Override
@@ -45,35 +16,44 @@ public class Point {
 		return "(" + this.x + "," + this.y + ")";
 	}
 	
-	/**
-	 * Set status and give an id if this a played point
-	 * 
-	 * @param status
-	 */
-	public void setStatus(Status status) {
-		if (status == Status.PLAYED) {
-			playedPointsCount += 1;
-			this.id = playedPointsCount;
-		}	
+	@Override
+    public boolean equals(Object o) {
+		if (this == o) return true;
+	    if (o == null) return false;
+	    if (o instanceof PlayedPoint) {
+	        PlayedPoint otherPoint = (PlayedPoint) o;
+	        return x == otherPoint.x && y == otherPoint.y;
+	    }
+	    if (o instanceof Point) {
+	        Point otherPoint = (Point) o;
+	        return x == otherPoint.x && y == otherPoint.y;
+	    }
+	    return false;
 	}
-	
-	public Status getStatus() {
-		return this.status;
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+    
+    public void move(int x, int y) {
+    	this.x = x;
+    	this.y = y;
+    }
+    
+    public boolean isPlayed() {
+		return (this instanceof PlayedPoint);
 	}
-	
-	public int getId() {
-		return this.id;
-	}
+    
+    public int getX() {
+    	return this.x;
+    }
 
-	public int getX() {
-		return this.x;
-	}
-	
-	public int getY() {
-		return this.y;
-	}
-	
-	public static int getPlayedPointsCount() {
-		return playedPointsCount;
-	}
+    public int getY() {
+    	return this.y;
+    }
+    
+    public static void main(String[] args) {
+    	
+    }
 }
