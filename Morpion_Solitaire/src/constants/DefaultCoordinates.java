@@ -64,17 +64,6 @@ public enum DefaultCoordinates {
         }
         return defaultPoints;
     }
-	
-
-	public static void main(String[] args) {
-		for (int x = 0; x < 24; x++) {
-			for(int y = 0; y < 24; y++) {
-				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) {
-					System.out.println("(" + x + ", " + y +")");
-				}
-			}
-		}
-	}
 }
 
 

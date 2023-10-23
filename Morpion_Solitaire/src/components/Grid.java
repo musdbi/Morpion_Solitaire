@@ -31,8 +31,6 @@ public class Grid {
 	 * Value (Point): the point with the corresponding hashcode
 	 */
 	private  Map<Integer, Point> grid;
-	
-	private  Map<Integer, Point> subGrid;
 
 	/**
 	 * All lines of the grid
@@ -41,24 +39,16 @@ public class Grid {
 
 	/**
 	 * List of the points that the player can play in the next move
+	 * Key (Point): the playable point
+	 * Value (Set<Line>): all the line that could be formed with this point
 	 */
 	private  Map<Point, Set<Line>> playablePoints;
-	
-	/**
-	 * The bottom-left and top-right corners of the sub grid in which one we look for playable point
-	 */
-	private Point minPlayablePoint, maxPlayablePoint;
 
 	public Grid() {
 		this.size = 24;
-		this.minPlayablePoint = new Point(6, 6);
-		this.maxPlayablePoint = new Point(18, 18);
 		this.grid = new HashMap<>();
-		this.subGrid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet();
-        this.minPlayablePoint = new Point(0,0);
-        this.minPlayablePoint = new Point(11, 11);
 	}
 	
 	public void initGrid() {
@@ -71,6 +61,11 @@ public class Grid {
 		}
 	}
 	
+	/**
+	 * This method is used to update informations of the grid according to the point that was played.
+	 * 
+	 * @param playedPoint
+	 */
 	public void updateGrid(Point playedPoint){
 //		this.grid.put(playedPoint.hashCode(), playedPoint);
 //		if (playedPoint.getX() <= minPlayablePoint.getX() || playedPoint.getY() <= playedPoint.getX()) {
@@ -179,112 +174,5 @@ public class Grid {
 	
 	public Map<Integer, Point> getGrid(){
 		return this.grid;
-	}
-	
-	public static void main(String[] args) {
-
-//		HashSet<Point> points = new HashSet<>();
-//		Point p1 = new Point(1,1);
-//		Point p2 = new Point(1,1);
-//		Point p3 = new Point(1,3);
-//		Point p4 = new Point(1,4);
-//		Point p5 = new Point(1,5);
-//		points.add(p1);
-//		points.add(p2);
-//		points.add(p3);
-//		points.add(p4);
-//		points.add(p5);
-//		
-//		Line line1 = new Line(points, Direction.VERTICAL);
-//		Line line2 = new Line(points, Direction.VERTICAL);
-//
-//		System.out.println(line1.equals(line2));
-//
-//		System.out.println(line1.hashCode());
-//		System.out.println(line2.hashCode());
-		
-		
-//		ArrayList<Point> points = new ArrayList<>();
-//        Point p1 = new Point(0, 0);
-//        Point p2 = new PlayedPoint(1, 1);
-//        points.add(p1);
-//        points.add(p2);
-//		Grid grid = new Grid();
-//		grid.getMemory().put(1, p1);
-//		grid.getMemory().put(2, p2);
-		
-		
-//		Point oldPoint = new Point(0, 0);
-//    	Point p2 = new Point(0,0);
-//    	Point p3 = new Point(0,1);
-//    	HashSet<Point> set1 = new HashSet<>();
-//    	ArrayList<Point> l1 = new ArrayList<>();
-//    	set1.add(oldPoint);
-//    	set1.add(p3);
-//    	set1.add(p2);
-//    	l1.add(oldPoint);
-//    	l1.add(p3);
-//    	l1.add(p2);
-//    	
-//    	HashSet<Point> set2 = new HashSet<>();
-//    	ArrayList<Point> l2 = new ArrayList<>();
-//    	set2.add(p3);
-//    	set2.add(p2);
-//    	set2.add(oldPoint);
-//    	l2.add(p3);
-//    	l2.add(p2);
-//    	l2.add(oldPoint);
-//    	
-//    	System.out.println(Objects.hash(l1));
-//    	System.out.println(Objects.hash(l2));
-//    	
-//    	System.out.println(Objects.hash(set1.toArray()));
-//    	System.out.println(Objects.hash(set2.toArray()));
-//    	
-//    	System.out.println(set1.equals(set1));
-	
-		
-//    	System.out.println(Objects.hash(Direction.VERTICAL));
-//    	System.out.println(Objects.hash(Direction.VERTICAL));
-//    	
-//    	System.out.println(Objects.hash(Orientation.N));
-//    	System.out.println(Objects.hash(Orientation.N));
-
-		
-//		Grid grid = new Grid();
-//		grid.getMemory().put(oldPoint.hashCode(), oldPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(oldPoint.hashCode()) instanceof Point);
-//		
-//		Point newPoint = new PlayedPoint(grid.getMemory().get(oldPoint.hashCode()));
-//		grid.getMemory().put(newPoint.hashCode(), newPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(newPoint.hashCode()) instanceof PlayedPoint);
-		
-		
-//		Point p1 = new Point(0, 0);
-//		Grid grid = new Grid();
-//		grid.getGrid().put(p1.hashCode(), p1);
-//		System.out.println(grid.getGrid());
-//		
-//		Point p2 = new PlayedPoint(p1);
-//		grid.getGrid().put(p2.hashCode(), p2);
-//		System.out.println(grid.getGrid());
-		
-		
-		
-		Grid grid = new Grid();
-		grid.initGrid();
-		grid.updatePlayablePoints();
-//		for (Point point: grid.subGrid.values()) {
-//			System.out.println(point);
-//		}
-//		System.out.println(grid.subGrid.values().size());
-
-		for (Point point: grid.getPlayablePoints().keySet()) {
-			System.out.println(point);
-		}
 	}
 }
