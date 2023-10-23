@@ -2,14 +2,15 @@ package game;
 
 import components.Grid;
 import java.lang.System.Logger;
+
 import java.util.Set;
 
 public class GameManager {
 
-    @SuppressWarnings("unused")
-    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
+//    @SuppressWarnings("unused")
+//    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
     
-    private Scoreboard classement;
+    private Scoreboard ranking;
 
     private String currentVersion;
     
@@ -24,13 +25,13 @@ public class GameManager {
      *
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
-    public GameManager(Integer version){
+    public GameManager(int version){
         if (version != 1) {
-        	LOGGER.info("Created a game in 5D version");
+        	System.out.println("Created a game in 5D version");
         	currentVersion = "5D";
         }
         else if (version ==0) {
-        	LOGGER.info("Created a game in 5T version");
+        	System.out.println("Created a game in 5T version");
         	currentVersion = "5T";
         }
     }
@@ -39,9 +40,10 @@ public class GameManager {
      * Sets up the game
      */
     public void setupGame(){
-        board = new Grid ();
+        board = new Grid();
+        board.initGrid();
         score = 0;
-        classement = new Scoreboard();
+        ranking = new Scoreboard();
         if (currentVersion == "5D") {
         	startGameD();
         }
@@ -66,7 +68,7 @@ public class GameManager {
     
     public void endParty(int score){
         this.score = score;
-        classement.addScore(currentPlayer, score);
+        ranking.addScore(currentPlayer, score);
     }
     
     public int getScore() {
@@ -85,8 +87,7 @@ public class GameManager {
 		return this.currentVersion;
 	}
 
-    public String displayRanking(){
-        classement.write();
+    public void displayRanking(){
+        ranking.write();
     }
-    
 }

@@ -20,7 +20,8 @@ public class Line {
 	 */
 	private Direction direction;
 	
-	public Line(Set<Point> points, Direction direction) {
+	public Line(Set<Point> points, Direction direction) throws IllegalArgumentException {
+		if (points.size() != 5) throw new IllegalArgumentException("A line should take a set of 5 points in argument");
 		this.direction = direction;
 		this.points = new HashSet<>();
 		this.points.addAll(points);
@@ -31,9 +32,9 @@ public class Line {
 	}
 	@Override
 	public String toString() {
-		String toString = "Direction: " + this.direction + "\nPoints:";
+		String toString = "";
 		for (Point point: this.points) {
-			toString += " " + point.toString(); 
+			toString += point.toString(); 
 		}
 		return toString;
 	}

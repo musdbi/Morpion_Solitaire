@@ -6,7 +6,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
 
+import constants.DefaultCoordinates;
 import constants.Direction;
+import constants.Orientation;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Math;
@@ -16,6 +19,7 @@ public class Grid {
 	
 	/**
 	 * Length of the sizes of the grid (a square)
+	 * 
 	 */
 	private int size;
 	
@@ -35,30 +39,41 @@ public class Grid {
 
 	/**
 	 * List of the points that the player can play in the next move
+	 * Key (Point): the playable point
+	 * Value (Set<Line>): all the line that could be formed with this point
 	 */
 	private  Map<Point, Set<Line>> playablePoints;
-	
-	/**
-	 * The bottom-left and top-right corners of the sub grid in which one we look for playable point
-	 */
-	private Point minPlayablePoint, maxPlayablePoint;
 
 	public Grid() {
+		this.size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet();
-        this.minPlayablePoint = new Point(0,0);
-        this.minPlayablePoint = new Point(11, 11);
 	}
 	
+	public void initGrid() {
+		for (int x = 0; x < size; x++) {
+			for(int y = 0; y < size; y++) {
+				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
+
+				else grid.put(Objects.hash(x,y), new Point(x, y));
+			}
+		}
+	}
+	
+	/**
+	 * This method is used to update informations of the grid according to the point that was played.
+	 * 
+	 * @param playedPoint
+	 */
 	public void updateGrid(Point playedPoint){
-		this.grid.put(playedPoint.hashCode(), playedPoint);
-		if (playedPoint.getX() <= minPlayablePoint.getX() || playedPoint.getY() <= playedPoint.getX()) {
-			minPlayablePoint.move(playedPoint.getX() -1, playedPoint.getY() - 1);
-		}
-		if (playedPoint.getX() >= minPlayablePoint.getX() || playedPoint.getY() >= playedPoint.getX()) {
-			minPlayablePoint.move(playedPoint.getX() + 1, playedPoint.getY() + 1);
-		}
+//		this.grid.put(playedPoint.hashCode(), playedPoint);
+//		if (playedPoint.getX() <= minPlayablePoint.getX() || playedPoint.getY() <= playedPoint.getX()) {
+//			minPlayablePoint.move(playedPoint.getX() -1, playedPoint.getY() - 1);
+//		}
+//		if (playedPoint.getX() >= minPlayablePoint.getX() || playedPoint.getY() >= playedPoint.getX()) {
+//			minPlayablePoint.move(playedPoint.getX() + 1, playedPoint.getY() + 1);
+//		}
 //		this.lines.add();
 //		ajouter la ligne à jouer
 	}
@@ -97,6 +112,13 @@ public class Grid {
 		return linesAround;
 	}
 	
+	/**
+	 * This method search for possible line to form with one point. It searches in on specific direction {@link constants.Direction}
+	 * 
+	 * @param point
+	 * @param direction
+	 * @return
+	 */
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		HashSet<Line> lines = new HashSet<>();
 		HashSet<Point> points  = new HashSet<>();
@@ -104,28 +126,24 @@ public class Grid {
 			List<Integer> moveX = orientation.moveX();
 			List<Integer> moveY = orientation.moveY();
 			// 4 is variable according to the mod
-			for (int i = 0; i< 4; i++) { 
+			for (int i = 0; i< 4; i++) {
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-				if (!(grid.get(hash).isPlayed()) || ((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction)) {
-					break;
-				}else if(points.size() == 4){
-					points.add(point);
-					lines.add(new Line(points, direction));
-					points.clear();
-				}else {
-					points.add(grid.get(hash));
+				if (grid.containsKey(hash)) {
+					if(points.size() == 4){
+						points.add(point);
+						lines.add(new Line(points, direction));
+						points.clear();
+					}else if(!(grid.get(hash).isPlayed()) || ((PlayedPoint) grid.get(hash)).getInvolvedDirection().contains(direction)){
+						break;
+					}
+					else {
+						points.add(grid.get(hash));
+					}
 				}
+				
 			}
 		}
 		return lines;
-	}
-	
-	/** 
-	 * @param point
-	 * @return a list of the points that are at a distance of n-1 (where n is the number of points in a line) unities from the given point
-	 */
-	public Set<Point> getSubGrid(Point minPlayablePoint, Point maxPlayablePoint){
-		return new HashSet<>();
 	}
 	
 	/**
@@ -136,19 +154,6 @@ public class Grid {
 	 */
 	public boolean checkPlayability(Point point) {
 		return this.playablePoints.containsKey(point);
-	}
-	
-	/**
-	 * This method is used for different mod "5D" and "5T"
-	 * 
-	 * For example: for 5D, if you find a playable point just next to the point,
-	 * then the point is not playable because the line must be disjoint with another
-	 * 
-	 * @param point
-	 * @return
-	 */
-	public List<Point> findPlayebPointsAround(Point point){
-		return new ArrayList<>();
 	}
 	
 	public void addLine(Line newLine) {
@@ -169,98 +174,5 @@ public class Grid {
 	
 	public Map<Integer, Point> getGrid(){
 		return this.grid;
-	}
-	
-	public static void main(String[] args) {
-
-		HashSet<Point> points = new HashSet<>();
-		Point p1 = new Point(1,1);
-		Point p2 = new Point(1,1);
-		Point p3 = new Point(1,3);
-		Point p4 = new Point(1,4);
-		Point p5 = new Point(1,5);
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
-		
-		Line line1 = new Line(points, Direction.VERTICAL);
-		Line line2 = new Line(points, Direction.VERTICAL);
-
-		System.out.println(line1.equals(line2));
-
-		System.out.println(line1.hashCode());
-		System.out.println(line2.hashCode());
-		
-		
-//		ArrayList<Point> points = new ArrayList<>();
-//        Point p1 = new Point(0, 0);
-//        Point p2 = new PlayedPoint(1, 1);
-//        points.add(p1);
-//        points.add(p2);
-//		Grid grid = new Grid();
-//		grid.getMemory().put(1, p1);
-//		grid.getMemory().put(2, p2);
-		
-		
-//		Point oldPoint = new Point(0, 0);
-//    	Point p2 = new Point(0,0);
-//    	Point p3 = new Point(0,1);
-//    	HashSet<Point> set1 = new HashSet<>();
-//    	ArrayList<Point> l1 = new ArrayList<>();
-//    	set1.add(oldPoint);
-//    	set1.add(p3);
-//    	set1.add(p2);
-//    	l1.add(oldPoint);
-//    	l1.add(p3);
-//    	l1.add(p2);
-//    	
-//    	HashSet<Point> set2 = new HashSet<>();
-//    	ArrayList<Point> l2 = new ArrayList<>();
-//    	set2.add(p3);
-//    	set2.add(p2);
-//    	set2.add(oldPoint);
-//    	l2.add(p3);
-//    	l2.add(p2);
-//    	l2.add(oldPoint);
-//    	
-//    	System.out.println(Objects.hash(l1));
-//    	System.out.println(Objects.hash(l2));
-//    	
-//    	System.out.println(Objects.hash(set1.toArray()));
-//    	System.out.println(Objects.hash(set2.toArray()));
-//    	
-//    	System.out.println(set1.equals(set1));
-	
-		
-//    	System.out.println(Objects.hash(Direction.VERTICAL));
-//    	System.out.println(Objects.hash(Direction.VERTICAL));
-//    	
-//    	System.out.println(Objects.hash(Orientation.N));
-//    	System.out.println(Objects.hash(Orientation.N));
-
-		
-//		Grid grid = new Grid();
-//		grid.getMemory().put(oldPoint.hashCode(), oldPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(oldPoint.hashCode()) instanceof Point);
-//		
-//		Point newPoint = new PlayedPoint(grid.getMemory().get(oldPoint.hashCode()));
-//		grid.getMemory().put(newPoint.hashCode(), newPoint);
-//		
-//		System.out.println(grid.getMemory());
-//		System.out.println(grid.getMemory().get(newPoint.hashCode()) instanceof PlayedPoint);
-		
-		
-//		Point p1 = new Point(0, 0);
-//		Grid grid = new Grid();
-//		grid.getGrid().put(p1.hashCode(), p1);
-//		System.out.println(grid.getGrid());
-//		
-//		Point p2 = new PlayedPoint(p1);
-//		grid.getGrid().put(p2.hashCode(), p2);
-//		System.out.println(grid.getGrid());
 	}
 }
