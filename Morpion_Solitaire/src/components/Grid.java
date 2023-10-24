@@ -85,14 +85,9 @@ public class Grid {
 		System.out.println("\n-----------------------------------------------\n");
 	}
 	
-	public void updateVisualGrid (int x, int y, String c) {
-		visual[x][y] = c;
-	}
-	
 	public void updateVisualGrid() {
-		Set<Point> keys = playablePoints.keySet();
-		for (Point point: keys) {
-			updateVisualGrid(point.getX(),point.getY(),"?");
+		for (Point point: playablePoints.keySet()) {
+			visual[point.getX()][point.getY()] = "?";
 		}
 	}
 	
@@ -236,16 +231,5 @@ public class Grid {
 	
 	public Map<Integer, Point> getGrid(){
 		return this.grid;
-	}
-	public static void main(String[] args) {
-		Grid grid = new Grid();
-		grid.initGrid();
-		grid.updateVisualGrid(2, 3, "P");
-		grid.drawGrid();
-		grid.updatePlayablePoints();
-//		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {
-//			System.out.println("\nThe playable point: " + entry.getKey());
-//			System.out.print("The lines: " + entry.getValue());
-//		}
 	}
 }
