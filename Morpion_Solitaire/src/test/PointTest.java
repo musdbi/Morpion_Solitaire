@@ -1,8 +1,12 @@
 package test;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Objects;
+
 import components.PlayedPoint;
 import components.Point;
+import constants.Direction;
 
 public class PointTest {
 	private Point p1 = new Point(1,1);
@@ -24,10 +28,29 @@ public class PointTest {
 	
 	@Test
 	public void testHashCode() {
+		assertEquals(Objects.hash(p1.getX(), p1.getY()), p1.hashCode());
 		assertEquals(true, p1.hashCode() == p2.hashCode());
 		assertEquals(true, p1.hashCode() == p1bis.hashCode());
 
 		assertEquals(false, p1.hashCode() == p3.hashCode());
 		assertEquals(false, p1bis.hashCode() == p3.hashCode());
+	}
+	
+	@Test
+	public void testIsPlayed() {
+		assertEquals(false, p1.isPlayed());
+		Point playedPoint = new PlayedPoint(p1);
+		assertEquals(true, playedPoint.isPlayed());
+	}
+	
+	@Test
+	public void testInvolvedDirection() {
+		PlayedPoint playedPoint = new PlayedPoint(p1);
+		playedPoint.addInvolvedDirection(Direction.VERTICAL);
+		assertEquals(
+				true, 
+				playedPoint.getInvolvedDirections().contains(Direction.VERTICAL) && 
+				playedPoint.getInvolvedDirections().size() == 1
+				);
 	}
 }
