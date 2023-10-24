@@ -49,14 +49,14 @@ public class Grid {
 	/**
 	 * Visual of the game on console
 	 */
-	private char [][] visual;
+	private String [][] visual;
 
 	public Grid() {
 		this.size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet<Line>();
-        this.visual = new char [size][size];
+        this.visual = new String [size][size];
 	}
 	
 	public void initGrid() {
@@ -64,11 +64,11 @@ public class Grid {
 			for(int y = 0; y < size; y++) {
 				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) {
 					grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
-					visual[x][y] = 'X';
+					visual[x][y] = "X";
 				}
 				else {
 					grid.put(Objects.hash(x,y), new Point(x, y));
-					visual[x][y] = '*';
+					visual[x][y] = "*";
 				}
 			}
 		}
@@ -85,14 +85,14 @@ public class Grid {
 		System.out.println("\n-----------------------------------------------\n");
 	}
 	
-	public void updateVisualGrid (int x, int y, char c) {
+	public void updateVisualGrid (int x, int y, String c) {
 		visual[x][y] = c;
 	}
 	
 	public void updateVisualGrid() {
 		Set<Point> keys = playablePoints.keySet();
 		for (Point point: keys) {
-			updateVisualGrid(point.getX(),point.getY(),'?');
+			updateVisualGrid(point.getX(),point.getY(),"?");
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class Grid {
 	 * 
 	 * @param playedPoint
 	 */
-	public void updateGrid(Point playedPoint){
+	public void updateGrid(PlayedPoint playedPoint){
 		this.updatePointStatus(playedPoint);
 		this.updateLines(playedPoint);
 		this.updatePlayablePoints(playedPoint);
@@ -158,7 +158,6 @@ public class Grid {
 			for (int i = 0; i< 4; i++) {
 				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
 				if (grid.containsKey(hash)) {
-					System.out.println(grid.get(hash));
 					if ((grid.get(hash).isPlayed()) && !(((PlayedPoint) grid.get(hash)).getInvolvedDirections().contains(direction))) {
 						points.add(grid.get(hash));
 						if(points.size() == 4){
@@ -181,11 +180,10 @@ public class Grid {
 	 * 
 	 * @param playedPoint
 	 */
-	public void updatePointStatus(Point playedPoint) {
-		PlayedPoint updatedPoint = new PlayedPoint(playedPoint);
+	public void updatePointStatus(PlayedPoint playedPoint) {
 		ArrayList<Line> playableLines = new ArrayList<>(this.playablePoints.get(playedPoint));
-		updatedPoint.addInvolvedDirection(playableLines.get(0).getDirection());
-		this.grid.put(updatedPoint.hashCode(), updatedPoint);
+		playedPoint.addInvolvedDirection(playableLines.get(0).getDirection());
+		this.grid.put(playedPoint.hashCode(), playedPoint);
 	}
 	
 	/**
@@ -193,17 +191,18 @@ public class Grid {
 	 * 
 	 * @param playedPoint
 	 */
-	public void updateLines(Point playedPoint) {
+	public void updateLines(PlayedPoint playedPoint) {
 		ArrayList<Line> playableLines = new ArrayList<>(this.playablePoints.get(playedPoint));
 		this.lines.add(playableLines.get(0));
 		System.out.println("Forming line: " + playableLines.get(0));
-//		((PlayedPoint) this.grid.get(playedPoint.hashCode())).addInvolvedDirection(playableLines.get(0).getDirection());
 		for (Point point: playableLines.get(0).getPoints()) {
-			if (playableLines.get(0).getDirection() == Direction.HORIZONTAL) visual[point.getX()][point.getY()] = '-';
-			if (playableLines.get(0).getDirection() == Direction.VERTICAL) visual[point.getX()][point.getY()] = '|';
-			if (playableLines.get(0).getDirection() == Direction.DIAGONAL1) visual[point.getX()][point.getY()] = '\\';
-			if (playableLines.get(0).getDirection() == Direction.DIAGONAL2) visual[point.getX()][point.getY()] = '/';
+			if (playableLines.get(0).getDirection() == Direction.HORIZONTAL) visual[point.getX()][point.getY()] = "|";
+			if (playableLines.get(0).getDirection() == Direction.VERTICAL) visual[point.getX()][point.getY()] = "-";
+			if (playableLines.get(0).getDirection() == Direction.DIAGONAL1) visual[point.getX()][point.getY()] = "\\";
+			if (playableLines.get(0).getDirection() == Direction.DIAGONAL2) visual[point.getX()][point.getY()] = "/";
 		}
+		System.out.println("Id du point joué: " + playedPoint.getId());
+		visual[playedPoint.getX()][playedPoint.getY()] =  "" + playedPoint.getId();
 	}
 	
 	/**
@@ -211,7 +210,7 @@ public class Grid {
 	 * 
 	 * @param playedPoint
 	 */
-	public void updatePlayablePoints(Point playedPoint) {
+	public void updatePlayablePoints(PlayedPoint playedPoint) {
 		this.playablePoints.remove(playedPoint);
 	}
 	
@@ -241,7 +240,7 @@ public class Grid {
 	public static void main(String[] args) {
 		Grid grid = new Grid();
 		grid.initGrid();
-		grid.updateVisualGrid(2, 3, 'P');
+		grid.updateVisualGrid(2, 3, "P");
 		grid.drawGrid();
 		grid.updatePlayablePoints();
 //		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {

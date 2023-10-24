@@ -36,9 +36,10 @@ public class PlayedPoint extends Point{
 	}
 	
 	public PlayedPoint(Point p) {
-		 super(p.getX(), p.getY());
+		super(p.getX(), p.getY());
 		playedPointsCount += 1;
 		this.id = playedPointsCount;
+		this.involvedInDirections = new HashSet<>();
 	}
 	
 	@Override
@@ -64,5 +65,11 @@ public class PlayedPoint extends Point{
 	
 	public void addInvolvedDirection(Direction direction) {
 		this.involvedInDirections.add(direction);
+	}
+	
+	public static void main(String[] args) {
+		PlayedPoint p = new PlayedPoint(0, 0);
+		p.addInvolvedDirection(Direction.DIAGONAL1);
+		System.out.println(p.getInvolvedDirections());
 	}
 }

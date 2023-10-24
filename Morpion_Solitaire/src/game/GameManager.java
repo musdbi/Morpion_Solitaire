@@ -115,11 +115,59 @@ public class GameManager {
     	game.board.drawGrid();
     	game.play();
     	game.board.drawGrid();
-    	System.out.println("Direction du point joué: " + ((PlayedPoint) game.board.getGrid().get(Objects.hash(14, 14))).getInvolvedDirections());
+
     	game.board.updatePlayablePoints();
     	game.play();
     	game.board.drawGrid();
     	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+
+    	game.board.updatePlayablePoints();
+    	game.play();
+    	game.board.drawGrid();
+
     	game.board.updatePlayablePoints();
     	game.play();
     	game.board.drawGrid();
