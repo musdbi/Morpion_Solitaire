@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class Scoreboard {
-	private final static String path = "./src/classement.txt";
+	private final static String path = "./classement.txt";
 	
 	private TreeMap<Integer, String> scores;   
   
@@ -19,14 +19,10 @@ public class Scoreboard {
 			while ((car = ftemp.read()) != -1)
 				contenu.append((char) car);
 			ftemp.close();
-	    }
-	    catch(FileNotFoundException e) {
-	      System.out.println("Fichier non trouvé, changez le path");
-	    }
-	    catch(IOException ioe) {
+	    } catch(IOException ioe) {
 	      System.out.println("Exception " + ioe);
 	    }
-		scores = new TreeMap<>();
+		scores = new TreeMap<>(Collections.reverseOrder());
 	}
 	
 	public void addScore(String playerName, int score) {
@@ -35,12 +31,47 @@ public class Scoreboard {
 
     public void write() {
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
+    		writer.write("Tableau des scores :");
+    		writer.newLine();
+    		writer.newLine();
+    		writer.write("--------------------------------------------------------");
+    		writer.newLine();
+    		writer.newLine();
     	    for (Entry<Integer, String> entry : scores.entrySet()) {
-    	        writer.write(entry.getKey() + ":" + entry.getValue());
-    	        writer.newLine(); // 
+    	        writer.write(entry.getKey() + " points joués - " + entry.getValue());
+    	        writer.newLine();
+    	        writer.newLine();
     	    }
     	} catch (IOException e) {
     	    e.printStackTrace();
     	}
+    }
+    
+    public void append() {
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path,true))) {
+    		writer.write("--------------------------------------------------------");
+    		writer.newLine();
+    		writer.newLine();
+    	    for (Entry<Integer, String> entry : scores.entrySet()) {
+    	        writer.write(entry.getKey() + " points joués - " + entry.getValue());
+    	        writer.newLine();
+    	        writer.newLine();
+    	    }
+    	} catch (IOException e) {
+    	    e.printStackTrace();
+    	}
+    }
+    
+    public static void main (String [] args){
+    	Scoreboard sb = new Scoreboard ();
+    	sb.addScore("Mus", 1);
+    	sb.addScore("Mus", 2);
+    	sb.addScore("Mus", 3);
+    	sb.addScore("Mus", 4);
+    	sb.addScore("Mus", 5);
+    	sb.addScore("Mus", 6);
+    	sb.addScore("Mus", 7);
+    	sb.write();
+    	sb.append();
     }
 }
