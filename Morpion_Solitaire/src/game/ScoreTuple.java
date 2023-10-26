@@ -2,20 +2,21 @@ package game;
 
 public class ScoreTuple {
 	
-	 private Integer first;
-	 private String second;
+	 private Integer score;
+	 
+	 private String name;
 
 	 public ScoreTuple(Integer first, String second) {
-		 this.first = first;
-		 this.second = second;
+		 this.score = first;
+		 this.name = second;
 	 }
 
-	 public Integer getFirst() {
-		 return first;
+	 public Integer getScore() {
+		 return score;
 	 }
 
-	 public String getSecond() {
-	        return second;
+	 public String getName() {
+	        return name;
 	 }
 	 
 }

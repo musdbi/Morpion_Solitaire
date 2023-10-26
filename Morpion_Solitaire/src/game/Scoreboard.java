@@ -8,19 +8,20 @@ import java.util.regex.Matcher;
 import game.ScoreTuple;
 
 public class Scoreboard {
+	
 	private final static String path = "./classement.txt";
 	
 	private TreeMap<Integer, String> scores;   
   
 	public Scoreboard() {
-		File fichier = new File(path);
+		File file = new File(path);
 		int car;
-		StringBuffer contenu = new StringBuffer("");
+		StringBuffer content = new StringBuffer("");
 		FileInputStream ftemp = null;
 		try {
-			ftemp = new FileInputStream(fichier);
+			ftemp = new FileInputStream(file);
 			while ((car = ftemp.read()) != -1)
-				contenu.append((char) car);
+				content.append((char) car);
 			ftemp.close();
 	    } catch(IOException ioe) {
 	      System.out.println("Exception " + ioe);
@@ -62,11 +63,11 @@ public class Scoreboard {
     	try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             List<ScoreTuple> uniqueCombo = new ArrayList<>();
-            String ligne;
-            while ((ligne = reader.readLine()) != null) {
-            	if (!ligne.isEmpty()) {
-            		int recordedScore = Integer.parseInt(ligne.substring(0,1));
-                    uniqueCombo.add(new ScoreTuple (recordedScore, ligne.substring(ligne.lastIndexOf(" ") + 1)));
+            String line;
+            while ((line = reader.readLine()) != null) {
+            	if (!line.isEmpty()) {
+            		int recordedScore = Integer.parseInt(line.substring(0,1));
+                    uniqueCombo.add(new ScoreTuple (recordedScore, line.substring(line.lastIndexOf(" ") + 1)));
             	}
             }
             reader.close();
@@ -81,7 +82,7 @@ public class Scoreboard {
     		writer.newLine();
     		writer.newLine();
     		for (ScoreTuple entry : uniqueCombo) {
-    	        writer.write(entry.getFirst() + " points joués - " + entry.getSecond());
+    	        writer.write(entry.getScore() + " points joués - " + entry.getName());
     	        writer.newLine();
     	        writer.newLine();
     	    }
