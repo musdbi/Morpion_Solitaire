@@ -115,66 +115,11 @@ public class GameManager {
     	game.board.drawGrid();
     	game.play();
     	game.board.drawGrid();
-
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
     	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-    	
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-
-    	game.board.updatePlayablePoints();
-    	game.play();
-    	game.board.drawGrid();
-
+    	while(!game.board.getPlayablePoints().isEmpty()) {
+    		game.board.updatePlayablePoints();
+        	game.play();
+        	game.board.drawGrid();
+    	}
     }
 }
