@@ -68,11 +68,10 @@ public class Grid {
 				else {
 					grid.put(Objects.hash(x,y), new Point(x, y));
 					visual[x][y] = '*';
-					
 				}
 			}
 		}
-		this.drawGrid();
+		drawGrid();
 	}
 	
 	public void drawGrid() {
@@ -82,7 +81,7 @@ public class Grid {
 			}
 			System.out.print("\n");
 		}
-		System.out.println("\n-----------------------------------------------\n");
+		System.out.println("\n");
 	}
 	
 	public void updateVisualGrid (int x, int y, char c) {
@@ -94,6 +93,7 @@ public class Grid {
 		for (Point point: keys) {
 			updateVisualGrid(point.getX(),point.getY(),'?');
 		}
+		drawGrid();
 	}
 	
 	/**
@@ -217,8 +217,6 @@ public class Grid {
 	public static void main(String[] args) {
 		Grid grid = new Grid();
 		grid.initGrid();
-		grid.updateVisualGrid(2, 3, 'P');
-		grid.drawGrid();
 //		if (grid.getGrid().get(Objects.hash(16, 10)).isPlayed()) {
 //			System.out.println("16, 10 is a played point");
 //		}
@@ -226,7 +224,6 @@ public class Grid {
 //			System.out.println("no");
 //		}
 		grid.updatePlayablePoints();
-		grid.drawGrid();
 //		for(Entry<Point, Set<Line>> entry: grid.getPlayablePoints().entrySet()) {
 //			System.out.println("\nThe playable point: " + entry.getKey());
 //			System.out.print("The lines: " + entry.getValue());
