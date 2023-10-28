@@ -1,8 +1,12 @@
 package game;
 
 import components.Grid;
-import java.lang.System.Logger;
+import components.PlayedPoint;
+import components.Point;
 
+import java.lang.System.Logger;
+import java.util.Objects;
+import java.util.Scanner;
 import java.util.Set;
 
 public class GameManager {
@@ -19,6 +23,9 @@ public class GameManager {
     private String currentPlayer;
     
     private Grid board;
+    
+	private Scanner scanner;
+
 
     /**
      * Constructs a GameManager object with one player
@@ -35,6 +42,7 @@ public class GameManager {
         	currentVersion = "5T";
         }
         this.currentPlayer = player;
+        this.scanner= new Scanner(System.in);
     }
 
     /**
@@ -51,6 +59,13 @@ public class GameManager {
         else {
         	startGameT();
         }
+    }
+    
+    public  void play() {
+        System.out.print("Enter x and y (e.g., 1, 2 or 3   4): ");
+        String userInput = scanner.nextLine();
+        String[] coordinates = userInput.split("[,\\s]+");
+    	board.updateGrid(new PlayedPoint(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1])));
     }
 
     /**
@@ -90,5 +105,21 @@ public class GameManager {
 
     public void displayRanking(){
         ranking.write();
+    }
+    
+    public static void main(String[] args) {
+    	GameManager game = new GameManager(1, "Pierre");
+    	game.board = new Grid();
+    	game.board.initGrid();
+    	game.board.updatePlayablePoints();
+    	game.board.drawGrid();
+    	game.play();
+    	game.board.drawGrid();
+    	
+    	while(!game.board.getPlayablePoints().isEmpty()) {
+    		game.board.updatePlayablePoints();
+        	game.play();
+        	game.board.drawGrid();
+    	}
     }
 }

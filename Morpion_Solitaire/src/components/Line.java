@@ -22,6 +22,7 @@ public class Line {
 	
 	public Line(Set<Point> points, Direction direction) throws IllegalArgumentException {
 		if (points.size() != 5) throw new IllegalArgumentException("A line should take a set of 5 points in argument");
+		if (direction == null) throw new IllegalArgumentException("A line must be defined with a direction");
 		this.direction = direction;
 		this.points = new HashSet<>();
 		this.points.addAll(points);
