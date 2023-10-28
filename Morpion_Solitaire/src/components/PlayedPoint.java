@@ -1,11 +1,10 @@
 package components;
 
+import helpers.DefaultCoordinates;
+import helpers.Direction;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import constants.DefaultCoordinates;
-import constants.Direction;
 
 public class PlayedPoint extends Point{
 	
@@ -64,6 +63,7 @@ public class PlayedPoint extends Point{
 	}
 	
 	public void addInvolvedDirection(Direction direction) {
+		if (direction == null) throw new IllegalArgumentException("A valid direction must be called.");
 		this.involvedInDirections.add(direction);
 	}
 	

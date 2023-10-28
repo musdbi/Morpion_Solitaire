@@ -4,7 +4,7 @@ import components.Grid;
 import components.Line;
 import components.PlayedPoint;
 import components.Point;
-import constants.Direction;
+import helpers.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

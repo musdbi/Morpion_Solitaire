@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import components.PlayedPoint;
 import components.Point;
+import helpers.Direction;
 import components.Line;
-import constants.Direction;
 
 public class LineTest {
 	private Point p1 = new Point(1,1);

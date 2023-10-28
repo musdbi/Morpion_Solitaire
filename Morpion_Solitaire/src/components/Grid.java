@@ -6,13 +6,11 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
-
-import constants.DefaultCoordinates;
-import constants.Direction;
-import constants.Orientation;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import helpers.DefaultCoordinates;
+import helpers.Direction;
+import helpers.Orientation;
 import java.lang.Math;
 import java.lang.reflect.Array;
 
@@ -139,7 +137,7 @@ public class Grid {
 	}
 
 	/**
-	 * This method search for possible line to form with one point. It searches in on specific direction {@link constants.Direction}
+	 * This method search for possible line to form with one point. It searches in on specific direction {@link helpers.Direction}
 	 * 
 	 * @param point
 	 * @param direction
@@ -177,6 +175,7 @@ public class Grid {
 	 * @param playedPoint
 	 */
 	public void updatePointStatus(PlayedPoint playedPoint) {
+		System.out.println("Ligne jouée : " + this.playablePoints.get(playedPoint));
 		ArrayList<Line> playableLines = new ArrayList<>(this.playablePoints.get(playedPoint));
 		playedPoint.addInvolvedDirection(playableLines.get(0).getDirection());
 		this.grid.put(playedPoint.hashCode(), playedPoint);
