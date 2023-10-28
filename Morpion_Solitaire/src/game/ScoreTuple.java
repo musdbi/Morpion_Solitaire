@@ -9,8 +9,8 @@ public class ScoreTuple {
 	 private String name;
 
 	 public ScoreTuple(Integer first, String second) {
+		 if (second.isEmpty()) throw new IllegalArgumentException("Veuillez taper un nom valide.");
 		 this.score = first;
-		 if (second.isEmpty()) throw new InputMismatchException("Veuillez taper un nom valide.");
 		 this.name = second;
 	 }
 

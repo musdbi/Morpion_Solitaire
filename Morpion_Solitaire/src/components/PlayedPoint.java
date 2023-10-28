@@ -1,11 +1,10 @@
 package components;
 
+import helpers.DefaultCoordinates;
+import helpers.Direction;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import constants.DefaultCoordinates;
-import constants.Direction;
 
 public class PlayedPoint extends Point{
 	

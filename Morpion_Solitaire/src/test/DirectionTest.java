@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import components.Line;
 import components.Point;
-import constants.Direction;
+import helpers.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

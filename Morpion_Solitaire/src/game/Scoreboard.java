@@ -30,7 +30,7 @@ public class Scoreboard {
 	}
 	
 	public void addScore(String playerName, int score) {
-		if (playerName.isEmpty()) throw new InputMismatchException("Please type a valid name.");
+		if (playerName.isEmpty()) throw new IllegalArgumentException("Please type a valid name.");
 		if (score < 0) throw new IllegalArgumentException("Score cannot be negative..");
         scores.put(score, playerName);
     }

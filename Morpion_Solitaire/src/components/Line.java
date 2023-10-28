@@ -1,7 +1,7 @@
 package components;
 
-import constants.Direction;
 import java.util.Set;
+import helpers.Direction;
 import java.util.HashSet;
 import java.util.Objects;
 
