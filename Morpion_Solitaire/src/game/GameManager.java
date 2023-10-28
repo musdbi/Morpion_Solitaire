@@ -5,6 +5,7 @@ import components.PlayedPoint;
 import components.Point;
 
 import java.lang.System.Logger;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class GameManager {
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
     public GameManager(int version, String player){
+    	if (player .isEmpty()) throw new InputMismatchException("Please type a valid name.");
         if (version != 1) {
         	System.out.println("Created a game in 5D version");
         	currentVersion = "5D";
@@ -61,11 +63,19 @@ public class GameManager {
         }
     }
     
-    public  void play() {
-        System.out.print("Enter x and y (e.g., 1, 2 or 3   4): ");
+    public void play() {
+        System.out.print("Enter x and y (e.g., 1, 2 or 3, 4): ");
         String userInput = scanner.nextLine();
         String[] coordinates = userInput.split("[,\\s]+");
-    	board.updateGrid(new PlayedPoint(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1])));
+        try {
+        	int x = Integer.parseInt(coordinates[0]);
+            int y = Integer.parseInt(coordinates[1]);
+            if (x >= board.getSize() || (y >= board.getSize())) throw new IllegalArgumentException("The point is outside the grid.");
+            if (x < 0 || y < 0) throw new IllegalArgumentException("Coordinates cannot be negative.");
+            board.updateGrid(new PlayedPoint(x,y));
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter valid integer coordinates.");
+        }
     }
 
     /**

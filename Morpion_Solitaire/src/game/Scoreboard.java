@@ -30,13 +30,15 @@ public class Scoreboard {
 	}
 	
 	public void addScore(String playerName, int score) {
+		if (playerName.isEmpty()) throw new InputMismatchException("Please type a valid name.");
+		if (score < 0) throw new IllegalArgumentException("Score cannot be negative..");
         scores.put(score, playerName);
     }
 
     public void write() {
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
     	    for (Entry<Integer, String> entry : scores.entrySet()) {
-    	        writer.write(entry.getKey() + " points joués - " + entry.getValue());
+				writer.write(entry.getKey() + " played points - " + entry.getValue());
     	        writer.newLine();
     	        writer.newLine();
     	    }
@@ -49,7 +51,7 @@ public class Scoreboard {
     public void append() {
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path,true))) {
     	    for (Entry<Integer, String> entry : scores.entrySet()) {
-    	        writer.write(entry.getKey() + " points joués - " + entry.getValue());
+    	        writer.write(entry.getKey() + " played points - " + entry.getValue());
     	        writer.newLine();
     	        writer.newLine();
     	    }
@@ -66,8 +68,12 @@ public class Scoreboard {
             String line;
             while ((line = reader.readLine()) != null) {
             	if (!line.isEmpty()) {
-            		int recordedScore = Integer.parseInt(line.substring(0,1));
-                    uniqueCombo.add(new ScoreTuple (recordedScore, line.substring(line.lastIndexOf(" ") + 1)));
+            		Scanner scanner = new Scanner (line);
+            		scanner.useDelimiter(" played points - ");
+            		int recordedScore = scanner.nextInt();
+            		String name = scanner.next();
+                    uniqueCombo.add(new ScoreTuple(recordedScore, name));
+            		scanner.close();
             	}
             }
             reader.close();
@@ -75,14 +81,14 @@ public class Scoreboard {
             Collections.sort(uniqueCombo, new TupleComparator());
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write("Tableau des scores :");
+            writer.write("ScoreBoard :");
     		writer.newLine();
     		writer.newLine();
     		writer.write("--------------------------------------------------------");
     		writer.newLine();
     		writer.newLine();
     		for (ScoreTuple entry : uniqueCombo) {
-    	        writer.write(entry.getScore() + " points joués - " + entry.getName());
+    	        writer.write(entry.getScore() + " played points - " + entry.getName());
     	        writer.newLine();
     	        writer.newLine();
     	    }
@@ -94,16 +100,16 @@ public class Scoreboard {
     }
     
     public static void main (String [] args){
-    	Scoreboard sb = new Scoreboard ();
-    	sb.addScore("Mus", 1);
-    	sb.addScore("Mus", 2);
-    	sb.addScore("Mus", 3);
-    	sb.addScore("Mus", 4);
-    	sb.addScore("Mus", 5);
-    	sb.addScore("Mus", 6);
-    	sb.addScore("Mus", 7);
-    	sb.addScore("Pierre", 7);
-    	sb.write();
-    	sb.sort();
+//    	Scoreboard sb = new Scoreboard ();
+//    	sb.addScore("Mus", 1);
+//    	sb.addScore("Mus", 2);
+//    	sb.addScore("Mus", 3);
+//    	sb.addScore("Mus", 4);
+//    	sb.addScore("Mus", 5);
+//    	sb.addScore("Mus", 6);
+//    	sb.addScore("Mus", 7);
+//    	sb.addScore("Pierre", 117);
+//    	sb.write();
+//    	sb.sort();
     }
 }

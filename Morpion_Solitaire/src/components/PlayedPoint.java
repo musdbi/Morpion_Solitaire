@@ -64,6 +64,7 @@ public class PlayedPoint extends Point{
 	}
 	
 	public void addInvolvedDirection(Direction direction) {
+		if (direction == null) throw new IllegalArgumentException("A valid direction must be called.");
 		this.involvedInDirections.add(direction);
 	}
 	

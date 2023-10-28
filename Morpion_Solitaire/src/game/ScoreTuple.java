@@ -1,5 +1,7 @@
 package game;
 
+import java.util.InputMismatchException;
+
 public class ScoreTuple {
 	
 	 private Integer score;
@@ -8,6 +10,7 @@ public class ScoreTuple {
 
 	 public ScoreTuple(Integer first, String second) {
 		 this.score = first;
+		 if (second.isEmpty()) throw new InputMismatchException("Veuillez taper un nom valide.");
 		 this.name = second;
 	 }
 
@@ -16,7 +19,7 @@ public class ScoreTuple {
 	 }
 
 	 public String getName() {
-	        return name;
+	     return name;
 	 }
 	 
 }
