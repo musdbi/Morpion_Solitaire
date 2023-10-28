@@ -72,7 +72,7 @@ public class Grid {
 				}
 			}
 		}
-		this.drawGrid();
+		drawGrid();
 	}
 	
 	public void drawGrid() {
@@ -82,13 +82,14 @@ public class Grid {
 			}
 			System.out.print("\n");
 		}
-		System.out.println("\n-----------------------------------------------\n");
+		System.out.println("\n");
 	}
 	
 	public void updateVisualGrid() {
 		for (Point point: playablePoints.keySet()) {
 			visual[point.getX()][point.getY()] = "?";
 		}
+		drawGrid();
 	}
 	
 	/**
