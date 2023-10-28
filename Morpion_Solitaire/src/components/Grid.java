@@ -137,7 +137,7 @@ public class Grid {
 		}
 		return linesAround;
 	}
-
+//	d
 	/**
 	 * This method search for possible line to form with one point. It searches in on specific direction {@link constants.Direction}
 	 * 
