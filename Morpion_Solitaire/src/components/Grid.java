@@ -175,6 +175,7 @@ public class Grid {
 	 * @param playedPoint
 	 */
 	public void updatePointStatus(PlayedPoint playedPoint) {
+		System.out.println("Ligne jouée : " + this.playablePoints.get(playedPoint));
 		ArrayList<Line> playableLines = new ArrayList<>(this.playablePoints.get(playedPoint));
 		playedPoint.addInvolvedDirection(playableLines.get(0).getDirection());
 		this.grid.put(playedPoint.hashCode(), playedPoint);
