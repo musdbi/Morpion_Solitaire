@@ -9,7 +9,7 @@ import components.Point;
 public enum Direction {
 	
 	HORIZONTAL(Orientation.W, Orientation.E),
-	VERTICAL(Orientation.N, Orientation.S),
+	VERTICAL(Orientation.S, Orientation.N),
 	DIAGONAL1(Orientation.SW, Orientation.NE),
 	DIAGONAL2(Orientation.SE, Orientation.NW);
 	
@@ -21,6 +21,28 @@ public enum Direction {
 		this.orientation2 = orientation2;
 	}
 	
+	public List<Integer> moveX(){
+		List<Integer> moveX = new ArrayList<>();
+		for (int x = 4; x > 0; x --) {
+			moveX.add(this.orientation1.getX() * x);
+		}
+		for (int x = 1; x <=4; x ++) {
+			moveX.add(this.orientation2.getX() * x);
+		}
+		return moveX;
+	}
+	
+	public List<Integer> moveY(){
+		List<Integer> moveY = new ArrayList<>();
+		for (int y = 4; y > 0; y --) {
+			moveY.add(this.orientation1.getY() * y);
+		}
+		for (int y = 1; y <=4; y ++) {
+			moveY.add(this.orientation2.getY() * y);
+		}
+		return moveY;
+	}
+	
 	public static List<Direction> allDirections() {
 		ArrayList<Direction> directions = new ArrayList<>();
 		directions.add(Direction.HORIZONTAL);
@@ -29,7 +51,6 @@ public enum Direction {
 		directions.add(Direction.DIAGONAL2);
 		return directions;
 	}
-	
 	
 	public List<Orientation> orientations() {
 		ArrayList<Orientation> orientations = new ArrayList<>();

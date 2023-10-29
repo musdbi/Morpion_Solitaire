@@ -44,7 +44,7 @@ public class PlayedPoint extends Point{
 	
 	@Override
 	public String toString() {
-		return "Played point: (" + this.x + "," + this.y + ")";
+		return "(" + this.x + "," + this.y + ")";
 	}
 	
 	public static void resetCount() {

@@ -22,6 +22,14 @@ public enum Orientation {
         this.y = y;
     }
 	
+	public int getX() {
+		return this.x;
+	}
+	
+	public int getY() {
+		return this.y;
+	}
+	
 	public List<Integer> moveX(){
 		ArrayList<Integer> moveX = new ArrayList<>();
 		for (int x = 1; x <= 4; x++) {

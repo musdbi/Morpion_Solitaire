@@ -147,30 +147,46 @@ public class Grid {
 	 */
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		HashSet<Line> lines = new HashSet<>();
-		HashSet<Point> points  = new HashSet<>();
-		for (Orientation orientation: direction.orientations()) {
-			List<Integer> moveX = orientation.moveX();
-			List<Integer> moveY = orientation.moveY();
-			for (int i = 0; i< 4; i++) {
-				int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-				if (grid.containsKey(hash)) {
-					if ((grid.get(hash).isPlayed()) && !(((PlayedPoint) grid.get(hash)).getInvolvedDirections().contains(direction))) {
-						points.add(grid.get(hash));
-						if(points.size() == 4){
-							points.add(point);
-							lines.add(new Line(points, direction));
-							points.clear();
-						}
+		List<Point> possiblePoints = new ArrayList<>();
+		HashSet<Point> linePoints  = new HashSet<>();
+		
+		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
+			if (grid.containsKey(neighbour.hashCode())) {
+				if ((neighbour.isPlayed()) && !(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))) {
+					possiblePoints.add(neighbour);
+					if(possiblePoints.size() == 4){
+						linePoints.addAll(possiblePoints);
+						linePoints.add(point);
+						lines.add(new Line(linePoints, direction));
+						
+						linePoints.clear();
+						possiblePoints.remove(0);
 					}
-					else {
-						break;
-					}
+				}
+				else {
+					possiblePoints.clear();
 				}
 			}
 		}
 		return lines;
 	}
+		
 	
+	public List<Point> getNeighboursInDirection(Point point, Direction direction){
+		List<Point> neighboursList = new ArrayList<>();
+		List<Integer> moveX = direction.moveX();
+		List<Integer> moveY = direction.moveY();
+		for (int i = 0; i < 8; i++) {
+			neighboursList.add(this.grid.get(Objects.hash(
+					point.getX() + moveX.get(i),
+					point.getY() + moveY.get(i)
+					)
+				)
+			);
+		}
+		return neighboursList;
+
+	}
 	/**
 	 * Updating grid: update the type of the played point from Point to PlayedPoint in grid
 	 * 
