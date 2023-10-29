@@ -91,6 +91,9 @@ public class GameManager {
             }
     	}
     	PlayedPoint playedPoint = new PlayedPoint(x,y);
+    	if (x == 12 && y == 11) {
+    		System.out.println("Ligne pour 12 11: " + this.board.getPlayablePoints().get(playedPoint));
+    	}
     	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
     	board.updateGrid(playedPoint, playableLines.get(0));
     }

@@ -211,14 +211,12 @@ public class Grid {
 			p.addInvolvedDirection(playedLine.getDirection());
 		}
 		
-		System.out.println("Ligne jouée: " + playedLine);
 		for (Point point: playedLine.getPoints()) {
 			if (playedLine.getDirection() == Direction.HORIZONTAL) visual[point.getX()][point.getY()] = "|";
 			if (playedLine.getDirection() == Direction.VERTICAL) visual[point.getX()][point.getY()] = "-";
 			if (playedLine.getDirection() == Direction.DIAGONAL1) visual[point.getX()][point.getY()] = "\\";
 			if (playedLine.getDirection() == Direction.DIAGONAL2) visual[point.getX()][point.getY()] = "/";
 		}
-		System.out.println("Id du point joué: " + playedPoint.getId());
 		visual[playedPoint.getX()][playedPoint.getY()] =  "" + playedPoint.getId();
 	}
 	

@@ -44,7 +44,6 @@ public class Line {
         if (this == o) return true;
         if (o == null || !(o instanceof Line)) return false;
         Line otherLine = (Line) o;
-        System.out.println(this.points.equals(otherLine.getPoints()));
         return this.points.equals(otherLine.getPoints());
     }
     
