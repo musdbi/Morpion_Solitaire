@@ -49,6 +49,22 @@ public class GridTest {
 	private Point ph = new Point(12, 18);
 	private Point pi = new Point(12, 19);
 	
+	// DIAGONAL1
+	
+	private Point p21 = new Point(16, 7);
+	private Point p22 = new Point(15, 8);
+	private Point p23 = new Point(14, 9);
+	private Point p24= new Point(13, 10);
+	
+	private Point p25 = new Point(12, 11);
+	
+	private Point p26 = new Point(11, 12);
+	private Point p27 = new Point(10, 13);
+	private Point p28 = new Point(9, 14);
+	private Point p29 = new Point(8, 15);
+	
+
+	
 	
 //	@Test
 //	public void testfindLinesInDirections() {
@@ -99,6 +115,19 @@ public class GridTest {
 		neighbours.add(pi);
 		
 		assertEquals(neighbours, grid.getNeighboursInDirection(pe, Direction.VERTICAL));
+		
+		neighbours.clear();
+		neighbours.add(p21);
+		neighbours.add(p22);
+		neighbours.add(p23);
+		neighbours.add(p24);
+		
+		neighbours.add(p26);
+		neighbours.add(p27);
+		neighbours.add(p28);
+		neighbours.add(p29);
+		
+		assertEquals(neighbours, grid.getNeighboursInDirection(p25, Direction.DIAGONAL2));
 
 	}
 	

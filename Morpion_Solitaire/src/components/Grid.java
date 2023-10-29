@@ -147,11 +147,18 @@ public class Grid {
 		List<Point> possiblePoints = new ArrayList<>();
 		
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
+			
+			
 			if (grid.containsKey(neighbour.hashCode())) {
 				if ((neighbour.isPlayed()) && !(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))) {
 					possiblePoints.add(neighbour);
 					if (possiblePoints.size() == 4) {
 						possiblePoints.add(point);
+						if (point.equals(new Point(11, 12)) && direction.equals(Direction.DIAGONAL2)){
+							for (Point possiblePoint: possiblePoints) {
+								System.out.println(possiblePoint);
+							}
+						}
 						lines.add(new Line(new HashSet<>(possiblePoints), direction));
 						possiblePoints.remove(0);
 					}
@@ -182,7 +189,7 @@ public class Grid {
 		List<Integer> moveX = direction.moveX();
 		List<Integer> moveY = direction.moveY();
 		for (int i = 0; i < 8; i++) {
-			int hash = Objects.hash(point.getX() + moveX.get(i),point.getY() + moveY.get(i));
+			int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
 			if (this.grid.containsKey(hash)) {
 				neighboursList.add(this.grid.get(hash));
 			}

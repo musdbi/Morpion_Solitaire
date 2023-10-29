@@ -91,9 +91,9 @@ public class GameManager {
             }
     	}
     	PlayedPoint playedPoint = new PlayedPoint(x,y);
-    	if (x == 12 && y == 11) {
-    		System.out.println("Ligne pour 12 11: " + this.board.getPlayablePoints().get(playedPoint));
-    	}
+//    	if (x == 12 && y == 11) {
+//    		System.out.println("Lignes pour 12 11: " + this.board.getPlayablePoints().get(playedPoint));
+//    	}
     	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
     	board.updateGrid(playedPoint, playableLines.get(0));
     }
@@ -147,7 +147,6 @@ public class GameManager {
     	
     	while(!game.board.getPlayablePoints().isEmpty()) {
     		game.board.updatePlayablePoints();
-        	System.out.println(game.board.getPlayablePoints());
     		game.board.drawGrid();
         	game.play();
         	
