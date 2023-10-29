@@ -2,7 +2,10 @@ package components;
 
 import java.util.Set;
 import helpers.Direction;
+
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 
 public class Line {
@@ -24,19 +27,14 @@ public class Line {
 		if (points.size() != 5) throw new IllegalArgumentException("A line should take a set of 5 points in argument.");
 		if (direction == null) throw new IllegalArgumentException("A line must be defined with a direction.");
 		this.direction = direction;
-		this.points = new HashSet<>();
-		this.points.addAll(points);
+		this.points = points;
 	};
-	
-	public void addPoint(Point point) {
-		if (point == null) throw new IllegalArgumentException ("Point cannot be null.");
-		this.points.add(point);
-	}
+
 	@Override
 	public String toString() {
 		String toString = "";
 		for (Point point: this.points) {
-			toString += point.toString(); 
+				toString += point.toString();	
 		}
 		return toString;
 	}
@@ -61,5 +59,12 @@ public class Line {
 	
 	public Set<Point> getPoints(){
 		return points;
+	}
+	
+	public void updatePlayedPoint(PlayedPoint point) {
+		if (point == null) throw new IllegalArgumentException ("Point cannot be null.");
+		if (!point.isPlayed()) throw new IllegalArgumentException ("Must be a played point");
+		this.points.remove(point);
+		this.points.add(point);
 	}
 }

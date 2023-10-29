@@ -41,10 +41,10 @@ public class PlayedPoint extends Point{
 		this.involvedInDirections = new HashSet<>();
 	}
 	
-	@Override
-	public String toString() {
-		return "(" + this.x + "," + this.y + ")";
-	}
+//	@Override
+//	public String toString() {
+//		return "Played point: (" + this.x + "," + this.y + ")";
+//	}
 	
 	public static void resetCount() {
 		playedPointsCount = 0;

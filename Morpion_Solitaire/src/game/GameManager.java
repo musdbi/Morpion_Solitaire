@@ -1,11 +1,14 @@
 package game;
 
 import components.Grid;
+import components.Line;
 import components.PlayedPoint;
 import components.Point;
 import helpers.IllegalPlayedPointException;
 import helpers.OutOfGridException;
 import java.lang.System.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
@@ -87,7 +90,9 @@ public class GameManager {
             	System.out.println(e4.getMessage());
             }
     	}
-    	board.updateGrid(new PlayedPoint(x,y));
+    	PlayedPoint playedPoint = new PlayedPoint(x,y);
+    	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
+    	board.updateGrid(playedPoint, playableLines.get(0));
     }
 
     /**
@@ -136,12 +141,13 @@ public class GameManager {
     	game.board.updatePlayablePoints();
     	game.board.drawGrid();
     	game.play();
-    	game.board.drawGrid();
     	
     	while(!game.board.getPlayablePoints().isEmpty()) {
     		game.board.updatePlayablePoints();
+        	System.out.println(game.board.getPlayablePoints());
+    		game.board.drawGrid();
         	game.play();
-        	game.board.drawGrid();
+        	
     	}
     }
 }
