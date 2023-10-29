@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import components.PlayedPoint;
 import components.Point;
-import constants.Direction;
+import helpers.Direction;
 
 public class PointTest {
 	private Point p1 = new Point(1,1);

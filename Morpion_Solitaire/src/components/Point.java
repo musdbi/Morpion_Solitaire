@@ -1,5 +1,6 @@
 package components;
 
+import helpers.OutOfGridException;
 import java.util.Objects;
 
 public class Point {
@@ -7,9 +8,24 @@ public class Point {
 	protected int x, y;
 
 	public Point(int x, int y) {
+		if (x < 0 || y < 0){
+			throw new OutOfGridException("Coordinates cannot be negative.");
+		}
+		if (x >= 24 || y >= 24){
+			throw new OutOfGridException("The point is outside the grid.");
+		}
 		this.x = x;
 		this.y = y;
 	}
+	
+	public void checkRange() {
+        if (x < 0 || y < 0) {
+            throw new OutOfGridException("Coordinates cannot be negative.");
+        }
+        if (x >= 24 || y >= 24) {
+            throw new OutOfGridException("The point is outside the grid.");
+        }
+    }
 	
 	@Override
 	public String toString() {
@@ -37,6 +53,12 @@ public class Point {
     }
     
     public void move(int x, int y) {
+    	if (x < 0 || y < 0){
+			throw new OutOfGridException("Coordinates cannot be negative.");
+		}
+		if (x >= 24 || y >= 24){
+			throw new OutOfGridException("The point is outside the grid.");
+		}
     	this.x = x;
     	this.y = y;
     }

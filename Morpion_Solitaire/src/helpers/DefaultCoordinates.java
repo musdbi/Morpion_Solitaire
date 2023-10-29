@@ -1,4 +1,4 @@
-package constants;
+package helpers;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -44,7 +44,13 @@ public enum DefaultCoordinates {
 	private int x;
 	private int y;
 	
-	DefaultCoordinates(int x, int y) {
+	DefaultCoordinates(int x, int y) throws OutOfGridException {
+		if (x < 0 || y < 0){
+			throw new OutOfGridException("Coordinates cannot be negative.");
+		}
+		if (x >= 24 || y >= 24){
+			throw new OutOfGridException("The point is outside the grid.");
+		}
 		this.x = x;
 		this.y = y;
 	}

@@ -3,7 +3,8 @@ package game;
 import components.Grid;
 import components.PlayedPoint;
 import components.Point;
-
+import helpers.IllegalPlayedPointException;
+import helpers.OutOfGridException;
 import java.lang.System.Logger;
 import java.util.Objects;
 import java.util.Scanner;
@@ -33,6 +34,7 @@ public class GameManager {
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
     public GameManager(int version, String player){
+    	if (player .isEmpty()) throw new IllegalArgumentException("Please type a valid name.");
         if (version != 1) {
         	System.out.println("Created a game in 5D version");
         	currentVersion = "5D";
@@ -61,11 +63,31 @@ public class GameManager {
         }
     }
     
-    public  void play() {
-        System.out.print("Enter x and y (e.g., 1, 2 or 3   4): ");
-        String userInput = scanner.nextLine();
-        String[] coordinates = userInput.split("[,\\s]+");
-    	board.updateGrid(new PlayedPoint(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1])));
+    public void play() {
+    	int x, y = 0;
+    	while (true) {
+    		System.out.println("Enter x and y (e.g : 1, 3 or 1 3) : ");
+            String userInput = scanner.nextLine();
+            String[] coordinates = userInput.split("[,\\s]+");
+            try {
+            	x = Integer.parseInt(coordinates[0]);
+                y = Integer.parseInt(coordinates[1]);
+                if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("Please type 2 coordinates.");
+                if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
+                if (x >= board.getSize() || (y >= board.getSize())) throw new OutOfGridException("The point is outside the grid.");
+                if (board.getPlayablePoints().get(new Point (x,y))== null) throw new IllegalPlayedPointException ("This point is not playable");
+                break;
+            } catch (NumberFormatException e1) {
+                System.out.println("Please enter valid integer coordinates.");
+            } catch (OutOfGridException e2) {
+            	System.out.println(e2.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e3) {
+            	System.out.println(e3.getMessage());
+            } catch (IllegalPlayedPointException e4) {
+            	System.out.println(e4.getMessage());
+            }
+    	}
+    	board.updateGrid(new PlayedPoint(x,y));
     }
 
     /**
