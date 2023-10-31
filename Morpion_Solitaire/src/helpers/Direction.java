@@ -2,9 +2,6 @@ package helpers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import components.Point;
 
 public enum Direction {
 	
@@ -50,12 +47,5 @@ public enum Direction {
 		directions.add(Direction.DIAGONAL1);
 		directions.add(Direction.DIAGONAL2);
 		return directions;
-	}
-	
-	public List<Orientation> orientations() {
-		ArrayList<Orientation> orientations = new ArrayList<>();
-		orientations.add(orientation1);
-		orientations.add(orientation2);
-		return orientations;
 	}
 }

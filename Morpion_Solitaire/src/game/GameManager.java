@@ -7,12 +7,9 @@ import components.Point;
 import helpers.IllegalPlayedPointException;
 import helpers.NotALineException;
 import helpers.OutOfGridException;
-import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 
 public class GameManager {
 

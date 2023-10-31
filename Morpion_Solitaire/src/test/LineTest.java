@@ -22,7 +22,6 @@ public class LineTest {
 	private Point p7 = new PlayedPoint(1, 7);
 //	private PlayedPoint p7 = new PlayedPoint(1, 7);
 
-	
 	public LineTest() {
 	}
 	
@@ -62,6 +61,7 @@ public class LineTest {
 		assertEquals(true, line1.hashCode() == line2.hashCode());
 		assertEquals(false, line2.hashCode() == line3.hashCode());
 	}
+
 //	@Test
 //	public void testDirection() {
 //		Set<Point> points = new HashSet<>();
