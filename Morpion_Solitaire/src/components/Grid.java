@@ -53,38 +53,38 @@ public class Grid {
         this.visual = new String [size][size];
 	}
 	
-	public void initGrid() {
-		for (int x = 0; x < size; x++) {
-			for(int y = 0; y < size; y++) {
-				if (DefaultCoordinates.getValues().contains(Objects.hash(x, y))) {
-					grid.put(Objects.hash(x, y), new PlayedPoint(x, y));
-					visual[x][y] = "X";
+	public void initGrid() {		
+		for (int y = 0; y < size; y++) {
+			for(int x = 0; x < size; x++) {
+				if (DefaultCoordinates.getValues().contains(Objects.hash(y, x))) {
+					grid.put(Objects.hash(y, x), new PlayedPoint(y, x));
+					visual[y][x] = "X";
 				}
 				else {
-					grid.put(Objects.hash(x,y), new Point(x, y));
-					visual[x][y] = "*";
+					grid.put(Objects.hash(y,x), new Point(y, x));
+					visual[y][x] = "*";
 				}
 			}
 		}
 	}
 	
 	public void drawGrid() {
-		for (int x = 0; x < size; x++) {
-			for (int y = 0; y < size; y++) {
-				System.out.print(visual[x][y]+ " ");
-			}
-			System.out.print("\n");
-		}
-		System.out.println("\n");
+		for (int y = size-1; y >= 0 ; y--) {
+            for (int x = 0; x < size; x++) {
+                System.out.print(visual[y][x]+ " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("\n");
 	}
 	
 	public void updateVisualGrid() {
 		for (Point point: playablePoints.keySet()) {
-			visual[point.getX()][point.getY()] = "?";
+			visual[point.getY()][point.getX()] = "?";
 		}
 		for (Point gridPoint: this.grid.values()) {
 			if (!this.playablePoints.containsKey(gridPoint) & (!gridPoint.isPlayed())) {
-				visual[gridPoint.getX()][gridPoint.getY()] = "*";
+				visual[gridPoint.getY()][gridPoint.getX()] = "*";
 			}
 		}
 	}
@@ -147,20 +147,14 @@ public class Grid {
 		List<Point> possiblePoints = new ArrayList<>();
 		
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
-			
-			
 			if (grid.containsKey(neighbour.hashCode())) {
 				if ((neighbour.isPlayed()) && !(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))) {
 					possiblePoints.add(neighbour);
 					if (possiblePoints.size() == 4) {
 						possiblePoints.add(point);
-						if (point.equals(new Point(11, 12)) && direction.equals(Direction.DIAGONAL2)){
-							for (Point possiblePoint: possiblePoints) {
-								System.out.println(possiblePoint);
-							}
-						}
 						lines.add(new Line(new HashSet<>(possiblePoints), direction));
-						possiblePoints.remove(0);
+						possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
+						possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
 					}
 				}
 				else {
@@ -169,7 +163,7 @@ public class Grid {
 			}
 		}
 		return lines;
-		}
+	}
 	
 	/**
 	 * This method return the list of the neighbour at a distance n-1 (where n is the number of the mod 5D, 4D, etc)
@@ -206,6 +200,10 @@ public class Grid {
 		this.grid.put(playedPoint.hashCode(), playedPoint);
 	}
 	
+	public void addPlayedPoint(PlayedPoint p) {
+		this.grid.put(p.hashCode(), p);
+
+	}
 	/**
 	 * 1) Updating lines: add the line chosen and update the involvedDirections for each point of the played line
 	 * 2) Updating visual: update the visual with the line and the id of the played point
@@ -219,12 +217,12 @@ public class Grid {
 		}
 		
 		for (Point point: playedLine.getPoints()) {
-			if (playedLine.getDirection() == Direction.HORIZONTAL) visual[point.getX()][point.getY()] = "|";
-			if (playedLine.getDirection() == Direction.VERTICAL) visual[point.getX()][point.getY()] = "-";
-			if (playedLine.getDirection() == Direction.DIAGONAL1) visual[point.getX()][point.getY()] = "\\";
-			if (playedLine.getDirection() == Direction.DIAGONAL2) visual[point.getX()][point.getY()] = "/";
+			if (playedLine.getDirection() == Direction.HORIZONTAL) visual[point.getY()][point.getX()] = "-";
+			if (playedLine.getDirection() == Direction.VERTICAL) visual[point.getY()][point.getX()] = "|";
+			if (playedLine.getDirection() == Direction.DIAGONAL1) visual[point.getY()][point.getX()] = "/";
+			if (playedLine.getDirection() == Direction.DIAGONAL2) visual[point.getY()][point.getX()] = "\\";
 		}
-		visual[playedPoint.getX()][playedPoint.getY()] =  "" + playedPoint.getId();
+		visual[playedPoint.getY()][playedPoint.getX()] =  "" + playedPoint.getId();
 	}
 	
 	public boolean checkPlayability(Point point) {
