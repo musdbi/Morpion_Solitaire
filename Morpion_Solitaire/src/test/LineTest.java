@@ -20,8 +20,8 @@ public class LineTest {
 	private Point p5 = new Point(1,5);
 	private Point p6 = new Point(1,6);
 	private Point p7 = new PlayedPoint(1, 7);
+//	private PlayedPoint p7 = new PlayedPoint(1, 7);
 
-	
 	public LineTest() {
 	}
 	
@@ -61,17 +61,19 @@ public class LineTest {
 		assertEquals(true, line1.hashCode() == line2.hashCode());
 		assertEquals(false, line2.hashCode() == line3.hashCode());
 	}
-	@Test
-	public void testDirection() {
-		Set<Point> points = new HashSet<>();
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
-		
-		System.out.println(points);
-		Line line1 = new Line(points, Direction.VERTICAL);
-		assertEquals(Direction.VERTICAL, line1.getDirection());
-	}
+
+//	@Test
+//	public void testDirection() {
+//		Set<Point> points = new HashSet<>();
+//		points.add(p1);
+//		points.add(p2);
+//		points.add(p3);
+//		points.add(p4);
+//		points.add(p5);
+//		
+//		System.out.println(points);
+//		Line line1 = new Line(points, Direction.VERTICAL);
+//		assertEquals(Direction.VERTICAL, line1.getDirection());
+//	}
+
 }

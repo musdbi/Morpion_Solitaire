@@ -1,8 +1,5 @@
 package helpers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Orientation {
 	N(0,1),		// North - top
 	S(0,-1), 	// South - bottom
@@ -22,19 +19,11 @@ public enum Orientation {
         this.y = y;
     }
 	
-	public List<Integer> moveX(){
-		ArrayList<Integer> moveX = new ArrayList<>();
-		for (int x = 1; x <= 4; x++) {
-			moveX.add(x * this.x);
-		}
-		return moveX;
+	public int getX() {
+		return this.x;
 	}
 	
-	public List<Integer> moveY(){
-		ArrayList<Integer> moveY = new ArrayList<>();
-		for (int y = 1; y <= 4; y++) {
-			moveY.add(y * this.y);
-		}
-		return moveY;
+	public int getY() {
+		return this.y;
 	}
 }

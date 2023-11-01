@@ -1,14 +1,15 @@
 package game;
 
 import components.Grid;
+import components.Line;
 import components.PlayedPoint;
 import components.Point;
 import helpers.IllegalPlayedPointException;
+import helpers.NotALineException;
 import helpers.OutOfGridException;
-import java.lang.System.Logger;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class GameManager {
 
@@ -64,6 +65,12 @@ public class GameManager {
     }
     
     public void play() {
+    	PlayedPoint playedPoint = playPoint();
+    	Line playedLine = chooseLine(playedPoint);
+    	board.updateGrid(playedPoint, playedLine);
+    }
+    
+    public PlayedPoint playPoint() {
     	int x, y = 0;
     	while (true) {
     		System.out.println("Enter x and y (e.g : 1, 3 or 1 3) : ");
@@ -78,7 +85,7 @@ public class GameManager {
                 if (board.getPlayablePoints().get(new Point (x,y))== null) throw new IllegalPlayedPointException ("This point is not playable");
                 break;
             } catch (NumberFormatException e1) {
-                System.out.println("Please enter valid integer coordinates.");
+                System.out.println("Please enter valid integer number.");
             } catch (OutOfGridException e2) {
             	System.out.println(e2.getMessage());
             } catch (ArrayIndexOutOfBoundsException e3) {
@@ -87,21 +94,43 @@ public class GameManager {
             	System.out.println(e4.getMessage());
             }
     	}
-    	board.updateGrid(new PlayedPoint(x,y));
+    	return new PlayedPoint(x, y);
     }
-
+    
+    public Line chooseLine(PlayedPoint playedPoint) {
+    	int line = 0;
+    	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
+    	if (playableLines.size() > 1){
+    		System.out.println("Which line do you want to play for " + playedPoint.toString() + " ?\n" + "Give the number of the line\n");
+        	for (int i =0; i < playableLines.size(); i++) {
+        		System.out.println("Line "+ (i + 1) +": " +playableLines.get(i));
+        	}
+    	}
+    	while (playableLines.size() > 1) {
+            String userInput = scanner.nextLine();
+            try {
+            	line = Integer.parseInt(userInput) - 1;
+            	if (!(0 <= line && line <= playableLines.size() - 1)) throw new NotALineException();
+                break;
+            } catch (NumberFormatException e1) {
+                System.out.println("Please enter valid integer coordinates.");
+            } catch (NotALineException e2) {
+                System.out.println(e2.getMessage());
+            }
+    	}
+    	return playableLines.get(line);
+    }
+    
     /**
      * Starts the game in 5T version
      */
-    public void startGameT(){
-        
+    public void startGameT(){ 
     }
     
     /**
      * Starts the game in 5D version
      */
-    public void startGameD(){
-        
+    public void startGameD(){      
     }
     
     public void endParty(int score){
@@ -136,12 +165,11 @@ public class GameManager {
     	game.board.updatePlayablePoints();
     	game.board.drawGrid();
     	game.play();
-    	game.board.drawGrid();
     	
     	while(!game.board.getPlayablePoints().isEmpty()) {
     		game.board.updatePlayablePoints();
+    		game.board.drawGrid();
         	game.play();
-        	game.board.drawGrid();
     	}
     }
 }
