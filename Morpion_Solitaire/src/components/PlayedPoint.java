@@ -25,6 +25,8 @@ public class PlayedPoint extends Point{
 	 */
 	private Set<Direction> involvedInDirections;
 	
+	private boolean isEndOfLine;
+	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
 		if (!(DefaultCoordinates.getValues().contains(Objects.hash(x, y)))) {
@@ -32,6 +34,7 @@ public class PlayedPoint extends Point{
 			this.id = playedPointsCount;
 		}
 		this.involvedInDirections = new HashSet<>();
+		this.isEndOfLine = false;
 	}
 	
 	public PlayedPoint(Point p) {
@@ -39,6 +42,7 @@ public class PlayedPoint extends Point{
 		playedPointsCount += 1;
 		this.id = playedPointsCount;
 		this.involvedInDirections = new HashSet<>();
+		this.isEndOfLine = false;
 	}
 	
 	@Override
@@ -67,9 +71,15 @@ public class PlayedPoint extends Point{
 		this.involvedInDirections.add(direction);
 	}
 	
+	public boolean isEndOfLine() {
+		return this.isEndOfLine;
+	}
+	
 	public static void main(String[] args) {
 		PlayedPoint p = new PlayedPoint(0, 0);
 		p.addInvolvedDirection(Direction.DIAGONAL1);
 		System.out.println(p.getInvolvedDirections());
 	}
+	
+	
 }
