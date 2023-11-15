@@ -5,6 +5,7 @@ import components.Line;
 import components.PlayedPoint;
 import components.Point;
 import helpers.IllegalPlayedPointException;
+import helpers.Mode;
 import helpers.NotALineException;
 import helpers.OutOfGridException;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class GameManager {
     private Grid board;
     
 	private Scanner scanner;
+	
+	private Mode mode; 
 
 
     /**
@@ -157,7 +160,7 @@ public class GameManager {
     public void displayRanking(){
         ranking.write();
     }
-    
+
     public static void main(String[] args) {
     	GameManager game = new GameManager(1, "Pierre");
     	game.board = new Grid();

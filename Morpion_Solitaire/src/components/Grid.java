@@ -127,14 +127,14 @@ public class Grid {
 	 * 		where the normal point would be a playable point for the next move.
 	 * 		an empty List if there is no playable point for the next move from the current point
 	 */
-	public Set<Line> findLinesAround(Point point) {
+	public Set<Line> findLinesAround(Point point ) {
 		Set<Line> linesAround = new HashSet<>();
 		for (Direction direction: Direction.allDirections()) {
 			linesAround.addAll(this.findLinesInDirection(point, direction));
 		}
 		return linesAround;
 	}
-//	d
+
 	/**
 	 * This method search for possible line to form with one point. It searches in on specific direction {@link helpers.Direction}
 	 * 
