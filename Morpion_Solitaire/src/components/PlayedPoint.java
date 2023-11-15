@@ -25,6 +25,12 @@ public class PlayedPoint extends Point{
 	 */
 	private Set<Direction> involvedInDirections;
 	
+	
+	/**
+	 * This attribute indicates if the current played point is the end of a line
+	 * ex: the line from (0,0), (1,0), (2,0), (3,0)(4,0)
+	 * 		(0,0) and (4,0) are the ends of the line
+	 */
 	private boolean isEndOfLine;
 	
 	public PlayedPoint(int x, int y) {
@@ -47,7 +53,7 @@ public class PlayedPoint extends Point{
 	
 	@Override
 	public String toString() {
-		return "Played point: (" + this.x + "," + this.y + ")";
+		return "Played point: (" + this.getX() + "," + this.getY() + ")";
 	}
 	
 	public static void resetCount() {
@@ -58,7 +64,7 @@ public class PlayedPoint extends Point{
 		return this.id;
 	}
 	
-	public int getCount() {
+	public static int getCount() {
 		return playedPointsCount;
 	}
 	
@@ -73,6 +79,10 @@ public class PlayedPoint extends Point{
 	
 	public boolean isEndOfLine() {
 		return this.isEndOfLine;
+	}
+	
+	public void setEndOfLine(boolean isEndOfLine) {
+		this.isEndOfLine = isEndOfLine;
 	}
 	
 	public static void main(String[] args) {
