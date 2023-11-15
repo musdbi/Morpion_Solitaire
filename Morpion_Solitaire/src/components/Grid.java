@@ -151,17 +151,24 @@ public class Grid {
 		Set<Line> lines = new HashSet<>();
 		List<Point> possiblePoints = new ArrayList<>();
 		
+		Line jointLine = this.findJointLineInDirection(point, direction);
+		if (!(jointLine == null)) lines.add(jointLine);
+		
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
 			if (grid.containsKey(neighbour.hashCode())) {
-				if ((neighbour.isPlayed()) && !(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))) {
-					possiblePoints.add(neighbour);
-					if (possiblePoints.size() == 4) {
-						possiblePoints.add(point);
-						lines.add(new Line(new HashSet<>(possiblePoints), direction));
-						possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
-						possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
+				if (
+						(neighbour.isPlayed()) 
+						&& 
+						!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
+					){
+						possiblePoints.add(neighbour);
+						if (possiblePoints.size() == 4) {
+							possiblePoints.add(point);
+							lines.add(new Line(new HashSet<>(possiblePoints), direction));
+							possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
+							possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
+						}
 					}
-				}
 				else {
 					possiblePoints.clear();
 				}
@@ -172,41 +179,53 @@ public class Grid {
 	
 	/**
 	 * This method search if there is the possibility to form a joint line in a direction
+	 * 
 	 * For each orientation of the direction, it checks if the very close neighbour at a distance of 1
 	 * is the end of a line that is in the same direction. 
 	 * 		If yes, look it looks opposite orientation for a potential joint line
 	 *		If no, we repeat the process for the opposite orientation
-	 *
+	 * 
+	 * Considering these conditions:
+	 * If we found a possible joint lien in one side; then the method is finished because
+	 * it is then not possible to find a possible joint line in the other side
+	 * 
 	 * @param point
 	 * @param direction
 	 * @return Line
 	 */
-	public List<Line> findJointLinesInDirection(Point point, Direction direction){
-		Set<Line> lines = new HashSet<>();
-		Set<Point> possiblePoints = new ArrayList<>();
-		
+	public Line findJointLineInDirection(Point point, Direction direction){
+		Set<Point> possiblePoints = new HashSet<>();
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
-			if (
-					((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
-					&& 
-					((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-				){
-				Orientation oppositeOrientation = direction.getOppositeOrientation(orientation);
-				List<Integer> moveX = oppositeOrientation.moveX();
-				List<Integer> moveY = oppositeOrientation.moveY();
-				for (int i = 0; i <= moveX.size(); i++) {
+			if (grid.containsKey(neighbourHash)) {
+				if (this.grid.get(neighbourHash).isPlayed()) {
 					if (
-							((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).isPlayed()
-							&&
-							!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
-						) {
-						neighbourList
+							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
+							&& 
+							((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+						){
+						possiblePoints.add(this.grid.get(neighbourHash));
+						Orientation oppositeOrientation = direction.getOppositeOrientation(orientation);
+						List<Integer> moveX = oppositeOrientation.moveX();
+						List<Integer> moveY = oppositeOrientation.moveY();
+						for (int i = 0; i <= moveX.size() - 1; i++) {
+							if (
+									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
+									&&
+									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
+								) {
+								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
+								if (possiblePoints.size() == 4) {
+									possiblePoints.add(point);
+									return new Line(possiblePoints, direction);
+								}
+							}
+						}
 					}
 				}
 			}
 		}
-		return neighboursList;
+		return null;
 	}
 	
 	/**
@@ -236,17 +255,12 @@ public class Grid {
 	}
 	
 	/**
-	 * Updating grid: update the type of the played point from Point to PlayedPoint in grid
+	 * Updating grid: update the type of the points of the line from Point to PlayedPoint in grid
 	 * 
 	 * @param playedPoint
 	 */
 	public void updatePointStatus(PlayedPoint playedPoint, Line playedLine) {
 		this.grid.put(playedPoint.hashCode(), playedPoint);
-	}
-	
-	public void addPlayedPoint(PlayedPoint p) {
-		this.grid.put(p.hashCode(), p);
-
 	}
 	
 	/**
@@ -260,17 +274,22 @@ public class Grid {
 	        PlayedPoint p = (PlayedPoint) linePoint;
 			p.addInvolvedDirection(playedLine.getDirection());
 		}
+		for (Point endsOfLine: playedLine.getEndsOfLine()) {
+			((PlayedPoint) endsOfLine).setEndOfLine(true);
+			System.out.println(endsOfLine);
+			System.out.println("est fin de ligne dans l'attribut grildd: " + ((PlayedPoint) grid.get(endsOfLine.hashCode())).isEndOfLine());
+		}
 		
 		for (Point point: playedLine.getPoints()) {
-			if (playedLine.getDirection() == Direction.HORIZONTAL) visual[point.getY()][point.getX()] = "-";
-			if (playedLine.getDirection() == Direction.VERTICAL) visual[point.getY()][point.getX()] = "|";
-			if (playedLine.getDirection() == Direction.DIAGONAL1) visual[point.getY()][point.getX()] = "/";
-			if (playedLine.getDirection() == Direction.DIAGONAL2) visual[point.getY()][point.getX()] = "\\";
+			if (playedLine.getDirection() == Direction.HORIZONTAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "-";
+			if (playedLine.getDirection() == Direction.VERTICAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "|";
+			if (playedLine.getDirection() == Direction.DIAGONAL1 && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "/";
+			if (playedLine.getDirection() == Direction.DIAGONAL2 && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "\\";
 		}
 		visual[playedPoint.getY()][playedPoint.getX()] =  "" + playedPoint.getId();
 	}
 	
-	public boolean checkPlayability(Point point) {
+	public boolean isPlayable(Point point) {
 		return this.playablePoints.containsKey(point);
 	}
 	
@@ -295,19 +314,34 @@ public class Grid {
 	}
 	
 	public static void main(String[] args) {
-		Set<Point> points = new HashSet<>();
-		PlayedPoint p1 = new PlayedPoint(1,1);
-		PlayedPoint p2 = new PlayedPoint(1,2);
-		PlayedPoint p3 = new PlayedPoint(1,3);
-		PlayedPoint p4 = new PlayedPoint(1,4);
-		Point p5 = new Point(1,5);
-		PlayedPoint pp5 = new PlayedPoint(1, 5);
+//		Set<Line> points = new HashSet<>();
+//		points.add(new HashSet<>());
+//		System.out.println(points);
+//		PlayedPoint p1 = new PlayedPoint(1,1);
+//		PlayedPoint p2 = new PlayedPoint(1,2);
+//		PlayedPoint p3 = new PlayedPoint(1,3);
+//		PlayedPoint p4 = new PlayedPoint(1,4);
+//		Point p5 = new Point(1,5);
+//		PlayedPoint pp5 = new PlayedPoint(1, 5);
+//		
+//		points.add(p1);
+//		points.add(p2);
+//		points.add(p3);
+//		points.add(p4);
+//		points.add(p5);
 		
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
+//		Point p1 = new PlayedPoint(1,1);
+//		System.out.println(PlayedPoint.getCount());
+//		PlayedPoint p2 = (PlayedPoint) p1;
+//		System.out.println(PlayedPoint.getCount());
+//		System.out.println(p2.isPlayed());
+//		System.out.println(p2.getId());
+		
+		Point p = new Point(1,1);
+		PlayedPoint p111 = (PlayedPoint) p;
+		System.out.println(PlayedPoint.getCount());
+		System.out.println(p111.getId());
+
 
 //		Line line1 = new Line(points, Direction.VERTICAL);
 //		System.out.println(line1);
