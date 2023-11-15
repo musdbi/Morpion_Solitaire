@@ -5,7 +5,7 @@ import components.Line;
 import components.PlayedPoint;
 import components.Point;
 import helpers.IllegalPlayedPointException;
-import helpers.Mode;
+import game.Mode;
 import helpers.NotALineException;
 import helpers.OutOfGridException;
 import java.util.ArrayList;
