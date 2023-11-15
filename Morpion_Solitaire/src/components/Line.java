@@ -1,12 +1,16 @@
 package components;
 
-import java.util.Set;
+
 import helpers.Direction;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Set;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
+
 
 public class Line {
 	
@@ -51,19 +55,40 @@ public class Line {
     public int hashCode() {
         return Objects.hash(this.points.toArray());
     }
-	
+    
+    public void updatePlayedPoint(PlayedPoint point) {
+		if (point == null) throw new IllegalArgumentException ("Point cannot be null.");
+		if (!point.isPlayed()) throw new IllegalArgumentException ("Must be a played point");
+		this.points.remove(point);
+		this.points.add(point);
+	}
+    
+    
+    public Set<Point> getEndsOfLine(){
+    	Set<Point> endsOfLine = new HashSet<>();
+    	 List<Point> points = new ArrayList<>(this.points);
+    	 if (
+    			 this.direction == Direction.DIAGONAL1 ||
+    			 this.direction == Direction.DIAGONAL2 ||
+    			 this.direction == Direction.HORIZONTAL
+    		) {
+    	        Comparator<Point> comparator = Comparator.comparingInt(Point::getX);
+    	        Collections.sort(points, comparator);
+    	 }
+    	 else {
+    		 Comparator<Point> comparator = Comparator.comparingInt(Point::getY);
+ 	        Collections.sort(points, comparator);
+    	 }
+    	 endsOfLine.add(points.get(0));
+    	 endsOfLine.add(points.get(points.size() - 1));
+    	 return endsOfLine;
+    }
+    
 	public Direction getDirection() {
 		return this.direction;
 	}
 	
 	public Set<Point> getPoints(){
 		return points;
-	}
-	
-	public void updatePlayedPoint(PlayedPoint point) {
-		if (point == null) throw new IllegalArgumentException ("Point cannot be null.");
-		if (!point.isPlayed()) throw new IllegalArgumentException ("Must be a played point");
-		this.points.remove(point);
-		this.points.add(point);
 	}
 }
