@@ -2,20 +2,24 @@ package game;
 
 public class Mode {
 	
-	private int number;
+	private static int number;
 	
-	private String type;
+	private static StringBuilder type;
 	
-	public Mode(int number, String type) throws IllegalArgumentException{
-		if (number < 4 || number > 5 || (!type.equals("D") && !type.equals("T"))) throw new IllegalArgumentException("Ce mode de jeux n'existe pas: sélectionner 4D, 4T, 5D ou 5T");
-		this.number = number;
-		this.type = type;
+	public static void setNumber(int newNumber) {
+		if (newNumber < 4 || newNumber > 5) throw new IllegalArgumentException("This mode doesn't exist, chosoe among: 4D, 4T, 5D ou 5T");
+		number = newNumber;
 	}
 	
-	public int getNumber() {
-		return this.number;
+	public static void setType(String newType) {
+		if (!newType.equals("D") && !newType.equals("T")) throw new IllegalArgumentException("This mode doesn't exist, chosoe among: 4D, 4T, 5D ou 5T");
+		type = new StringBuilder(newType);
 	}
-	public String getType() {
-		return this.type;
+	
+	public static int getNumber() {
+		return number;
+	}
+	public static StringBuilder getType() {
+		return type;
 	}
 }

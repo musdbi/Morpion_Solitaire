@@ -2,6 +2,9 @@ package helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import game.Mode;
+
 import java.util.Collections;
 
 public enum Direction {
@@ -66,10 +69,4 @@ public enum Direction {
         orientations.add(orientation2);
         return orientations;
     }
-	
-	public static void main(String[] args) {
-		System.out.println(DIAGONAL2.moveX());
-		System.out.println(DIAGONAL2.moveY());
-
-	}
 }
