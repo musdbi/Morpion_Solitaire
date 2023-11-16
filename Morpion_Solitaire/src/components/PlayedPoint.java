@@ -1,10 +1,13 @@
 package components;
 
-import helpers.DefaultCoordinates;
+import helpers.DefaultCoordinates4;
+import helpers.DefaultCoordinates5;
 import helpers.Direction;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import game.Mode;
 
 public class PlayedPoint extends Point{
 	
@@ -25,25 +28,35 @@ public class PlayedPoint extends Point{
 	 */
 	private Set<Direction> involvedInDirections;
 	
+	
+	/**
+	 * This attribute indicates if the current played point is the end of a line
+	 * ex: the line from (0,0), (1,0), (2,0), (3,0)(4,0)
+	 * 		(0,0) and (4,0) are the ends of the line
+	 */
+	private boolean isEndOfLine;
+	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
-		if (!(DefaultCoordinates.getValues().contains(Objects.hash(x, y)))) {
-			playedPointsCount += 1;
-			this.id = playedPointsCount;
+		this.involvedInDirections = new HashSet<>();
+		this.isEndOfLine = false;
+		if (Mode.getNumber() == 5){
+			if (!(DefaultCoordinates5.getValues().contains(Objects.hash(x, y)))) {
+				playedPointsCount += 1;
+				this.id = playedPointsCount;
+			}
 		}
-		this.involvedInDirections = new HashSet<>();
-	}
-	
-	public PlayedPoint(Point p) {
-		super(p.getX(), p.getY());
-		playedPointsCount += 1;
-		this.id = playedPointsCount;
-		this.involvedInDirections = new HashSet<>();
+		if (Mode.getNumber() == 4){
+			if (!(DefaultCoordinates4.getValues().contains(Objects.hash(x, y)))) {
+				playedPointsCount += 1;
+				this.id = playedPointsCount;
+			}
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "Played point: (" + this.x + "," + this.y + ")";
+		return "Played point: (" + this.getX() + "," + this.getY() + ")";
 	}
 	
 	public static void resetCount() {
@@ -54,7 +67,7 @@ public class PlayedPoint extends Point{
 		return this.id;
 	}
 	
-	public int getCount() {
+	public static int getCount() {
 		return playedPointsCount;
 	}
 	
@@ -67,9 +80,19 @@ public class PlayedPoint extends Point{
 		this.involvedInDirections.add(direction);
 	}
 	
+	public boolean isEndOfLine() {
+		return this.isEndOfLine;
+	}
+	
+	public void setEndOfLine(boolean isEndOfLine) {
+		this.isEndOfLine = isEndOfLine;
+	}
+	
 	public static void main(String[] args) {
 		PlayedPoint p = new PlayedPoint(0, 0);
 		p.addInvolvedDirection(Direction.DIAGONAL1);
 		System.out.println(p.getInvolvedDirections());
 	}
+	
+	
 }

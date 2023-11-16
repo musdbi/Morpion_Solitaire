@@ -1,4 +1,4 @@
-package helpers;
+package exceptions;
 
 public class IllegalPlayedPointException extends Exception {
 	public IllegalPlayedPointException (String message) {
