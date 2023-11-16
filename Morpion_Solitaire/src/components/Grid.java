@@ -5,13 +5,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import exceptions.OutOfGridException;
 import game.Mode;
 
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import helpers.DefaultCoordinates;
+import helpers.DefaultCoordinates4;
+import helpers.DefaultCoordinates5;
 import helpers.Direction;
 import helpers.Orientation;
 
@@ -59,9 +61,35 @@ public class Grid {
 	}
 	
 	public void initGrid() {		
+		if (Mode.getNumber() == 5) initGrid5DT();
+		if (Mode.getNumber() == 4) initGrid4DT();
+	}
+	
+	/**
+	 * This method initializes the visual of the grid for mods with lines of 5 points
+	 */
+	public void initGrid5DT() {		
 		for (int y = 0; y < size; y++) {
 			for(int x = 0; x < size; x++) {
-				if (DefaultCoordinates.getValues().contains(Objects.hash(y, x))) {
+				if (DefaultCoordinates5.getValues().contains(Objects.hash(y, x))) {
+					grid.put(Objects.hash(y, x), new PlayedPoint(y, x));
+					visual[y][x] = "X";
+				}
+				else {
+					grid.put(Objects.hash(y,x), new Point(y, x));
+					visual[y][x] = "*";
+				}
+			}
+		}
+	}
+	
+	/**
+	 * This method initializes the visual of the grid for mods with lines of 4 points
+	 */
+	public void initGrid4DT() {		
+		for (int y = 0; y < size; y++) {
+			for(int x = 0; x < size; x++) {
+				if (DefaultCoordinates4.getValues().contains(Objects.hash(y, x))) {
 					grid.put(Objects.hash(y, x), new PlayedPoint(y, x));
 					visual[y][x] = "X";
 				}
@@ -113,7 +141,7 @@ public class Grid {
 		this.playablePoints.clear();
 		for (Map.Entry<Integer, Point> point: grid.entrySet()) {
 			if (!(point.getValue().isPlayed())){
-				Set<Line> possiblePointsForLine = (HashSet<Line>) this.findLinesAround(point.getValue(), new Mode(5, "D"));
+				Set<Line> possiblePointsForLine = (HashSet<Line>) this.findLinesAround(point.getValue());
 				if (!(possiblePointsForLine.isEmpty())){
 					playablePoints.put(point.getValue(), possiblePointsForLine);
 				}
@@ -132,7 +160,7 @@ public class Grid {
 	 * 		where the normal point would be a playable point for the next move.
 	 * 		an empty List if there is no playable point for the next move from the current point
 	 */
-	public Set<Line> findLinesAround(Point point, Mode mode) {
+	public Set<Line> findLinesAround(Point point) {
 		Set<Line> linesAround = new HashSet<>();
 		for (Direction direction: Direction.allDirections()) {
 			linesAround.addAll(this.findLinesInDirection(point, direction));
@@ -149,11 +177,27 @@ public class Grid {
 	 */
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		Set<Line> lines = new HashSet<>();
+		if (Mode.getType().equals("T")) {
+			Line jointLine = this.findJointLineInDirection(point, direction);
+			if (!(jointLine == null)) lines.add(jointLine);
+		}
+		
+		lines.addAll(findNormalLinesInDirection(point, direction));
+		
+		return lines;
+	}
+	
+	/**
+	 * This method searches for possible lines that are not joint
+	 * 
+	 * @param point
+	 * @param direction
+	 * @param mode
+	 * @return
+	 */
+	public Set<Line> findNormalLinesInDirection(Point point, Direction direction){
+		Set<Line> lines = new HashSet<>();
 		List<Point> possiblePoints = new ArrayList<>();
-		
-		Line jointLine = this.findJointLineInDirection(point, direction);
-		if (!(jointLine == null)) lines.add(jointLine);
-		
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
 			if (grid.containsKey(neighbour.hashCode())) {
 				if (
@@ -162,7 +206,7 @@ public class Grid {
 						!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
 					){
 						possiblePoints.add(neighbour);
-						if (possiblePoints.size() == 4) {
+						if (possiblePoints.size() == Mode.getNumber() - 1) {
 							possiblePoints.add(point);
 							lines.add(new Line(new HashSet<>(possiblePoints), direction));
 							possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
@@ -178,7 +222,7 @@ public class Grid {
 	}
 	
 	/**
-	 * This method search if there is the possibility to form a joint line in a direction
+	 * This method searches if there is the possibility to form a joint line in a direction
 	 * 
 	 * For each orientation of the direction, it checks if the very close neighbour at a distance of 1
 	 * is the end of a line that is in the same direction. 
@@ -198,7 +242,7 @@ public class Grid {
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
 			if (grid.containsKey(neighbourHash)) {
-				if (this.grid.get(neighbourHash).isPlayed()) {
+				if (this.getPoint(point.getX() + orientation.getX(), point.getY() + orientation.getY()).isPlayed()) {
 					if (
 							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
 							&& 
@@ -215,7 +259,7 @@ public class Grid {
 									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
 								) {
 								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-								if (possiblePoints.size() == 4) {
+								if (possiblePoints.size() == Mode.getNumber() - 1) {
 									possiblePoints.add(point);
 									return new Line(possiblePoints, direction);
 								}
@@ -245,7 +289,7 @@ public class Grid {
 		List<Point> neighboursList = new ArrayList<>();
 		List<Integer> moveX = direction.moveX();
 		List<Integer> moveY = direction.moveY();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < moveX.size(); i++) {
 			int hash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
 			if (this.grid.containsKey(hash)) {
 				neighboursList.add(this.grid.get(hash));
@@ -274,10 +318,9 @@ public class Grid {
 	        PlayedPoint p = (PlayedPoint) linePoint;
 			p.addInvolvedDirection(playedLine.getDirection());
 		}
+		
 		for (Point endsOfLine: playedLine.getEndsOfLine()) {
 			((PlayedPoint) endsOfLine).setEndOfLine(true);
-			System.out.println(endsOfLine);
-			System.out.println("est fin de ligne dans l'attribut grildd: " + ((PlayedPoint) grid.get(endsOfLine.hashCode())).isEndOfLine());
 		}
 		
 		for (Point point: playedLine.getPoints()) {
@@ -313,9 +356,15 @@ public class Grid {
 		return this.grid;
 	}
 	
+	public Point getPoint(int x, int y) {
+		if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
+		if (x >= 24 || y >= 24) throw new OutOfGridException("The point is outside the grid.");
+		return this.grid.get(Objects.hash(x, y));
+	}
 	public static void main(String[] args) {
-//		Set<Line> points = new HashSet<>();
-//		points.add(new HashSet<>());
+		Grid grid = new Grid();
+		grid.drawGrid();
+//		Set<Point> points = new HashSet<>();
 //		System.out.println(points);
 //		PlayedPoint p1 = new PlayedPoint(1,1);
 //		PlayedPoint p2 = new PlayedPoint(1,2);
@@ -323,6 +372,11 @@ public class Grid {
 //		PlayedPoint p4 = new PlayedPoint(1,4);
 //		Point p5 = new Point(1,5);
 //		PlayedPoint pp5 = new PlayedPoint(1, 5);
+//		playedLine.updatePlayedPoint(playedPoint);
+//		for (Point linePoint: playedLine.getPoints()) {
+//	        PlayedPoint p = (PlayedPoint) linePoint;
+//			p.addInvolvedDirection(playedLine.getDirection());
+//		}
 //		
 //		points.add(p1);
 //		points.add(p2);
@@ -337,10 +391,10 @@ public class Grid {
 //		System.out.println(p2.isPlayed());
 //		System.out.println(p2.getId());
 		
-		Point p = new Point(1,1);
-		PlayedPoint p111 = (PlayedPoint) p;
-		System.out.println(PlayedPoint.getCount());
-		System.out.println(p111.getId());
+//		Point p = new Point(1,1);
+//		PlayedPoint p111 = (PlayedPoint) p;
+//		System.out.println(PlayedPoint.getCount());
+//		System.out.println(p111.getId());
 
 
 //		Line line1 = new Line(points, Direction.VERTICAL);
