@@ -1,7 +1,8 @@
 package components;
 
-import helpers.OutOfGridException;
 import java.util.Objects;
+
+import exceptions.OutOfGridException;
 
 public class Point {
 	

@@ -1,10 +1,13 @@
 package components;
 
-import helpers.DefaultCoordinates;
+import helpers.DefaultCoordinates4;
+import helpers.DefaultCoordinates5;
 import helpers.Direction;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import game.Mode;
 
 public class PlayedPoint extends Point{
 	
@@ -35,20 +38,20 @@ public class PlayedPoint extends Point{
 	
 	public PlayedPoint(int x, int y) {
 		super(x, y);
-		if (!(DefaultCoordinates.getValues().contains(Objects.hash(x, y)))) {
-			playedPointsCount += 1;
-			this.id = playedPointsCount;
+		this.involvedInDirections = new HashSet<>();
+		this.isEndOfLine = false;
+		if (Mode.getNumber() == 5){
+			if (!(DefaultCoordinates5.getValues().contains(Objects.hash(x, y)))) {
+				playedPointsCount += 1;
+				this.id = playedPointsCount;
+			}
 		}
-		this.involvedInDirections = new HashSet<>();
-		this.isEndOfLine = false;
-	}
-	
-	public PlayedPoint(Point p) {
-		super(p.getX(), p.getY());
-		playedPointsCount += 1;
-		this.id = playedPointsCount;
-		this.involvedInDirections = new HashSet<>();
-		this.isEndOfLine = false;
+		if (Mode.getNumber() == 4){
+			if (!(DefaultCoordinates4.getValues().contains(Objects.hash(x, y)))) {
+				playedPointsCount += 1;
+				this.id = playedPointsCount;
+			}
+		}
 	}
 	
 	@Override
