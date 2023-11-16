@@ -253,6 +253,9 @@ public class Grid {
 						List<Integer> moveX = oppositeOrientation.moveX();
 						List<Integer> moveY = oppositeOrientation.moveY();
 						for (int i = 0; i <= moveX.size() - 1; i++) {
+							if (this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))) == null){
+								System.out.println("(" + point.getX() + moveX.get(i) + ", " +  point.getY() + moveY.get(i));
+							}
 							if (
 									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
 									&&
