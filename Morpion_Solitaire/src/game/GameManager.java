@@ -149,7 +149,7 @@ public class GameManager {
             	if (!(0 <= line && line <= playableLines.size() - 1)) throw new NotALineException();
                 break;
             } catch (NumberFormatException e1) {
-                System.out.println("Please enter valid integer coordinates.");
+                System.out.println("Please enter a number of the list above.");
             } catch (NotALineException e2) {
                 System.out.println(e2.getMessage());
             }

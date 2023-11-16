@@ -177,7 +177,7 @@ public class Grid {
 	 */
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		Set<Line> lines = new HashSet<>();
-		if (Mode.getType().equals("T")) {
+		if (Mode.getType().toString().equals("T")) {
 			Line jointLine = this.findJointLineInDirection(point, direction);
 			if (!(jointLine == null)) lines.add(jointLine);
 		}
@@ -362,8 +362,8 @@ public class Grid {
 		return this.grid.get(Objects.hash(x, y));
 	}
 	public static void main(String[] args) {
-		Grid grid = new Grid();
-		grid.drawGrid();
+//		Grid grid = new Grid();
+//		grid.drawGrid();
 //		Set<Point> points = new HashSet<>();
 //		System.out.println(points);
 //		PlayedPoint p1 = new PlayedPoint(1,1);
