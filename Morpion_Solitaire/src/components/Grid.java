@@ -361,47 +361,4 @@ public class Grid {
 		if (x >= 24 || y >= 24) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
 	}
-	public static void main(String[] args) {
-//		Grid grid = new Grid();
-//		grid.drawGrid();
-//		Set<Point> points = new HashSet<>();
-//		System.out.println(points);
-//		PlayedPoint p1 = new PlayedPoint(1,1);
-//		PlayedPoint p2 = new PlayedPoint(1,2);
-//		PlayedPoint p3 = new PlayedPoint(1,3);
-//		PlayedPoint p4 = new PlayedPoint(1,4);
-//		Point p5 = new Point(1,5);
-//		PlayedPoint pp5 = new PlayedPoint(1, 5);
-//		playedLine.updatePlayedPoint(playedPoint);
-//		for (Point linePoint: playedLine.getPoints()) {
-//	        PlayedPoint p = (PlayedPoint) linePoint;
-//			p.addInvolvedDirection(playedLine.getDirection());
-//		}
-//		
-//		points.add(p1);
-//		points.add(p2);
-//		points.add(p3);
-//		points.add(p4);
-//		points.add(p5);
-		
-//		Point p1 = new PlayedPoint(1,1);
-//		System.out.println(PlayedPoint.getCount());
-//		PlayedPoint p2 = (PlayedPoint) p1;
-//		System.out.println(PlayedPoint.getCount());
-//		System.out.println(p2.isPlayed());
-//		System.out.println(p2.getId());
-		
-//		Point p = new Point(1,1);
-//		PlayedPoint p111 = (PlayedPoint) p;
-//		System.out.println(PlayedPoint.getCount());
-//		System.out.println(p111.getId());
-
-
-//		Line line1 = new Line(points, Direction.VERTICAL);
-//		System.out.println(line1);
-//		line1.getPoints().remove(pp5);
-//		line1.getPoints().add(pp5);
-//		line1.updatePlayedPoint(pp5);
-//		System.out.println(line1);
-	}
 }
