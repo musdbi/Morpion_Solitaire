@@ -48,23 +48,6 @@ public class MultiThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-//        long startTime = System.currentTimeMillis();
-//        MultiThreading thread1 = new MultiThreading(new RandomAlgorithm(), 3, 100);
-//		MultiThreading thread2 = new MultiThreading(new RandomAlgorithm(), 3, 100);
-//		MultiThreading thread3 = new MultiThreading(new RandomAlgorithm(), 3, 100);
-//
-//		thread1.start();
-//		thread2.start();
-//		thread3.start();
-//		
-//		thread1.join();
-//		thread2.join();
-//		thread3.join();
-//		
-//        long endTime = System.currentTimeMillis();
-//        double elapsedTime = (endTime - startTime) * 0.001;
-//        System.out.println("Time taken: " + elapsedTime + " seconds");
-		
 		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(), 3, 34);
 		randomMultiThread.trainAlgorithm();
 		System.out.println("Nombres d'itérations au total: " + ResearchAlgorithm.getScores().size());
