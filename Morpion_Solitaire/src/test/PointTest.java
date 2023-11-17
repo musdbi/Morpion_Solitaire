@@ -39,13 +39,13 @@ public class PointTest {
 	@Test
 	public void testIsPlayed() {
 		assertEquals(false, p1.isPlayed());
-		Point playedPoint = new PlayedPoint(p1);
+		Point playedPoint = new PlayedPoint(1, 1);
 		assertEquals(true, playedPoint.isPlayed());
 	}
 	
 	@Test
 	public void testInvolvedDirection() {
-		PlayedPoint playedPoint = new PlayedPoint(p1);
+		PlayedPoint playedPoint = new PlayedPoint(1, 1);
 		playedPoint.addInvolvedDirection(Direction.VERTICAL);
 		assertEquals(
 				true, 

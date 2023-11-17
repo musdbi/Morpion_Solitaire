@@ -253,20 +253,20 @@ public class Grid {
 						List<Integer> moveX = oppositeOrientation.moveX();
 						List<Integer> moveY = oppositeOrientation.moveY();
 						for (int i = 0; i <= moveX.size() - 1; i++) {
-							if (this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))) == null){
-								System.out.println("(" + point.getX() + moveX.get(i) + ", " +  point.getY() + moveY.get(i));
-							}
-							if (
-									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
-									&&
-									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
-								) {
-								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-								if (possiblePoints.size() == Mode.getNumber() - 1) {
-									possiblePoints.add(point);
-									return new Line(possiblePoints, direction);
+							if (grid.containsKey(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))) {
+								if (
+										this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
+										&&
+										!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
+									) {
+									possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
+									if (possiblePoints.size() == Mode.getNumber() - 1) {
+										possiblePoints.add(point);
+										return new Line(possiblePoints, direction);
+									}
 								}
 							}
+							else break;
 						}
 					}
 				}
@@ -355,8 +355,8 @@ public class Grid {
 		return this.playablePoints;
 	}
 	
-	public Map<Integer, Point> getGrid(){
-		return this.grid;
+	public boolean contains(int x, int y) {
+		return this.grid.containsKey(Objects.hash(x, y));
 	}
 	
 	public Point getPoint(int x, int y) {

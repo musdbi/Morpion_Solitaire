@@ -25,9 +25,9 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	private double sigma;
 	
-	public RandomAlgorithm() {
-		Mode.setNumber(5);
-		Mode.setType("T");
+	public RandomAlgorithm(int modeNumber, String modeType) throws IllegalArgumentException{
+		Mode.setNumber(modeNumber);
+		Mode.setType(modeType);
 		this.mean = 0;
 		this.var = 0;
 		this.sigma = 0;
@@ -92,10 +92,8 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	}
 	
 	public static void main(String[] args) {
-		RandomAlgorithm randomAlgo = new RandomAlgorithm();
-//		int score = randomAlgo.launchAlgorithm();
-//		System.out.println("Le score de l'algorithme aléatoire est de " + score + " coups");
-		int it = 100;
+		RandomAlgorithm randomAlgo = new RandomAlgorithm(5, "D");
+		int it = 1000;
 		randomAlgo.trainAlgorithm(it);
 		randomAlgo.calculateStatistics();
 		System.out.println("Sur " + it +  " coups:");
