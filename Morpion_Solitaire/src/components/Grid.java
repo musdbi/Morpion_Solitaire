@@ -230,8 +230,9 @@ public class Grid {
 	 *		If no, we repeat the process for the opposite orientation
 	 * 
 	 * Considering these conditions:
-	 * If we found a possible joint lien in one side; then the method is finished because
-	 * it is then not possible to find a possible joint line in the other side
+	 * If we found a possible joint lien in one side; then it is not possible to find a possible joint line in the other side
+	 * and the method is done
+	 * 
 	 * 
 	 * @param point
 	 * @param direction
@@ -242,23 +243,23 @@ public class Grid {
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
 			if (grid.containsKey(neighbourHash)) {
-				if (this.getPoint(point.getX() + orientation.getX(), point.getY() + orientation.getY()).isPlayed()) {
+				if (this.grid.containsKey(neighbourHash)) {
 					if (
 							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
 							&& 
 							((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-						){
+					){
 						possiblePoints.add(this.grid.get(neighbourHash));
-						Orientation oppositeOrientation = direction.getOppositeOrientation(orientation);
-						List<Integer> moveX = oppositeOrientation.moveX();
-						List<Integer> moveY = oppositeOrientation.moveY();
+						List<Integer> moveX = direction.getOppositeOrientation(orientation).moveX();
+						List<Integer> moveY = direction.getOppositeOrientation(orientation).moveY();
 						for (int i = 0; i <= moveX.size() - 1; i++) {
-							if (grid.containsKey(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))) {
+							neighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
+							if (grid.containsKey(neighbourHash)) {
 								if (
-										this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
+										this.grid.get(neighbourHash).isPlayed()
 										&&
-										!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
-									) {
+										!((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+								) {
 									possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
 									if (possiblePoints.size() == Mode.getNumber() - 1) {
 										possiblePoints.add(point);

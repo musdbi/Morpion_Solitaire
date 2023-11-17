@@ -36,6 +36,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		this.scores = new ArrayList<>();
 	}
 	
+	@Override
 	public void launchAlgorithm() {
 		Grid grid = setUpGrid();
 		while (!grid.getPlayablePoints().isEmpty()){
@@ -43,11 +44,11 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	        grid.updateGrid(randomPlayedPoint, chooseRandomLine(grid, randomPlayedPoint));
 	        grid.updatePlayablePoints();
 		}
-//		grid.drawGrid();
 		this.grids.add(grid);
 		this.scores.add(PlayedPoint.getCount());
 	}
 	
+	@Override
 	public void trainAlgorithm(int iterations) {
 		for (int i = 0; i < iterations; i++) {
 			launchAlgorithm();
@@ -73,6 +74,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
         return playableLines.get(random.nextInt(playableLines.size()));
 	}
 	
+	@Override
 	public void calculateStatistics() {
 		int sum = 0;
 	    for (int score : this.scores) {
