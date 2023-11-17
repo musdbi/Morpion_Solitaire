@@ -11,32 +11,16 @@ import components.PlayedPoint;
 import components.Point;
 import game.Mode;
 
-public class RandomAlgorithm implements ResearchAlgorithm{
+public class RandomAlgorithm extends ResearchAlgorithm{
 	
-	Random random;
+	private Random random;
 	
-	private List<Grid> grids;
-	
-	private List<Integer> scores;
-	
-	private double mean;
-	
-	private double var;
-	
-	private double sigma;
-	
-	public RandomAlgorithm(int modeNumber, String modeType) throws IllegalArgumentException{
-		Mode.setNumber(modeNumber);
-		Mode.setType(modeType);
-		this.mean = 0;
-		this.var = 0;
-		this.sigma = 0;
+	public RandomAlgorithm() {
+		Mode.setNumber(5);
+		Mode.setType("T");
 		this.random = new Random();
-		this.grids = new ArrayList<>();
-		this.scores = new ArrayList<>();
 	}
 	
-	@Override
 	public void launchAlgorithm() {
 		Grid grid = setUpGrid();
 		while (!grid.getPlayablePoints().isEmpty()){
@@ -44,11 +28,12 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	        grid.updateGrid(randomPlayedPoint, chooseRandomLine(grid, randomPlayedPoint));
 	        grid.updatePlayablePoints();
 		}
-		this.grids.add(grid);
-		this.scores.add(PlayedPoint.getCount());
+//		grid.drawGrid();
+		ResearchAlgorithm.addGrid(grid);
+		ResearchAlgorithm.addScore(PlayedPoint.getCount());
 	}
 	
-	@Override
+	
 	public void trainAlgorithm(int iterations) {
 		for (int i = 0; i < iterations; i++) {
 			launchAlgorithm();
@@ -74,32 +59,15 @@ public class RandomAlgorithm implements ResearchAlgorithm{
         return playableLines.get(random.nextInt(playableLines.size()));
 	}
 	
-	@Override
-	public void calculateStatistics() {
-		int sum = 0;
-	    for (int score : this.scores) {
-	        sum += score;
-	    }
-	    this.mean =  ((double) sum / this.scores.size());
-	    
-
-	    double squareSum = 0;
-	    
-	    for (int nombre : this.scores) {
-	        squareSum += Math.pow(nombre - this.mean, 2);
-	    }
-	    this.var =  squareSum / this.scores.size();
-	    
-	   this.sigma = Math.sqrt(var);
-	}
-	
 	public static void main(String[] args) {
-		RandomAlgorithm randomAlgo = new RandomAlgorithm(5, "D");
-		int it = 1000;
+		RandomAlgorithm randomAlgo = new RandomAlgorithm();
+//		int score = randomAlgo.launchAlgorithm();
+//		System.out.println("Le score de l'algorithme aléatoire est de " + score + " coups");
+		int it = 50;
 		randomAlgo.trainAlgorithm(it);
-		randomAlgo.calculateStatistics();
+		ResearchAlgorithm.calculateStatistics();
 		System.out.println("Sur " + it +  " coups:");
-		System.out.println("Le score est en moyenne: " + randomAlgo.mean);
-		System.out.println("L'écart-type est: " + randomAlgo.sigma);
+		System.out.println("Le score est en moyenne: " + mean);
+		System.out.println("L'écart-type est: " + sigma);
 	}
 }
