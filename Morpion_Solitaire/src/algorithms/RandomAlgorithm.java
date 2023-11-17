@@ -33,7 +33,6 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 		ResearchAlgorithm.addScore(PlayedPoint.getCount());
 	}
 	
-	
 	public void trainAlgorithm(int iterations) {
 		for (int i = 0; i < iterations; i++) {
 			launchAlgorithm();
