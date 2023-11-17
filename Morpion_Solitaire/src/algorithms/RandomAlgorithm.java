@@ -60,14 +60,19 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 	}
 	
 	public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+
 		RandomAlgorithm randomAlgo = new RandomAlgorithm();
-//		int score = randomAlgo.launchAlgorithm();
-//		System.out.println("Le score de l'algorithme aléatoire est de " + score + " coups");
-		int it = 50;
+		int it = 100;
 		randomAlgo.trainAlgorithm(it);
 		ResearchAlgorithm.calculateStatistics();
+		
 		System.out.println("Sur " + it +  " coups:");
 		System.out.println("Le score est en moyenne: " + mean);
 		System.out.println("L'écart-type est: " + sigma);
+		
+		long endTime = System.currentTimeMillis();
+		double elapsedTime = (endTime - startTime) * 0.001;
+        System.out.println("Time taken: " + elapsedTime + " seconds");
 	}
 }

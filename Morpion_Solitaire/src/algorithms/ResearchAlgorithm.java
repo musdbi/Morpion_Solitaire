@@ -7,15 +7,15 @@ import components.Grid;
 
 public abstract class ResearchAlgorithm {
 	
-	private static List<Grid> grids = new ArrayList<>();
+	private volatile static List<Grid> grids = new ArrayList<>();
 	
-	protected static List<Integer> scores = new ArrayList<>();
+	protected volatile static List<Integer> scores = new ArrayList<>();
 	
-	protected static double mean = 0.0;
+	protected volatile static double mean = 0.0;
 	
-	protected static double var = 0.0;
+	protected volatile static double var = 0.0;
 	
-	protected static double sigma= 0.0;
+	protected volatile static double sigma= 0.0;
 	
 	abstract Grid setUpGrid();
 	
@@ -23,7 +23,7 @@ public abstract class ResearchAlgorithm {
 	
 	abstract void trainAlgorithm(int iterations);
 	
-	public static void calculateStatistics() {
+	public static synchronized void calculateStatistics() {
 		int sum = 0;
 	    for (int score : scores) {
 	        sum += score;
@@ -45,7 +45,24 @@ public abstract class ResearchAlgorithm {
 		grids.add(grid);
 	}
 	
+	/**
+	 * Method to add scores while ensuring thread safety
+	 * 
+	 * @param score
+	 */
 	public static void addScore(int score) {
 		scores.add(score);
+	}
+	
+	public static double getMean() {
+		return mean;
+	}
+	
+	public static double getSigma() {
+		return sigma;
+	}
+	
+	public static List<Integer> getScores(){
+		return scores;
 	}
 }
