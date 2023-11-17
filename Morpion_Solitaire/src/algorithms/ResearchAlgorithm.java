@@ -19,8 +19,14 @@ public abstract class ResearchAlgorithm {
 	
 	abstract Grid setUpGrid();
 	
+	/**
+	 * Launch algorithm one time
+	 */
 	abstract void launchAlgorithm();
 	
+	/**
+	 * @param iterations: Represent the number of times we want to launch the algorithm
+	 */
 	abstract void trainAlgorithm(int iterations);
 	
 	public static synchronized void calculateStatistics() {
