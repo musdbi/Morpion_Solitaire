@@ -199,24 +199,22 @@ public class Grid {
 		Set<Line> lines = new HashSet<>();
 		List<Point> possiblePoints = new ArrayList<>();
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
-			if (grid.containsKey(neighbour.hashCode())) {
-				if (
-						(neighbour.isPlayed()) 
-						&& 
-						!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
-					){
-						possiblePoints.add(neighbour);
-						if (possiblePoints.size() == Mode.getNumber() - 1) {
-							possiblePoints.add(point);
-							lines.add(new Line(new HashSet<>(possiblePoints), direction));
-							possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
-							possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
-						}
-					}
-				else {
-					possiblePoints.clear();
+			if (
+					grid.containsKey(neighbour.hashCode())
+					&&
+					(neighbour.isPlayed()) 
+					&& 
+					!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
+				){
+				possiblePoints.add(neighbour);
+				if (possiblePoints.size() == Mode.getNumber() - 1) {
+					possiblePoints.add(point);
+					lines.add(new Line(new HashSet<>(possiblePoints), direction));
+					possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
+					possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
 				}
 			}
+			else possiblePoints.clear();
 		}
 		return lines;
 	}
@@ -243,32 +241,34 @@ public class Grid {
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
 			if (grid.containsKey(neighbourHash)) {
-				if (this.grid.containsKey(neighbourHash)) {
-					if (
-							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
-							&& 
-							((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+				if (
+						this.grid.containsKey(neighbourHash)
+						&&
+						this.grid.get(neighbourHash).isPlayed()
+						&&
+						((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
+						&& 
+						((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
 					){
-						possiblePoints.add(this.grid.get(neighbourHash));
-						List<Integer> moveX = direction.getOppositeOrientation(orientation).moveX();
-						List<Integer> moveY = direction.getOppositeOrientation(orientation).moveY();
-						for (int i = 0; i <= moveX.size() - 1; i++) {
-							neighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-							if (grid.containsKey(neighbourHash)) {
-								if (
-										this.grid.get(neighbourHash).isPlayed()
-										&&
-										!((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-								) {
-									possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-									if (possiblePoints.size() == Mode.getNumber() - 1) {
-										possiblePoints.add(point);
-										return new Line(possiblePoints, direction);
-									}
-								}
+					possiblePoints.add(this.grid.get(neighbourHash));
+					List<Integer> moveX = direction.getOppositeOrientation(orientation).moveX();
+					List<Integer> moveY = direction.getOppositeOrientation(orientation).moveY();
+					for (int i = 0; i <= moveX.size() - 1; i++) {
+						neighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
+						if (
+								grid.containsKey(neighbourHash)
+								&&
+								this.grid.get(neighbourHash).isPlayed()
+								&&
+								!((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+							) {
+							possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
+							if (possiblePoints.size() == Mode.getNumber() - 1) {
+								possiblePoints.add(point);
+								return new Line(possiblePoints, direction);
 							}
 							else break;
-						}
+							}
 					}
 				}
 			}
