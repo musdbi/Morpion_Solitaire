@@ -24,7 +24,7 @@ public class Grid {
 	 * Length of the sizes of the grid (a square)
 	 * 
 	 */
-	private int size;
+	private static int size;
 	
 	/**
 	 * Memory of the grid. As the point are identified in memory with their hash code,
@@ -53,7 +53,7 @@ public class Grid {
 	private String [][] visual;
 
 	public Grid() {
-		this.size = 24;
+		size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet<Line>();
@@ -343,8 +343,8 @@ public class Grid {
 		this.lines.add(newLine);
 	}
 	
-	public int getSize(){
-		return this.size;
+	public static int getSize(){
+		return size;
 	}
 	
 	public Set<Line> getLines(){
@@ -361,7 +361,7 @@ public class Grid {
 	
 	public Point getPoint(int x, int y) {
 		if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
-		if (x >= 24 || y >= 24) throw new OutOfGridException("The point is outside the grid.");
+		if (x >= size || y >= size) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
 	}
 }

@@ -95,7 +95,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		RandomAlgorithm randomAlgo = new RandomAlgorithm();
 //		int score = randomAlgo.launchAlgorithm();
 //		System.out.println("Le score de l'algorithme aléatoire est de " + score + " coups");
-		int it = 20;
+		int it = 100;
 		randomAlgo.trainAlgorithm(it);
 		randomAlgo.calculateStatistics();
 		System.out.println("Sur " + it +  " coups:");
