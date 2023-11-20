@@ -118,7 +118,7 @@ public class MSMenuApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 //    	Image icon = new Image("res/logo-no-background.png");
-//      primaryStage.getIcons().add(icon);
+//    	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent());
         primaryStage.setTitle("Morpion Solitaire Menu");
         primaryStage.setScene(scene);
