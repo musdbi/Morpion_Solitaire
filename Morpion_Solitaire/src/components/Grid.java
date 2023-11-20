@@ -24,7 +24,7 @@ public class Grid {
 	 * Length of the sizes of the grid (a square)
 	 * 
 	 */
-	private int size;
+	private static int size;
 	
 	/**
 	 * Memory of the grid. As the point are identified in memory with their hash code,
@@ -53,7 +53,7 @@ public class Grid {
 	private String [][] visual;
 
 	public Grid() {
-		this.size = 24;
+		size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet<Line>();
@@ -199,24 +199,22 @@ public class Grid {
 		Set<Line> lines = new HashSet<>();
 		List<Point> possiblePoints = new ArrayList<>();
 		for (Point neighbour: this.getNeighboursInDirection(point, direction)) {
-			if (grid.containsKey(neighbour.hashCode())) {
-				if (
-						(neighbour.isPlayed()) 
-						&& 
-						!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
-					){
-						possiblePoints.add(neighbour);
-						if (possiblePoints.size() == Mode.getNumber() - 1) {
-							possiblePoints.add(point);
-							lines.add(new Line(new HashSet<>(possiblePoints), direction));
-							possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
-							possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
-						}
-					}
-				else {
-					possiblePoints.clear();
+			if (
+					grid.containsKey(neighbour.hashCode())
+					&&
+					(neighbour.isPlayed()) 
+					&& 
+					!(((PlayedPoint) neighbour).getInvolvedDirections().contains(direction))
+				){
+				possiblePoints.add(neighbour);
+				if (possiblePoints.size() == Mode.getNumber() - 1) {
+					possiblePoints.add(point);
+					lines.add(new Line(new HashSet<>(possiblePoints), direction));
+					possiblePoints.remove(possiblePoints.size() - 1); // remove the unplayed point
+					possiblePoints.remove(0); // remove first point so we can search new line from new neighbour
 				}
 			}
+			else possiblePoints.clear();
 		}
 		return lines;
 	}
@@ -230,8 +228,9 @@ public class Grid {
 	 *		If no, we repeat the process for the opposite orientation
 	 * 
 	 * Considering these conditions:
-	 * If we found a possible joint lien in one side; then the method is finished because
-	 * it is then not possible to find a possible joint line in the other side
+	 * If we found a possible joint lien in one side; then it is not possible to find a possible joint line in the other side
+	 * and the method is done
+	 * 
 	 * 
 	 * @param point
 	 * @param direction
@@ -242,29 +241,34 @@ public class Grid {
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
 			if (grid.containsKey(neighbourHash)) {
-				if (this.getPoint(point.getX() + orientation.getX(), point.getY() + orientation.getY()).isPlayed()) {
-					if (
-							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
-							&& 
-							((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-						){
-						possiblePoints.add(this.grid.get(neighbourHash));
-						Orientation oppositeOrientation = direction.getOppositeOrientation(orientation);
-						List<Integer> moveX = oppositeOrientation.moveX();
-						List<Integer> moveY = oppositeOrientation.moveY();
-						for (int i = 0; i <= moveX.size() - 1; i++) {
-							if (
-									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
-									&&
-									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
-								) {
-								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-								if (possiblePoints.size() == Mode.getNumber() - 1) {
-									possiblePoints.add(point);
-									return new Line(possiblePoints, direction);
-								}
+				if (
+						this.grid.containsKey(neighbourHash)
+						&&
+						this.grid.get(neighbourHash).isPlayed()
+						&&
+						((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
+						&& 
+						((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+					){
+					possiblePoints.add(this.grid.get(neighbourHash));
+					List<Integer> moveX = direction.getOppositeOrientation(orientation).moveX();
+					List<Integer> moveY = direction.getOppositeOrientation(orientation).moveY();
+					for (int i = 0; i <= moveX.size() - 1; i++) {
+						neighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
+						if (
+								grid.containsKey(neighbourHash)
+								&&
+								this.grid.get(neighbourHash).isPlayed()
+								&&
+								!((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+							) {
+							possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
+							if (possiblePoints.size() == Mode.getNumber() - 1) {
+								possiblePoints.add(point);
+								return new Line(possiblePoints, direction);
 							}
-						}
+							else break;
+							}
 					}
 				}
 			}
@@ -340,8 +344,8 @@ public class Grid {
 		this.lines.add(newLine);
 	}
 	
-	public int getSize(){
-		return this.size;
+	public static int getSize(){
+		return size;
 	}
 	
 	public Set<Line> getLines(){
@@ -352,13 +356,13 @@ public class Grid {
 		return this.playablePoints;
 	}
 	
-	public Map<Integer, Point> getGrid(){
-		return this.grid;
+	public boolean contains(int x, int y) {
+		return this.grid.containsKey(Objects.hash(x, y));
 	}
 	
 	public Point getPoint(int x, int y) {
 		if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
-		if (x >= 24 || y >= 24) throw new OutOfGridException("The point is outside the grid.");
+		if (x >= size || y >= size) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
 	}
 }
