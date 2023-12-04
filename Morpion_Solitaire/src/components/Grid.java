@@ -177,6 +177,7 @@ public class Grid {
 	 */
 	public Set<Line>findLinesInDirection(Point point, Direction direction) {
 		Set<Line> lines = new HashSet<>();
+		System.out.println(Mode.getType().toString().equals("T"));
 		if (Mode.getType().toString().equals("T")) {
 			Line jointLine = this.findJointLineInDirection(point, direction);
 			if (!(jointLine == null)) lines.add(jointLine);
