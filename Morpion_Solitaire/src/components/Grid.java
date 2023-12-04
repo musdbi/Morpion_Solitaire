@@ -183,7 +183,6 @@ public class Grid {
 		}
 		
 		lines.addAll(findNormalLinesInDirection(point, direction));
-		
 		return lines;
 	}
 	
@@ -241,34 +240,29 @@ public class Grid {
 		for (Orientation orientation: direction.getOrientations()){
 			int neighbourHash = Objects.hash(point.getX() + orientation.getX(), point.getY() + orientation.getY());
 			if (grid.containsKey(neighbourHash)) {
-				if (
-						this.grid.containsKey(neighbourHash)
-						&&
-						this.grid.get(neighbourHash).isPlayed()
-						&&
-						((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
-						&& 
-						((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-					){
-					possiblePoints.add(this.grid.get(neighbourHash));
-					List<Integer> moveX = direction.getOppositeOrientation(orientation).moveX();
-					List<Integer> moveY = direction.getOppositeOrientation(orientation).moveY();
-					for (int i = 0; i <= moveX.size() - 1; i++) {
-						neighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
-						if (
-								grid.containsKey(neighbourHash)
-								&&
-								this.grid.get(neighbourHash).isPlayed()
-								&&
-								!((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
-							) {
-							possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-							if (possiblePoints.size() == Mode.getNumber() - 1) {
-								possiblePoints.add(point);
-								return new Line(possiblePoints, direction);
+				if (this.getPoint(point.getX() + orientation.getX(), point.getY() + orientation.getY()).isPlayed()) {
+					if (
+							((PlayedPoint) this.grid.get(neighbourHash)).isEndOfLine() 
+							&& 
+							((PlayedPoint) this.grid.get(neighbourHash)).getInvolvedDirections().contains(direction)
+						){
+						possiblePoints.add(this.grid.get(neighbourHash));
+						Orientation oppositeOrientation = direction.getOppositeOrientation(orientation);
+						List<Integer> moveX = oppositeOrientation.moveX();
+						List<Integer> moveY = oppositeOrientation.moveY();
+						for (int i = 0; i <= moveX.size() - 1; i++) {
+							if (
+									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
+									&&
+									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
+								) {
+								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
+								if (possiblePoints.size() == Mode.getNumber() - 1) {
+									possiblePoints.add(point);
+									return new Line(possiblePoints, direction);
+								}
 							}
-							else break;
-							}
+						}
 					}
 				}
 			}
@@ -312,6 +306,8 @@ public class Grid {
 	}
 	
 	/**
+	 * This method is used to update the display in console
+	 * 
 	 * 1) Updating lines: add the line chosen and update the involvedDirections for each point of the played line
 	 * 2) Updating visual: update the visual with the line and the id of the played point
 	 * @param playedPoint

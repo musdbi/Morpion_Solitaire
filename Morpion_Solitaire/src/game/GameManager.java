@@ -117,7 +117,7 @@ public class GameManager {
             	x = Integer.parseInt(coordinates[0]);
                 y = Integer.parseInt(coordinates[1]);
                 if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
-                if (x >= board.getSize() || (y >= board.getSize())) throw new OutOfGridException("The point is outside the grid.");
+                if (x >= Grid.getSize() || (y >= Grid.getSize())) throw new OutOfGridException("The point is outside the grid.");
                 if (board.getPlayablePoints().get(new Point (x,y))== null) throw new IllegalPlayedPointException ("This point is not playable");
                 break;
             } catch (NumberFormatException e1) {
