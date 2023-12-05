@@ -251,17 +251,20 @@ public class Grid {
 						List<Integer> moveX = oppositeOrientation.moveX();
 						List<Integer> moveY = oppositeOrientation.moveY();
 						for (int i = 0; i <= moveX.size() - 1; i++) {
-							if (
-									this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))).isPlayed()
-									&&
-									!((PlayedPoint) this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i)))).getInvolvedDirections().contains(direction)
-								) {
-								possiblePoints.add(this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))));
-								if (possiblePoints.size() == Mode.getNumber() - 1) {
-									possiblePoints.add(point);
-									return new Line(possiblePoints, direction);
+							int oppositeNeighbourHash = Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i));
+							if (grid.containsKey(oppositeNeighbourHash)) {
+								if (
+										this.grid.get(oppositeNeighbourHash).isPlayed()
+										&&
+										!((PlayedPoint) this.grid.get(oppositeNeighbourHash)).getInvolvedDirections().contains(direction)
+									) {
+									possiblePoints.add(this.grid.get(oppositeNeighbourHash));
+									if (possiblePoints.size() == Mode.getNumber() - 1) {
+										possiblePoints.add(point);
+										return new Line(possiblePoints, direction);
+									}
 								}
-							}
+							}	
 						}
 					}
 				}
