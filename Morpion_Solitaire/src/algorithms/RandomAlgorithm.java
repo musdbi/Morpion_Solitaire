@@ -66,7 +66,7 @@ public class RandomAlgorithm extends ResearchAlgorithm{
         long startTime = System.currentTimeMillis();
 
 		RandomAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 1;
+		int it = 100;
 		randomAlgo.trainAlgorithm(it);
 		ResearchAlgorithm.calculateStatistics();
 		

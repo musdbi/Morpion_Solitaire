@@ -64,7 +64,7 @@ public class MultiThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(), 4, 200);
+		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(), 4, 100);
 		randomMultiThread.trainAlgorithm();
 		ResearchAlgorithm.calculateStatistics();
 		System.out.println("Nombres d'itérations au total: " + ResearchAlgorithm.getScores().size());
