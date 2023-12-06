@@ -3,21 +3,26 @@ package application;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +30,8 @@ public class MSMenuApp extends Application {
 
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
+    
+    Image icon = new Image(getClass().getResourceAsStream("res/logo2.png"));
 
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
             new Pair<String, Runnable>("Play", () -> {}),
@@ -38,7 +45,7 @@ public class MSMenuApp extends Application {
     private VBox menuBox = new VBox(-5);
     private Line line;
 
-    private Parent createContent() {
+    private Parent createContent(Stage primaryStage) {
         addBackground();
         addTitle();
 
@@ -46,7 +53,7 @@ public class MSMenuApp extends Application {
         double lineY = HEIGHT / 3 + 50;
 
         addLine(lineX, lineY);
-        addMenu(lineX + 5, lineY + 5);
+        addMenu(lineX + 5, lineY + 5, primaryStage);
 
         startAnimation();
 
@@ -96,31 +103,67 @@ public class MSMenuApp extends Application {
         st.play();
     }
 
-    private void addMenu(double x, double y) {
+    private void addMenu(double x, double y, Stage primaryStage) {
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
         menuData.forEach(data -> {
-            MSMenuItem item = new MSMenuItem(data.getKey());
+        MSMenuItem item = new MSMenuItem(data.getKey());
+        if (data.getKey().equals("Play")) {
+        	item.setOnAction(() -> primaryStage.setScene(createGameScene()));
+        } else {
             item.setOnAction(data.getValue());
-            item.setTranslateX(-300);
+            }
+        item.setTranslateX(-300);
 
-            Rectangle clip = new Rectangle(300, 30);
-            clip.translateXProperty().bind(item.translateXProperty().negate());
+        Rectangle clip = new Rectangle(300, 30);
+        clip.translateXProperty().bind(item.translateXProperty().negate());
 
-            item.setClip(clip);
+        item.setClip(clip);
 
-            menuBox.getChildren().addAll(item);
+        menuBox.getChildren().addAll(item);
         });
-
         root.getChildren().add(menuBox);
+    }
+    
+    private Scene createGameScene() {
+        // Créer l'ImageView pour le fond
+        ImageView imageView = new ImageView(new Image(getClass().getResource("res/fond.png").toExternalForm()));
+        imageView.setFitWidth(WIDTH);
+        imageView.setFitHeight(HEIGHT);
+
+        // Créer le GridPane pour la grille de points
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER); // Centrer le GridPane
+        gridPane.setHgap(5); // Espace horizontal entre les points
+        gridPane.setVgap(5); // Espace vertical entre les points
+
+        // Taille des points
+        int pointSize = 3;
+        Color pointColor = Color.BLACK;
+
+        // Ajouter les points au GridPane
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
+                Circle point = new Circle(pointSize, pointColor);
+                gridPane.add(point, i, j);
+            }
+        }
+
+        // Créer un StackPane pour superposer le GridPane et l'ImageView
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, gridPane); // Ajouter d'abord l'ImageView, puis le GridPane
+        
+
+        // Créer et retourner la scène avec le StackPane
+        Scene scene = new Scene(stackPane, WIDTH, HEIGHT);
+        return scene;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//    	Image icon = new Image("res/logo-no-background.png");
-//    	primaryStage.getIcons().add(icon);
-        Scene scene = new Scene(createContent());
-        primaryStage.setTitle("Morpion Solitaire Menu");
+    	primaryStage.getIcons().add(icon);
+        Scene scene = new Scene(createContent(primaryStage));
+        primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
