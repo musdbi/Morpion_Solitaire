@@ -20,10 +20,7 @@ public class NMCSState {
 	 * The score if we launch random algorithm from this state.
 	 */
 	private int scoreFromRollout;
-	
-	
-	private Map<Line, Point> possibleMoves;
-	
+		
 	/**
 	 *  The previous state in monte-carlo tree search, i.e one play before this one
 	 */
@@ -35,9 +32,14 @@ public class NMCSState {
 	 */
 	private Set<NMCSState> childStates;
 
-	public NMCSState() {
-		
+	public NMCSState(Grid grid) {
+		this.currentStateGrid = new Grid(grid);
 	}
 	
+//	public Map<Line, Point> exploreChilds(){
+//		for(this.currentStateGrid.getPossibleMoves().keySet()) {}
+//			
+//	}
+
 	
 }

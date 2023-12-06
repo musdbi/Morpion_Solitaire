@@ -1,7 +1,6 @@
 package algorithms;
 
 import components.Grid;
-import components.PlayedPoint;
 
 public class NMCS extends ResearchAlgorithm{
 
@@ -10,7 +9,6 @@ public class NMCS extends ResearchAlgorithm{
 	}
 	
 	public Grid setUpGrid() {
-		PlayedPoint.resetCount();
 		Grid grid = new Grid();
 		grid.initGrid();
 		grid.updatePlayablePoints();
@@ -19,7 +17,6 @@ public class NMCS extends ResearchAlgorithm{
 
 	@Override
 	void algorithm() {
-		// TODO Auto-generated method stub
 		
 	}
 

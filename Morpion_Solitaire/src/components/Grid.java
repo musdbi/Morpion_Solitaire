@@ -346,6 +346,7 @@ public class Grid {
 			((PlayedPoint) endsOfLine).setEndOfLine(true);
 		}
 		
+		this.lines.add(playedLine);
 		for (Point point: playedLine.getPoints()) {
 			if (playedLine.getDirection() == Direction.HORIZONTAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "-";
 			if (playedLine.getDirection() == Direction.VERTICAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "|";

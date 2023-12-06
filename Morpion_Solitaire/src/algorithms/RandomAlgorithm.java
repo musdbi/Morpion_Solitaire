@@ -27,7 +27,7 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 		}
 //        grid.drawGrid();
 		ResearchAlgorithm.addGrid(grid);
-		ResearchAlgorithm.addScore(PlayedPoint.getCount());
+		ResearchAlgorithm.addScore(grid.getLines().size());
 	}
 	
 	public void trainAlgorithm(int iterations) {
@@ -37,7 +37,6 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 	}
 	
 	public Grid setUpGrid() {
-		PlayedPoint.resetCount();
 		Grid grid = new Grid();
 		grid.initGrid();
 		grid.updatePlayablePoints();
@@ -55,7 +54,7 @@ public class RandomAlgorithm extends ResearchAlgorithm{
         long startTime = System.currentTimeMillis();
 
 		RandomAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 100;
+		int it = 1;
 		randomAlgo.trainAlgorithm(it);
 		ResearchAlgorithm.calculateStatistics();
 		

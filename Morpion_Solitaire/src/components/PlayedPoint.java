@@ -12,11 +12,6 @@ import game.Mode;
 public class PlayedPoint extends Point{
 	
 	/**
-	 * Total number of played points
-	 */
-	private static int playedPointsCount;
-	
-	/**
 	 * Id represent the order in which the current point was played
 	 */
 	private int id;
@@ -36,22 +31,24 @@ public class PlayedPoint extends Point{
 	 */
 	private boolean isEndOfLine;
 	
+	
+	/**
+	 * Constructor for default coordinates
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public PlayedPoint(int x, int y) {
 		super(x, y);
 		this.involvedInDirections = new HashSet<>();
 		this.isEndOfLine = false;
-		if (Mode.getNumber() == 5){
-			if (!(DefaultCoordinates5.getValues().contains(Objects.hash(x, y)))) {
-				playedPointsCount += 1;
-				this.id = playedPointsCount;
-			}
-		}
-		if (Mode.getNumber() == 4){
-			if (!(DefaultCoordinates4.getValues().contains(Objects.hash(x, y)))) {
-				playedPointsCount += 1;
-				this.id = playedPointsCount;
-			}
-		}
+	}
+	
+	public PlayedPoint(int x, int y, int id) {
+		super(x, y);
+		this.involvedInDirections = new HashSet<>();
+		this.isEndOfLine = false;
+		this.id = id;
 	}
 	
 	@Override
@@ -59,16 +56,8 @@ public class PlayedPoint extends Point{
 		return "Played point: (" + this.getX() + "," + this.getY() + ")";
 	}
 	
-	public static void resetCount() {
-		playedPointsCount = 0;
-	}
-	
 	public int getId() {
 		return this.id;
-	}
-	
-	public static int getCount() {
-		return playedPointsCount;
 	}
 	
 	public Set<Direction> getInvolvedDirections(){
@@ -93,6 +82,4 @@ public class PlayedPoint extends Point{
 		p.addInvolvedDirection(Direction.DIAGONAL1);
 		System.out.println(p.getInvolvedDirections());
 	}
-	
-	
 }
