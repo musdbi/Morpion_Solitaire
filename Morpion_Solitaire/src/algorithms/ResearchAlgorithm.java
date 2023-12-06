@@ -17,12 +17,11 @@ public abstract class ResearchAlgorithm {
 	
 	protected volatile static double sigma= 0.0;
 	
-	abstract Grid setUpGrid();
-	
+	public abstract Grid setUpGrid();
 	/**
 	 * Launch algorithm one time
 	 */
-	abstract void launchAlgorithm();
+	abstract void algorithm();
 	
 	/**
 	 * @param iterations: Represent the number of times we want to launch the algorithm
@@ -47,7 +46,7 @@ public abstract class ResearchAlgorithm {
 	   sigma = Math.sqrt(var);
 	}
 
-	public static void addGrid(Grid grid) {
+	public static synchronized void addGrid(Grid grid) {
 		grids.add(grid);
 	}
 	
@@ -56,7 +55,7 @@ public abstract class ResearchAlgorithm {
 	 * 
 	 * @param score
 	 */
-	public static void addScore(int score) {
+	public static synchronized void addScore(int score) {
 		scores.add(score);
 	}
 	
