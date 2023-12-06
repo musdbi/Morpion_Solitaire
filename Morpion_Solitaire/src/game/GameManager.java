@@ -66,6 +66,9 @@ public class GameManager {
     	while (!this.board.getPlayablePoints().isEmpty()) {
     		this.play();
         	this.board.updatePlayablePoints();
+        	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
+        	System.out.println("Coups possible: " + this.board.getPossibleMoves());
+
         	this.board.drawGrid();
     	}
     }

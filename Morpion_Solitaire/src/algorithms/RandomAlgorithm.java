@@ -23,8 +23,7 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 	public void algorithm() {
 		Grid grid = setUpGrid();
 		while (!grid.getPlayablePoints().isEmpty()){
-	        PlayedPoint randomPlayedPoint = chooseRandomPoint(grid);
-	        grid.updateGrid(randomPlayedPoint, chooseRandomLine(grid, randomPlayedPoint));
+	        this.playRandomMove(grid);
 	        grid.updatePlayablePoints();
 		}
 //        grid.drawGrid();
@@ -46,6 +45,12 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 		return grid;
 	}
 	
+	public void playRandomMove(Grid grid){
+		List<Line> lines = new ArrayList<>(grid.getPossibleMoves().keySet());
+        Line randomLine = lines.get(random.nextInt(lines.size()));
+        PlayedPoint randomPlayedPoint = new PlayedPoint(grid.getPossibleMoves().get(randomLine).getX(), grid.getPossibleMoves().get(randomLine).getY());
+        grid.updateGrid(randomPlayedPoint, randomLine);
+	}
 	public PlayedPoint chooseRandomPoint(Grid grid) {
 		List<Point> playablePoints = new ArrayList<>(grid.getPlayablePoints().keySet());
         Point randomPoint = playablePoints.get(random.nextInt(playablePoints.size()));

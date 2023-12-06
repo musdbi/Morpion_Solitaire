@@ -50,7 +50,7 @@ public class Grid {
 	/**
 	 * All the possible moves. This attribute is only used in the search algorithms.
 	 */
-	private Map<Line, Point> possiblesMoves;
+	private Map<Line, Point> possibleMoves;
 	
 	/**
 	 * Visual of the game on console
@@ -60,6 +60,7 @@ public class Grid {
 	public Grid() {
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
+        this.possibleMoves = new HashMap<>();
         this.lines = new HashSet<Line>();
         this.visual = new String [size][size];
 	}
@@ -355,7 +356,7 @@ public class Grid {
 	}
 	
 	private void updatePossibleMoves() {
-		Map<Line, Point> possibleMoves = new HashMap<>();
+		this.possibleMoves.clear();
 		for (Point playablePoint: this.playablePoints.keySet()) {
 			for (Line possibleLine: this.playablePoints.get(playablePoint)) {
 				possibleMoves.put(possibleLine, playablePoint);
@@ -388,7 +389,7 @@ public class Grid {
 	}
 	
 	public Map<Line, Point> getPossibleMoves(){
-		return this.possiblesMoves;
+		return this.possibleMoves;
 	}
 	
 	public String[][] getVisual(){
