@@ -3,7 +3,6 @@ package algorithms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.lang.Math;
 
 import components.Grid;
 import components.Line;
@@ -27,8 +26,8 @@ public class RandomAlgorithm extends ResearchAlgorithm{
 	        PlayedPoint randomPlayedPoint = chooseRandomPoint(grid);
 	        grid.updateGrid(randomPlayedPoint, chooseRandomLine(grid, randomPlayedPoint));
 	        grid.updatePlayablePoints();
-	        grid.drawGrid();
 		}
+//        grid.drawGrid();
 		ResearchAlgorithm.addGrid(grid);
 		ResearchAlgorithm.addScore(PlayedPoint.getCount());
 	}

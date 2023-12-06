@@ -39,7 +39,7 @@ public class Line {
 		}
 		if (direction == null) throw new IllegalArgumentException("A line must be defined with a direction.");
 		this.direction = direction;
-		this.points = points;
+		this.points = new HashSet<Point>(points);
 	};
 
 	@Override
@@ -56,7 +56,7 @@ public class Line {
         if (this == o) return true;
         if (o == null || !(o instanceof Line)) return false;
         Line otherLine = (Line) o;
-        return this.points.equals(otherLine.getPoints());
+        return this.points.equals(otherLine.getPoints()) && this.direction == otherLine.getDirection();
     }
     
     @Override

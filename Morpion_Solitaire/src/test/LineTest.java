@@ -40,7 +40,7 @@ public class LineTest {
 		points.add(p6);
 		Line line3 = new Line(points, Direction.VERTICAL);
 		assertEquals(line1, line2);
-		assertEquals(line2, line3);
+		assertEquals(false, line2.equals(line3));
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ public class LineTest {
 		Line line3 = new Line(points, Direction.VERTICAL);
 		
 		assertEquals(true, line1.hashCode() == line2.hashCode());
-		assertEquals(line2.hashCode(), line3.hashCode());
+		assertEquals(false, line2.hashCode() == line3.hashCode());
 	}
 	
 	@Test

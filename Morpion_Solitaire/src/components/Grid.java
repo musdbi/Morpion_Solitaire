@@ -24,7 +24,7 @@ public class Grid {
 	 * Length of the sizes of the grid (a square)
 	 * 
 	 */
-	private static int size;
+	private final static int size = 24;
 	
 	/**
 	 * Memory of the grid. As the point are identified in memory with their hash code,
@@ -48,21 +48,36 @@ public class Grid {
 	private  Map<Point, Set<Line>> playablePoints;
 	
 	/**
+	 * All the possible moves. This attribute is only used in the search algorithms.
+	 */
+	private Map<Line, Point> possiblesMoves;
+	
+	/**
 	 * Visual of the game on console
 	 */
-	private String [][] visual;
+	private String[][] visual;
 
 	public Grid() {
-		size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
         this.lines = new HashSet<Line>();
         this.visual = new String [size][size];
 	}
 	
+	public Grid(Grid grid) {
+		this.grid = new HashMap<Integer, Point>(grid.getGrid());
+        this.playablePoints = new HashMap<Point, Set<Line>>(grid.getPlayablePoints());
+        this.lines = new HashSet<Line>(grid.getLines());
+        this.visual = new String[grid.getVisual().length][];
+        for (int i = 0; i < grid.getVisual().length; i++) {
+        	this.visual[i] = new String[grid.getVisual()[i].length];
+            System.arraycopy(visual[i], 0, this.visual[i], 0, grid.getVisual()[i].length);
+        }
+	}
+	
 	public void initGrid() {		
 		if (Mode.getNumber() == 5) initGrid5DT();
-		if (Mode.getNumber() == 4) initGrid4DT();
+		else if (Mode.getNumber() == 4) initGrid4DT();
 	}
 	
 	/**
@@ -136,6 +151,8 @@ public class Grid {
 	 * Find all playable points
 	 * 
 	 * The search is limited to the sub grid defined by minPlayablePoint and maxPlayablePoint
+	 * 
+	 * It clears playable points before searching
 	 */ 
 	public void updatePlayablePoints() {
 		this.playablePoints.clear();
@@ -147,9 +164,11 @@ public class Grid {
 				}
 			}	
 		}
+		this.updatePossibleMoves();
 		this.updateVisualGrid();
 	}
 	
+
 	/**
 	 * This method find the possible lines that can be create from a given Played Point
 	 * 
@@ -335,6 +354,15 @@ public class Grid {
 		visual[playedPoint.getY()][playedPoint.getX()] =  "" + playedPoint.getId();
 	}
 	
+	private void updatePossibleMoves() {
+		Map<Line, Point> possibleMoves = new HashMap<>();
+		for (Point playablePoint: this.playablePoints.keySet()) {
+			for (Line possibleLine: this.playablePoints.get(playablePoint)) {
+				possibleMoves.put(possibleLine, playablePoint);
+			}
+		}
+	}
+	
 	public boolean isPlayable(Point point) {
 		return this.playablePoints.containsKey(point);
 	}
@@ -347,12 +375,24 @@ public class Grid {
 		return size;
 	}
 	
+	public Map<Integer, Point> getGrid(){
+		return this.grid;
+	}
+	
 	public Set<Line> getLines(){
 		return this.lines;
 	}
 	
 	public Map<Point, Set<Line>> getPlayablePoints() {
 		return this.playablePoints;
+	}
+	
+	public Map<Line, Point> getPossibleMoves(){
+		return this.possiblesMoves;
+	}
+	
+	public String[][] getVisual(){
+		return this.visual;
 	}
 	
 	public boolean contains(int x, int y) {
@@ -364,4 +404,6 @@ public class Grid {
 		if (x >= size || y >= size) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
 	}
+	
+	
 }
