@@ -7,7 +7,6 @@ import java.util.Random;
 import components.Grid;
 import components.Line;
 import components.PlayedPoint;
-import components.Point;
 import game.Mode;
 
 public class RandomAlgorithm extends ResearchAlgorithm{
@@ -51,17 +50,7 @@ public class RandomAlgorithm extends ResearchAlgorithm{
         PlayedPoint randomPlayedPoint = new PlayedPoint(grid.getPossibleMoves().get(randomLine).getX(), grid.getPossibleMoves().get(randomLine).getY());
         grid.updateGrid(randomPlayedPoint, randomLine);
 	}
-	public PlayedPoint chooseRandomPoint(Grid grid) {
-		List<Point> playablePoints = new ArrayList<>(grid.getPlayablePoints().keySet());
-        Point randomPoint = playablePoints.get(random.nextInt(playablePoints.size()));
-        return new PlayedPoint(randomPoint.getX(), randomPoint.getY());
-	}
-	
-	public Line chooseRandomLine(Grid grid, PlayedPoint randomPlayedPoint) {
-		List<Line> playableLines = new ArrayList<>(grid.getPlayablePoints().get(randomPlayedPoint));
-        return playableLines.get(random.nextInt(playableLines.size()));
-	}
-	
+
 	public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
 
