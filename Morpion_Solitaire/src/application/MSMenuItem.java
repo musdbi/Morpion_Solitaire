@@ -36,6 +36,11 @@ public class MSMenuItem extends Pane {
         text.setFill(Color.WHITE);
 
         getChildren().addAll(bg, text);
+        
+        setOnMouseEntered(e -> {
+        	MSMenuApp.hoverSound.stop();
+            MSMenuApp.hoverSound.play();
+        });
     }
 
     public void setOnAction(Runnable action) {
