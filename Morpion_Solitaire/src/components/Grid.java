@@ -65,15 +65,46 @@ public class Grid {
         this.visual = new String [size][size];
 	}
 	
-	public Grid(Grid grid) {
-		this.grid = new HashMap<Integer, Point>(grid.getGrid());
-        this.playablePoints = new HashMap<Point, Set<Line>>(grid.getPlayablePoints());
-        this.lines = new HashSet<Line>(grid.getLines());
-        this.visual = new String[grid.getVisual().length][];
-        for (int i = 0; i < grid.getVisual().length; i++) {
-        	this.visual[i] = new String[grid.getVisual()[i].length];
-            System.arraycopy(visual[i], 0, this.visual[i], 0, grid.getVisual()[i].length);
-        }
+	/**
+	 * Constructor to make a defensive copy of a grid
+	 * 
+	 * @param grid
+	 */
+	public Grid(Grid originalGrid) {
+		this.grid = new HashMap<>();
+	    for (Map.Entry<Integer, Point> entry : originalGrid.getGrid().entrySet()) {
+	    	if (entry.getValue().isPlayed()) {
+	    		PlayedPoint pointCopy = (PlayedPoint) entry.getValue();
+		        this.grid.put(entry.getKey(), new PlayedPoint(pointCopy));
+	    	}
+	    	else this.grid.put(entry.getKey(), new Point(entry.getValue()));
+	    }
+
+	    this.playablePoints = new HashMap<>();
+	    for (Map.Entry<Point, Set<Line>> entry : originalGrid.getPlayablePoints().entrySet()) {
+	        Set<Line> lines = new HashSet<>();
+	        for (Line line : entry.getValue()) {
+	            lines.add(new Line(line)); // Assuming Line has a copy constructor
+	        }
+	        this.playablePoints.put(new Point(entry.getKey()), lines);
+	    }
+
+	    this.possibleMoves = new HashMap<>();
+	    for (Map.Entry<Line, Point> entry : originalGrid.getPossibleMoves().entrySet()) {
+	        this.possibleMoves.put(new Line(entry.getKey()), new Point(entry.getValue()));
+	    }
+
+	    this.lines = new HashSet<>();
+	    for (Line line : originalGrid.getLines()) {
+	        this.lines.add(new Line(line)); // Assuming Line has a copy constructor
+	    }
+
+	    this.visual = new String[originalGrid.getVisual().length][originalGrid.getVisual()[0].length];
+	    for (int y = 0; y < originalGrid.getVisual().length; y++) {
+	        for (int x = 0; x < originalGrid.getVisual()[0].length; x++) {
+	            this.visual[y][x] = originalGrid.getVisual()[y][x];
+	        }
+	    }
 	}
 	
 	public void initGrid() {		
@@ -118,13 +149,14 @@ public class Grid {
 	}
 	
 	public void drawGrid() {
-		for (int y = size-1; y >= 0 ; y--) {
-            for (int x = 0; x < size; x++) {
-                System.out.print(visual[y][x]+ " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println("\n");
+		System.out.println(this.toString());
+//		for (int y = size-1; y >= 0 ; y--) {
+//            for (int x = 0; x < size; x++) {
+//                System.out.print(visual[y][x]+ " ");
+//            }
+//            System.out.print("\n");
+//        }
+//        System.out.println("\n");
 	}
 	
 	public void updateVisualGrid() {
@@ -365,6 +397,19 @@ public class Grid {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		String toString = "";
+		for (int y = size-1; y >= 0 ; y--) {
+            for (int x = 0; x < size; x++) {
+            	toString += visual[y][x]+ " ";
+            }
+            toString += "\n";
+        }
+		toString += "\n";
+		return toString;
+	}
+	
 	public boolean isPlayable(Point point) {
 		return this.playablePoints.containsKey(point);
 	}
@@ -407,5 +452,14 @@ public class Grid {
 		return this.grid.get(Objects.hash(x, y));
 	}
 	
-	
+	public static void main(String[] args) {
+		Grid grid = new Grid();
+		grid.initGrid();
+		grid.updatePlayablePoints();
+		Grid copy = new Grid(grid);
+		System.out.println(grid.getPossibleMoves());
+		System.out.println(copy.getPossibleMoves());
+
+		System.out.println(copy);
+	}
 }

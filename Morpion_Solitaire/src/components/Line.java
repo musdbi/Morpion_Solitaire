@@ -40,7 +40,19 @@ public class Line {
 		if (direction == null) throw new IllegalArgumentException("A line must be defined with a direction.");
 		this.direction = direction;
 		this.points = new HashSet<Point>(points);
-	};
+	}
+	
+	public Line(Line line) {
+		this.points = new HashSet<Point>();
+		for (Point linePoint: line.getPoints()) {
+			if (linePoint.isPlayed()) {
+				PlayedPoint linePointCopy = (PlayedPoint) linePoint;
+				this.points.add(new PlayedPoint(linePointCopy));
+			}
+			else this.points.add(new Point(linePoint));
+		}
+		this.direction = line.getDirection();
+	}
 
 	@Override
 	public String toString() {

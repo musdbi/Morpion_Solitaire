@@ -51,6 +51,16 @@ public class PlayedPoint extends Point{
 		this.id = id;
 	}
 	
+	public PlayedPoint(PlayedPoint playedPoint) {
+		super(playedPoint.getX(), playedPoint.getY());
+		this.id = playedPoint.getId();
+		this.involvedInDirections = new HashSet<>();
+		for (Direction direction: playedPoint.getInvolvedDirections()) {
+			this.involvedInDirections.add(direction);
+		}
+		this.isEndOfLine = playedPoint.isEndOfLine();
+	}
+	
 	@Override
 	public String toString() {
 		return "Played point: (" + this.getX() + "," + this.getY() + ")";
