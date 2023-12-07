@@ -28,6 +28,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
+import components.*;
 
 public class MSMenuApp extends Application {
 	
@@ -36,6 +37,7 @@ public class MSMenuApp extends Application {
     
     private Image icon = new Image(getClass().getResourceAsStream("res/logo2.png"));
     protected static MediaPlayer hoverSound;
+    protected static MediaPlayer clickSound;
     
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
             new Pair<String, Runnable>("Play", () -> {}),
@@ -44,6 +46,8 @@ public class MSMenuApp extends Application {
             new Pair<String, Runnable>("Scoreboard", () -> {}),
             new Pair<String, Runnable>("Exit to Desktop", Platform::exit)
     );
+    
+    public static Scene menuScene;
 
     private Pane root = new Pane();
     private VBox menuBox = new VBox(-5);
@@ -113,10 +117,18 @@ public class MSMenuApp extends Application {
         menuData.forEach(data -> {
         MSMenuItem item = new MSMenuItem(data.getKey());
         if (data.getKey().equals("Play")) {
-        	item.setOnAction(() -> primaryStage.setScene(createGridScene()));
+            item.setOnAction(() -> {
+                menuScene = primaryStage.getScene();
+                primaryStage.setScene(selectNameScene());
+            });
+        } else if (data.getKey().equals("Game Options")) {
+        	item.setOnAction(() -> {
+                menuScene = primaryStage.getScene();
+                primaryStage.setScene(selectOptionScene());
+            });
         } else {
             item.setOnAction(data.getValue());
-            }
+        }
         item.setTranslateX(-300);
 
         Rectangle clip = new Rectangle(300, 30);
@@ -129,11 +141,25 @@ public class MSMenuApp extends Application {
         root.getChildren().add(menuBox);
     }
   
-    private Scene createGridScene() {
+	private Scene selectNameScene() {
     	Parent newRoot;
     	try {
-    		newRoot = FXMLLoader.load(getClass().getResource("Main.fxml"));
+    		newRoot = FXMLLoader.load(getClass().getResource("NameScene.fxml"));
     	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("Could not load the FXML");
+    		return null;
+    	}
+    	Scene scene = new Scene (newRoot);
+    	return scene;
+    }
+
+	private Scene selectOptionScene() {
+    	Parent newRoot;
+    	try {
+    		newRoot = FXMLLoader.load(getClass().getResource("OptionScene.fxml"));
+    	} catch (Exception e) {
+    		e.printStackTrace();
     		System.out.println("Could not load the FXML");
     		return null;
     	}
@@ -146,24 +172,29 @@ public class MSMenuApp extends Application {
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
-
+        
      // Fixer la taille de la fenêtre
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
-        
+   
      // Empêcher le redimensionnement de la fenêtre
         primaryStage.setResizable(false);
-        
+
      // Charger le fichier audio pour le son de survol
-        String hoverSoundFile = getClass().getResource("res/button_sound.mp3").toExternalForm();
+        String hoverSoundFile = getClass().getResource("res/hover.mp3").toExternalForm();
         Media hoverMedia = new Media(hoverSoundFile);
         hoverSound = new MediaPlayer(hoverMedia);
+
+     // Charger le fichier audio pour le son de clique
+        String clickSoundFile = getClass().getResource("res/clickb.mp3").toExternalForm();
+        Media clickMedia = new Media(clickSoundFile);
+        clickSound = new MediaPlayer(clickMedia);
 
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    
     public static void main(String[] args) {
         launch(args);
     }

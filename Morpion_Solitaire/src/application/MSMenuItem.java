@@ -39,7 +39,14 @@ public class MSMenuItem extends Pane {
         
         setOnMouseEntered(e -> {
         	MSMenuApp.hoverSound.stop();
+        	MSMenuApp.clickSound.stop();
             MSMenuApp.hoverSound.play();
+        });
+        
+        setOnMouseClicked(e -> {
+        	MSMenuApp.hoverSound.stop();
+            MSMenuApp.clickSound.stop();
+            MSMenuApp.clickSound.play();
         });
     }
 
