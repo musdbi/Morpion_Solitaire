@@ -64,14 +64,14 @@ public class MultiThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(), 4, 100);
+		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(5, "T"), 4, 100);
 		randomMultiThread.trainAlgorithm();
-		ResearchAlgorithm.calculateStatistics();
-		System.out.println("Nombres d'itérations au total: " + ResearchAlgorithm.getScores().size());
+		RandomAlgorithm.calculateStatistics();
+		System.out.println("Nombres d'itérations au total: " + RandomAlgorithm.getScores().size());
 		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
 		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");
 		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);;
-		System.out.println("Le score est en moyenne: " + ResearchAlgorithm.getMean());
-		System.out.println("L'écart-type est: " + ResearchAlgorithm.getSigma());
+		System.out.println("Le score est en moyenne: " + RandomAlgorithm.getMean());
+		System.out.println("L'écart-type est: " + RandomAlgorithm.getSigma());
 	}
 }

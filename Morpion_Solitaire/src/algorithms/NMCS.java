@@ -3,9 +3,12 @@ package algorithms;
 import components.Grid;
 
 public class NMCS extends ResearchAlgorithm{
-
-	public NMCS() {
-		// TODO Auto-generated constructor stub
+	
+	
+	private final int depthLevel;
+	
+	public NMCS(int depthLevel) {
+		this.depthLevel = depthLevel;
 	}
 	
 	public Grid setUpGrid() {
