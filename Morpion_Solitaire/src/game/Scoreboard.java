@@ -6,6 +6,9 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import game.ScoreTuple;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 
 public class Scoreboard {
 	
@@ -27,6 +30,19 @@ public class Scoreboard {
 	      System.out.println("Exception " + ioe);
 	    }
 		scores = new TreeMap<>(Collections.reverseOrder());
+	}
+	
+	public void show() {
+	    if (Desktop.isDesktopSupported()) {
+	        try {
+	            File file = new File(path);
+	            Desktop.getDesktop().open(file);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Desktop is not supported");
+	    }
 	}
 	
 	public void addScore(String playerName, int score) {

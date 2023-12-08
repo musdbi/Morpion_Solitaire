@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GameManager {
+public class GameManagerFX {
 
 //    @SuppressWarnings("unused")
 //    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
@@ -38,20 +38,19 @@ public class GameManager {
      *
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
-    public GameManager(String player){
-    	if (player .isEmpty()) throw new IllegalArgumentException("Please type a valid name.");
-        this.currentPlayer = player;
-        this.scanner= new Scanner(System.in);
+    public GameManagerFX(){
+    	mode = new Mode();
+    	Mode.setNumber(5);
+    	Mode.setType("T");
+    	board = new Grid();
+    	ranking = new Scoreboard();
     }
 
     /**
      * Sets up the game
      */
     public void setupGame(){
-    	chooseMode();
     	score = 0;
-        ranking = new Scoreboard();
-        board = new Grid();
         board.initGrid();
         this.board.updatePlayablePoints();
         this.board.drawGrid();
@@ -80,30 +79,6 @@ public class GameManager {
     	PlayedPoint playedPoint = playPoint();
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
-    }
-    
-    public void chooseMode() {
-    	int number;
-    	String type="";
-    	while (true) {
-    		System.out.println("Choose the mode among these: 4 D, 4 T, 5 D, 5 T:");
-            String userInput = scanner.nextLine();
-            String[] coordinates = userInput.replaceAll(" ", "").split("");
-            try {
-            	if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("You have to enter one number and one letter");
-            	number = Integer.parseInt(coordinates[0]);
-            	Mode.setNumber(number);
-            	type = coordinates[1];
-            	Mode.setType(type);
-            	break;
-            } catch (NumberFormatException e1) {
-                System.out.println("The number of the mode can not be a character");
-            } catch (ArrayIndexOutOfBoundsException e2) {
-            	System.out.println(e2.getMessage());
-            } catch (IllegalArgumentException e3) {
-                System.out.println(e3.getMessage());
-            }
-    	}
     }
     
     public PlayedPoint playPoint() {
@@ -169,6 +144,10 @@ public class GameManager {
 		return this.board;
 	}
 	
+	public Scoreboard getSB() {
+		return this.ranking;
+	}
+	
 	public String getVersion() {
 		return this.currentVersion;
 	}
@@ -178,7 +157,7 @@ public class GameManager {
     }
 
     public static void main(String[] args) {
-    	GameManager game = new GameManager("Pierre");
+    	GameManagerFX game = new GameManagerFX();
     	game.setupGame();
     	game.launchGame();
     	game.endGame();

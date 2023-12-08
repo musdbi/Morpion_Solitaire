@@ -3,6 +3,7 @@ package application;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,8 +30,12 @@ import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
 import components.*;
+import game.GameManagerFX;
+import game.Mode;
 
 public class MSMenuApp extends Application {
+	
+	private GameManagerFX GM;
 	
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
@@ -126,6 +131,10 @@ public class MSMenuApp extends Application {
                 menuScene = primaryStage.getScene();
                 primaryStage.setScene(selectOptionScene());
             });
+        } else if (data.getKey().equals("Scoreboard")) {
+        	item.setOnAction(() -> {
+                GM.getSB().show();
+            });
         } else {
             item.setOnAction(data.getValue());
         }
@@ -166,9 +175,44 @@ public class MSMenuApp extends Application {
     	Scene scene = new Scene (newRoot);
     	return scene;
     }
+	
+	public void set4D (ActionEvent event) {
+		Mode.setNumber(4);
+		Mode.setType("D");
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(MSMenuApp.menuScene);
+	    stage.show();
+	}
+	
+	public void set4T (ActionEvent event) {
+		Mode.setNumber(4);
+		Mode.setType("T");
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(MSMenuApp.menuScene);
+	    stage.show();
+	}
+	
+	public void set5D (ActionEvent event) {
+		Mode.setNumber(5);
+		Mode.setType("D");
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(MSMenuApp.menuScene);
+	    stage.show();
+	}
+	
+	public void set5T (ActionEvent event) {
+		Mode.setNumber(5);
+		Mode.setType("T");
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(MSMenuApp.menuScene);
+	    stage.show();
+	}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	
+     // Initialisation du GameManger
+    	GM = new GameManagerFX ();
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
@@ -184,6 +228,7 @@ public class MSMenuApp extends Application {
         String hoverSoundFile = getClass().getResource("res/hover.mp3").toExternalForm();
         Media hoverMedia = new Media(hoverSoundFile);
         hoverSound = new MediaPlayer(hoverMedia);
+        hoverSound.setVolume(0.1);
 
      // Charger le fichier audio pour le son de clique
         String clickSoundFile = getClass().getResource("res/clickb.mp3").toExternalForm();
