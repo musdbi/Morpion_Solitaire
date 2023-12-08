@@ -44,8 +44,8 @@ public class PlayedPoint extends Point{
 		this.isEndOfLine = false;
 	}
 	
-	public PlayedPoint(int x, int y, int id) {
-		super(x, y);
+	public PlayedPoint(Point p, int id) {
+		super(p.getX(), p.getY());
 		this.involvedInDirections = new HashSet<>();
 		this.isEndOfLine = false;
 		this.id = id;
