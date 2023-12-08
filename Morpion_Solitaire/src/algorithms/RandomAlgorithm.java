@@ -28,9 +28,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	protected static volatile double sigma = 0.0;
 	
-	public RandomAlgorithm(int modeNumber, String modeType) {
-		Mode.setNumber(modeNumber);
-		Mode.setType(modeType);
+	public RandomAlgorithm() {
 		this.random = new Random();
 		this.grid = new Grid();
 		this.grid.initGrid();
@@ -44,58 +42,33 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	 * @param modeType
 	 * @param grid
 	 */
-	public RandomAlgorithm(int modeNumber, String modeType, Grid grid) {
-		Mode.setNumber(modeNumber);
-		Mode.setType(modeType);
+	public RandomAlgorithm(Grid grid) {
 		this.grid = new Grid(grid);
 		this.random = new Random();
 	}
 	
-	public void algorithm(int i) {
+	@Override
+	public int algorithm() {
 		Grid simulatedGrid = new Grid(this.grid);
-//		Grid simulatedGrid = setUpGrid();
 		while (!simulatedGrid.getPlayablePoints().isEmpty()){
-//			if (i == 1) {
-//				System.out.println("Before play");
-//	        	System.out.println(simulatedGrid);
-//	        	System.out.println(simulatedGrid.getPlayablePoints().keySet());
-//	        }
 	        playRandomMove(simulatedGrid);
 	        simulatedGrid.updatePlayablePoints();
-//	        if (i == 1) {
-//				System.out.println("After play");
-//	        	System.out.println(simulatedGrid);
-//	        	System.out.println(simulatedGrid.getPlayablePoints().keySet());
-//	        	System.out.println("fini: " + simulatedGrid.getPlayablePoints().isEmpty());
-//	        }
 		}
-
-		if (i ==1) {System.out.println("score: " + simulatedGrid.getLines().size());}
-//		simulatedGrid.drawGrid();
 		this.addGrid(simulatedGrid);	
 		this.addScore(simulatedGrid.getLines().size());
+		return simulatedGrid.getLines().size();
 	}
 	
 	public void trainAlgorithm(int iterations) { 
-		int a = 0;
 		for (int i = 0; i < iterations; i++) {
-			algorithm(a);
-			a++;
+			algorithm();
 		}
-	}
-	
-	public Grid setUpGrid() {
-		Grid grid = new Grid();
-		grid.initGrid();
-		grid.updatePlayablePoints();
-		return grid;
 	}
 
 	public void playRandomMove(Grid grid){
-//		System.out.println(lines);
 		List<Line> lines = new ArrayList<>(grid.getPossibleMoves().keySet());
         Line randomLine = lines.get(random.nextInt(lines.size()));
-        PlayedPoint randomPlayedPoint = new PlayedPoint(grid.getPossibleMoves().get(randomLine).getX(), grid.getPossibleMoves().get(randomLine).getY(), grid.getLines().size() + 1);
+        PlayedPoint randomPlayedPoint = new PlayedPoint(grid.getPossibleMoves().get(randomLine), grid.getLines().size() + 1);
         grid.updateGrid(randomPlayedPoint, randomLine);
 	}
 	
@@ -106,7 +79,6 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	    }
 	    mean =  ((double) sum / scores.size());
 	    
-
 	    double squareSum = 0;
 	    
 	    for (int nombre : scores) {
@@ -147,9 +119,12 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 
 	public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
+//        
+//        Mode.setNumber(5);
+//        Mode.setType("T");
 
-		ResearchAlgorithm randomAlgo = new RandomAlgorithm(5, "T");
-		int it = 50;
+		ResearchAlgorithm randomAlgo = new RandomAlgorithm();
+		int it = 25;
 		randomAlgo.trainAlgorithm(it);
 		RandomAlgorithm.calculateStatistics();
 		
@@ -160,11 +135,5 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
-	}
-
-	@Override
-	public void algorithm() {
-		// TODO Auto-generated method stub
-		
 	}
 }

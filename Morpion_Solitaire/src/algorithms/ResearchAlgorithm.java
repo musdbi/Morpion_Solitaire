@@ -6,9 +6,10 @@ import components.Grid;
 public interface  ResearchAlgorithm {
 	
 	/**
-	 * Launch algorithm one time
+	 * Launch algorithm one time 
+	 * @return the score
 	 */
-	void algorithm();
+	int algorithm();
 	
 	/**
 	 * @param iterations: Represent the number of times we want to launch the algorithm
