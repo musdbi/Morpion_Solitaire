@@ -18,7 +18,7 @@ public class GameManagerFX {
 //    @SuppressWarnings("unused")
 //    private static final Logger LOGGER = LoggerFactory.getLogger(GameManager.class);
     
-    private Scoreboard ranking;
+    private static Scoreboard ranking;
 
     private String currentVersion;
     
@@ -31,6 +31,8 @@ public class GameManagerFX {
 	private Scanner scanner;
 	
 	private Mode mode;
+	
+    private static GameManagerFX instance;
 
 
     /**
@@ -40,10 +42,16 @@ public class GameManagerFX {
      */
     public GameManagerFX(){
     	mode = new Mode();
-    	Mode.setNumber(5);
-    	Mode.setType("T");
     	board = new Grid();
     	ranking = new Scoreboard();
+    	currentPlayer = "player";
+    }
+    
+    public static GameManagerFX getInstance() {
+        if (instance == null) {
+            instance = new GameManagerFX();
+        }
+        return instance;
     }
 
     /**
@@ -65,12 +73,15 @@ public class GameManagerFX {
     	while (!this.board.getPlayablePoints().isEmpty()) {
     		this.play();
         	this.board.updatePlayablePoints();
+        	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
+        	System.out.println("Coups possible: " + this.board.getPossibleMoves());
+
         	this.board.drawGrid();
     	}
     }
     
     public void endGame(){
-        this.score = PlayedPoint.getCount();
+        this.score = this.board.getLines().size();
         System.out.println("Partie terminée, score: " + this.score);
         ranking.addScore(currentPlayer, score);
     }
@@ -105,7 +116,7 @@ public class GameManagerFX {
             	System.out.println(e4.getMessage());
             }
     	}
-    	return new PlayedPoint(x, y);
+    	return new PlayedPoint(this.board.getPoint(x, y), this.board.getLines().size() + 1); // Adding number of lines + 1 for played point id because lines of grid have not been updtated yet
     }
     
     public Line chooseLine(PlayedPoint playedPoint) {
@@ -132,28 +143,28 @@ public class GameManagerFX {
     	return playableLines.get(line);
     }
     
-    public int getScore() {
-		return this.score;
+    public String getScore() {
+		return String.valueOf(this.score);
 	}
 	
 	public String getPlayerName() {
 		return this.currentPlayer;
 	}
 	
-	public void setPlayerName(String name) {
-		currentPlayer = name;
-	}
-	
 	public Grid getGrid() {
 		return this.board;
 	}
 	
-	public Scoreboard getSB() {
-		return this.ranking;
+	public static Scoreboard getSB() {
+		return ranking;
 	}
 	
 	public String getVersion() {
 		return this.currentVersion;
+	}
+	
+	public void setPlayerName(String name) {
+		currentPlayer = name;
 	}
 
     public void displayRanking(){

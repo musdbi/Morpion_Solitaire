@@ -84,17 +84,17 @@
          </rowConstraints>
       </GridPane>
       <Line endX="1027.2928466796875" endY="-1.5258789289873675E-6" startX="1027.2928466796875" startY="711.5144653320312" />
-      <Text layoutX="1056.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :">
+      <Text layoutX="1039.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Text layoutX="1055.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODE :">
+      <Text layoutX="1039.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODE :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Text layoutX="1055.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE :">
+      <Text layoutX="1039.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
@@ -104,10 +104,25 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="1119.0" layoutY="84.0" mnemonicParsing="false" onAction="#checkBGSound" text="Togglemusic" textAlignment="CENTER">
+      <Button layoutX="1108.0" layoutY="84.0" mnemonicParsing="false" onAction="#checkBGSound" text="Togglemusic" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
+      <Text fx:id="nomJoueur" layoutX="1111.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="mode" layoutX="1111.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="score" layoutX="1111.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

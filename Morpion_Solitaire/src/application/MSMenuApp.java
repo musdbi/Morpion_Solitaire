@@ -35,8 +35,6 @@ import game.Mode;
 
 public class MSMenuApp extends Application {
 	
-	private GameManagerFX GM = new GameManagerFX ();
-	
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
     
@@ -134,7 +132,7 @@ public class MSMenuApp extends Application {
             });
         } else if (data.getKey().equals("Scoreboard")) {
         	item.setOnAction(() -> {
-                GM.getSB().show();
+                GameManagerFX.getSB().show();
             });
         } else {
             item.setOnAction(data.getValue());
@@ -150,7 +148,7 @@ public class MSMenuApp extends Application {
         });
         root.getChildren().add(menuBox);
     }
-  
+ 
 	private Scene selectNameScene() {
     	Parent newRoot;
     	try {
@@ -179,6 +177,20 @@ public class MSMenuApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	
+//     // Passez l'instance GameManagerFX aux scènes qui en ont besoin
+//    	
+//        //NameScene						
+//    	FXMLLoader loader = new FXMLLoader(getClass().getResource("NameScene.fxml"));
+//        Parent root = loader.load();
+//        MSSceneController controllerName = loader.getController();
+//        controllerName.initGameManager(gameManager);
+//        
+//        //GridScene
+//        loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
+//        root = loader.load();
+//        MSGridController controllerGrid = loader.getController();
+//        controllerGrid.initGameManager(gameManager);
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
@@ -209,12 +221,12 @@ public class MSMenuApp extends Application {
                 bgSound.play();
             }
         });
-
+        
      // Charger le fichier audio pour le son de clique
         String clickSoundFile = getClass().getResource("res/clickb.mp3").toExternalForm();
         Media clickMedia = new Media(clickSoundFile);
         clickSound = new MediaPlayer(clickMedia);
-
+        
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
         primaryStage.show();

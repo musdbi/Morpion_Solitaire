@@ -1,6 +1,7 @@
 package application;
 
 import components.Grid;
+import game.GameManagerFX;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,12 @@ public class MSSceneController {
 	@FXML
 	private TextField nomJoueur;
 	
+	private static GameManagerFX gameManager;
+	
+	public void initGameManager() {
+		gameManager = GameManagerFX.getInstance();
+    }
+	
 	public void switchToName (ActionEvent event) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("NameScene.fxml"));
 		stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -38,17 +45,28 @@ public class MSSceneController {
 	
 	public void switchToGame (ActionEvent event) throws IOException {
 	    if (nomJoueur.getText().isEmpty()) {
-	    	Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	Alert alert = new Alert(Alert.AlertType.INFORMATION);
 	        alert.setTitle("Erreur");
 	        alert.setHeaderText("Nom manquant");
-	        alert.setContentText("Veuillez entrer un nom.");
+	        alert.setContentText("Veuillez entrer un nom !");
 	        alert.showAndWait();
 	    } else {
-	    	root = FXMLLoader.load(getClass().getResource("GridScene.fxml"));
-			stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-			scene = new Scene (root);
-			stage.setScene(scene);
-			stage.show();
+	    	
+	    	initGameManager ();
+	    	gameManager.setPlayerName(nomJoueur.getText());
+		    gameManager.setupGame();
+		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
+		   	root = loader.load();
+
+		   	MSGridController gridController = loader.getController();
+		    gridController.initGameManager();
+		    gridController.updateLabels();
+		         
+		    stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		    scene = new Scene (root);
+		    stage.setScene(scene);
+		    stage.show();
+				
 	    }
 	}
 	
@@ -56,5 +74,4 @@ public class MSSceneController {
 		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
 		else MSMenuApp.bgSound.play();
 	}
-	
 }
