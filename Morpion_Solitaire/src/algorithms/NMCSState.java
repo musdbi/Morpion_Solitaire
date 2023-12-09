@@ -29,6 +29,8 @@ public class NMCSState {
 	 */
 	private List<NMCSState> childStates;
 
+	public Object getCChilds;
+
 	public NMCSState(NMCSState parentState, Grid grid) {
 		this.currentStateGrid = new Grid(grid);
 		this.parentState = parentState;
