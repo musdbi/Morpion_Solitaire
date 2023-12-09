@@ -15,6 +15,11 @@ public class Point {
 		this.y = y;
 	}
 	
+	public Point(Point p) {
+		this.x = p.getX();
+		this.y = p.getY();
+	}
+	
 	public void checkRange() {
         if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
 

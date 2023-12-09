@@ -66,12 +66,15 @@ public class GameManager {
     	while (!this.board.getPlayablePoints().isEmpty()) {
     		this.play();
         	this.board.updatePlayablePoints();
+        	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
+        	System.out.println("Coups possible: " + this.board.getPossibleMoves());
+
         	this.board.drawGrid();
     	}
     }
     
     public void endGame(){
-        this.score = PlayedPoint.getCount();
+        this.score = this.board.getLines().size();
         System.out.println("Partie terminée, score: " + this.score);
         ranking.addScore(currentPlayer, score);
     }
@@ -130,7 +133,7 @@ public class GameManager {
             	System.out.println(e4.getMessage());
             }
     	}
-    	return new PlayedPoint(x, y);
+    	return new PlayedPoint(this.board.getPoint(x, y), this.board.getLines().size() + 1); // Adding number of lines + 1 for played point id because lines of grid have not been updtated yet
     }
     
     public Line chooseLine(PlayedPoint playedPoint) {

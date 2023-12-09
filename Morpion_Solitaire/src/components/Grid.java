@@ -24,7 +24,7 @@ public class Grid {
 	 * Length of the sizes of the grid (a square)
 	 * 
 	 */
-	private static int size;
+	private final static int size = 24;
 	
 	/**
 	 * Memory of the grid. As the point are identified in memory with their hash code,
@@ -48,21 +48,68 @@ public class Grid {
 	private  Map<Point, Set<Line>> playablePoints;
 	
 	/**
+	 * All the possible moves. This attribute is only used in the search algorithms.
+	 */
+	private Map<Line, Point> possibleMoves;
+	
+	/**
 	 * Visual of the game on console
 	 */
-	private String [][] visual;
+	private String[][] visual;
 
 	public Grid() {
-		size = 24;
 		this.grid = new HashMap<>();
         this.playablePoints = new HashMap<>();
+        this.possibleMoves = new HashMap<>();
         this.lines = new HashSet<Line>();
         this.visual = new String [size][size];
 	}
 	
+	/**
+	 * Constructor to make a defensive copy of a grid
+	 * 
+	 * @param grid
+	 */
+	public Grid(Grid originalGrid) {
+		this.grid = new HashMap<>();
+	    for (Map.Entry<Integer, Point> entry : originalGrid.getGrid().entrySet()) {
+	    	if (entry.getValue().isPlayed()) {
+	    		PlayedPoint pointCopy = (PlayedPoint) entry.getValue();
+		        this.grid.put(entry.getKey(), new PlayedPoint(pointCopy));
+	    	}
+	    	else this.grid.put(entry.getKey(), new Point(entry.getValue()));
+	    }
+
+	    this.playablePoints = new HashMap<>();
+	    for (Map.Entry<Point, Set<Line>> entry : originalGrid.getPlayablePoints().entrySet()) {
+	        Set<Line> lines = new HashSet<>();
+	        for (Line line : entry.getValue()) {
+	            lines.add(new Line(line)); // Assuming Line has a copy constructor
+	        }
+	        this.playablePoints.put(new Point(entry.getKey()), lines);
+	    }
+
+	    this.possibleMoves = new HashMap<>();
+	    for (Map.Entry<Line, Point> entry : originalGrid.getPossibleMoves().entrySet()) {
+	        this.possibleMoves.put(new Line(entry.getKey()), new Point(entry.getValue()));
+	    }
+
+	    this.lines = new HashSet<>();
+	    for (Line line : originalGrid.getLines()) {
+	        this.lines.add(new Line(line)); // Assuming Line has a copy constructor
+	    }
+
+	    this.visual = new String[originalGrid.getVisual().length][originalGrid.getVisual()[0].length];
+	    for (int y = 0; y < originalGrid.getVisual().length; y++) {
+	        for (int x = 0; x < originalGrid.getVisual()[0].length; x++) {
+	            this.visual[y][x] = originalGrid.getVisual()[y][x];
+	        }
+	    }
+	}
+	
 	public void initGrid() {		
 		if (Mode.getNumber() == 5) initGrid5DT();
-		if (Mode.getNumber() == 4) initGrid4DT();
+		else if (Mode.getNumber() == 4) initGrid4DT();
 	}
 	
 	/**
@@ -102,13 +149,14 @@ public class Grid {
 	}
 	
 	public void drawGrid() {
-		for (int y = size-1; y >= 0 ; y--) {
-            for (int x = 0; x < size; x++) {
-                System.out.print(visual[y][x]+ " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println("\n");
+		System.out.println(this.toString());
+//		for (int y = size-1; y >= 0 ; y--) {
+//            for (int x = 0; x < size; x++) {
+//                System.out.print(visual[y][x]+ " ");
+//            }
+//            System.out.print("\n");
+//        }
+//        System.out.println("\n");
 	}
 	
 	public void updateVisualGrid() {
@@ -136,6 +184,8 @@ public class Grid {
 	 * Find all playable points
 	 * 
 	 * The search is limited to the sub grid defined by minPlayablePoint and maxPlayablePoint
+	 * 
+	 * It clears playable points before searching
 	 */ 
 	public void updatePlayablePoints() {
 		this.playablePoints.clear();
@@ -147,9 +197,11 @@ public class Grid {
 				}
 			}	
 		}
+		this.updatePossibleMoves();
 		this.updateVisualGrid();
 	}
 	
+
 	/**
 	 * This method find the possible lines that can be create from a given Played Point
 	 * 
@@ -326,6 +378,7 @@ public class Grid {
 			((PlayedPoint) endsOfLine).setEndOfLine(true);
 		}
 		
+		this.lines.add(playedLine);
 		for (Point point: playedLine.getPoints()) {
 			if (playedLine.getDirection() == Direction.HORIZONTAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "-";
 			if (playedLine.getDirection() == Direction.VERTICAL && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "|";
@@ -333,6 +386,28 @@ public class Grid {
 			if (playedLine.getDirection() == Direction.DIAGONAL2 && !(visual[point.getY()][point.getX()].matches("\\d+"))) visual[point.getY()][point.getX()] = "\\";
 		}
 		visual[playedPoint.getY()][playedPoint.getX()] =  "" + playedPoint.getId();
+	}
+	
+	private void updatePossibleMoves() {
+		this.possibleMoves.clear();
+		for (Point playablePoint: this.playablePoints.keySet()) {
+			for (Line possibleLine: this.playablePoints.get(playablePoint)) {
+				possibleMoves.put(possibleLine, playablePoint);
+			}
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String toString = "";
+		for (int y = size-1; y >= 0 ; y--) {
+            for (int x = 0; x < size; x++) {
+            	toString += visual[y][x]+ " ";
+            }
+            toString += "\n";
+        }
+		toString += "\n";
+		return toString;
 	}
 	
 	public boolean isPlayable(Point point) {
@@ -347,12 +422,24 @@ public class Grid {
 		return size;
 	}
 	
+	public Map<Integer, Point> getGrid(){
+		return this.grid;
+	}
+	
 	public Set<Line> getLines(){
 		return this.lines;
 	}
 	
 	public Map<Point, Set<Line>> getPlayablePoints() {
 		return this.playablePoints;
+	}
+	
+	public Map<Line, Point> getPossibleMoves(){
+		return this.possibleMoves;
+	}
+	
+	public String[][] getVisual(){
+		return this.visual;
 	}
 	
 	public boolean contains(int x, int y) {
@@ -363,5 +450,16 @@ public class Grid {
 		if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
 		if (x >= size || y >= size) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
+	}
+	
+	public static void main(String[] args) {
+		Grid grid = new Grid();
+		grid.initGrid();
+		grid.updatePlayablePoints();
+		Grid copy = new Grid(grid);
+		System.out.println(grid.getPossibleMoves());
+		System.out.println(copy.getPossibleMoves());
+
+		System.out.println(copy);
 	}
 }

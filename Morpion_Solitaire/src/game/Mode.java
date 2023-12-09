@@ -2,9 +2,9 @@ package game;
 
 public class Mode {
 	
-	private static int number;
+	private static int number = 5;
 	
-	private static StringBuilder type;
+	private static StringBuilder type = new StringBuilder("T");
 	
 	public static void setNumber(int newNumber) {
 		if (newNumber < 4 || newNumber > 5) throw new IllegalArgumentException("This mode doesn't exist, chosoe among: 4D, 4T, 5D ou 5T");
@@ -19,6 +19,7 @@ public class Mode {
 	public static int getNumber() {
 		return number;
 	}
+	
 	public static StringBuilder getType() {
 		return type;
 	}
