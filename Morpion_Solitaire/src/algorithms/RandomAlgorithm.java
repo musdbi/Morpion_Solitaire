@@ -48,7 +48,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	}
 	
 	@Override
-	public int algorithm() {
+	public Grid algorithm() {
 		Grid simulatedGrid = new Grid(this.grid);
 		while (!simulatedGrid.getPlayablePoints().isEmpty()){
 	        playRandomMove(simulatedGrid);
@@ -56,7 +56,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		}
 		this.addGrid(simulatedGrid);	
 		this.addScore(simulatedGrid.getLines().size());
-		return simulatedGrid.getLines().size();
+		return simulatedGrid;
 	}
 	
 	public void trainAlgorithm(int iterations) { 
@@ -124,7 +124,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 //        Mode.setType("T");
 
 		ResearchAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 25;
+		int it = 50;
 		randomAlgo.trainAlgorithm(it);
 		RandomAlgorithm.calculateStatistics();
 		

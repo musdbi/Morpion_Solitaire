@@ -7,9 +7,9 @@ public interface  ResearchAlgorithm {
 	
 	/**
 	 * Launch algorithm one time 
-	 * @return the score
+	 * @return the simualted grid with the algorithm
 	 */
-	int algorithm();
+	Grid algorithm();
 	
 	/**
 	 * @param iterations: Represent the number of times we want to launch the algorithm

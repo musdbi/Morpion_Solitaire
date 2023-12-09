@@ -53,7 +53,7 @@ public class NMCSState {
 		}
 	}
 	
-	public int scoreFromRollout() {
+	public Grid rollout() {
 		RandomAlgorithm randomAlgo = new RandomAlgorithm(this.currentStateGrid);
 		return randomAlgo.algorithm();
 
