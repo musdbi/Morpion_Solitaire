@@ -140,6 +140,10 @@ public class GameManagerFX {
 		return this.currentPlayer;
 	}
 	
+	public void setPlayerName(String name) {
+		currentPlayer = name;
+	}
+	
 	public Grid getGrid() {
 		return this.board;
 	}

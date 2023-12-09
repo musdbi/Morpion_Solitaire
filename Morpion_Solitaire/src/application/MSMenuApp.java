@@ -35,7 +35,7 @@ import game.Mode;
 
 public class MSMenuApp extends Application {
 	
-	private GameManagerFX GM;
+	private GameManagerFX GM = new GameManagerFX ();
 	
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
@@ -43,6 +43,7 @@ public class MSMenuApp extends Application {
     private Image icon = new Image(getClass().getResourceAsStream("res/logo2.png"));
     protected static MediaPlayer hoverSound;
     protected static MediaPlayer clickSound;
+    protected static MediaPlayer bgSound;
     
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
             new Pair<String, Runnable>("Play", () -> {}),
@@ -175,44 +176,9 @@ public class MSMenuApp extends Application {
     	Scene scene = new Scene (newRoot);
     	return scene;
     }
-	
-	public void set4D (ActionEvent event) {
-		Mode.setNumber(4);
-		Mode.setType("D");
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
-	    stage.show();
-	}
-	
-	public void set4T (ActionEvent event) {
-		Mode.setNumber(4);
-		Mode.setType("T");
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
-	    stage.show();
-	}
-	
-	public void set5D (ActionEvent event) {
-		Mode.setNumber(5);
-		Mode.setType("D");
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
-	    stage.show();
-	}
-	
-	public void set5T (ActionEvent event) {
-		Mode.setNumber(5);
-		Mode.setType("T");
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
-	    stage.show();
-	}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-    	
-     // Initialisation du GameManger
-    	GM = new GameManagerFX ();
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
@@ -228,7 +194,21 @@ public class MSMenuApp extends Application {
         String hoverSoundFile = getClass().getResource("res/hover.mp3").toExternalForm();
         Media hoverMedia = new Media(hoverSoundFile);
         hoverSound = new MediaPlayer(hoverMedia);
-        hoverSound.setVolume(0.1);
+        hoverSound.setVolume(0.015);
+        
+     // Charger le fichier audio pour la musique de fond
+        String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
+        Media bgMedia = new Media(bgSoundFile);
+        bgSound = new MediaPlayer(bgMedia);
+        bgSound.setVolume(0.1);
+        bgSound.play();
+        bgSound.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                bgSound.seek(Duration.ZERO);
+                bgSound.play();
+            }
+        });
 
      // Charger le fichier audio pour le son de clique
         String clickSoundFile = getClass().getResource("res/clickb.mp3").toExternalForm();
