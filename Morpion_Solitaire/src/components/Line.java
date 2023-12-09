@@ -39,8 +39,20 @@ public class Line {
 		}
 		if (direction == null) throw new IllegalArgumentException("A line must be defined with a direction.");
 		this.direction = direction;
-		this.points = points;
-	};
+		this.points = new HashSet<Point>(points);
+	}
+	
+	public Line(Line line) {
+		this.points = new HashSet<Point>();
+		for (Point linePoint: line.getPoints()) {
+			if (linePoint.isPlayed()) {
+				PlayedPoint linePointCopy = (PlayedPoint) linePoint;
+				this.points.add(new PlayedPoint(linePointCopy));
+			}
+			else this.points.add(new Point(linePoint));
+		}
+		this.direction = line.getDirection();
+	}
 
 	@Override
 	public String toString() {
@@ -56,7 +68,7 @@ public class Line {
         if (this == o) return true;
         if (o == null || !(o instanceof Line)) return false;
         Line otherLine = (Line) o;
-        return this.points.equals(otherLine.getPoints());
+        return this.points.equals(otherLine.getPoints()) && this.direction == otherLine.getDirection();
     }
     
     @Override
