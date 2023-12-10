@@ -9,6 +9,7 @@ import java.util.concurrent.*;
 
 public class NMCS implements ResearchAlgorithm{
 	
+	private static final int algoId = 2;
 	
 	private final int depthLevel;
 	
@@ -76,6 +77,10 @@ public class NMCS implements ResearchAlgorithm{
 		// TODO Auto-generated method stub
 	}
 	
+	public static int getId() {
+		return algoId;
+	}
+	
 	public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         double endTime;
@@ -101,24 +106,18 @@ public class NMCS implements ResearchAlgorithm{
 //        System.out.println("Time taken: " + elapsedTime + " seconds");
 //        System.out.println("Grid found: \n" + level1);
         
-//		Grid level2 = nmcs2.algorithm();
-//        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
-//		endTime = System.currentTimeMillis();
-//		elapsedTime = (endTime - startTime) * 0.001;
-//        System.out.println("Time taken: " + elapsedTime + " seconds");
-//        System.out.println("Grid found: \n" + level2);
-        
-        Grid level3 = nmcs3.algorithm();
-        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+		Grid level2 = nmcs2.algorithm();
+        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
 		endTime = System.currentTimeMillis();
 		elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
-        System.out.println("Grid found: \n" + level3);
-	}
-
-	@Override
-	public void saveScore() {
-		// TODO Auto-generated method stub
-		
+        System.out.println("Grid found: \n" + level2);
+        
+//        Grid level3 = nmcs3.algorithm();
+//        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+//		endTime = System.currentTimeMillis();
+//		elapsedTime = (endTime - startTime) * 0.001;
+//        System.out.println("Time taken: " + elapsedTime + " seconds");
+//        System.out.println("Grid found: \n" + level3);
 	}
 }

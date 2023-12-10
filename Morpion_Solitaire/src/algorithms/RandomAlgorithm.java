@@ -11,6 +11,8 @@ import game.Mode;
 
 public class RandomAlgorithm implements ResearchAlgorithm{
 	
+	private static final int algoId = 1;
+	
 	private Random random;
 	
 	/**
@@ -56,6 +58,9 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		}
 		this.addGrid(simulatedGrid);	
 		this.addScore(simulatedGrid.getLines().size());
+		System.out.println("\nScore: " + simulatedGrid.getLines().size());
+		DataManager.insertData(algoId, simulatedGrid.getLines().size());
+		
 		return simulatedGrid;
 	}
 	
@@ -115,6 +120,10 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	public static synchronized double getSigma() {
 		return sigma;
+	}
+	
+	public static int getId() {
+		return algoId;
 	}
 
 	public static void main(String[] args) {

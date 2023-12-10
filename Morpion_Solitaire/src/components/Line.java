@@ -83,7 +83,6 @@ public class Line {
 		this.points.add(point);
 	}
     
-    
     public Set<Point> getEndsOfLine(){
     	Set<Point> endsOfLine = new HashSet<>();
     	 List<Point> points = new ArrayList<>(this.points);
