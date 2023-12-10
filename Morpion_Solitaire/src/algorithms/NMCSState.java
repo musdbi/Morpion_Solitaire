@@ -86,5 +86,4 @@ public class NMCSState {
 			System.out.println(childState.getGrid());
 		}
 	}
-	
 }

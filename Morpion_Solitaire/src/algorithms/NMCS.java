@@ -45,8 +45,9 @@ public class NMCS implements ResearchAlgorithm{
 
 	    List<NMCSState> randomChildList = state.getChilds();
 	    Collections.shuffle(randomChildList);
-
+	    
 	    for (NMCSState childState : randomChildList) {
+	    	
 	        Callable<Grid> worker = new NMCSWorker(this, childState, level - 1, debut, dureeMax);
 	        Future<Grid> future = executor.submit(worker);
 	        futures.add(future);
@@ -113,5 +114,11 @@ public class NMCS implements ResearchAlgorithm{
 		elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
         System.out.println("Grid found: \n" + level3);
+	}
+
+	@Override
+	public void saveScore() {
+		// TODO Auto-generated method stub
+		
 	}
 }

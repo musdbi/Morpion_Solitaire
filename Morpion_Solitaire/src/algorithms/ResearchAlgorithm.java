@@ -15,4 +15,6 @@ public interface  ResearchAlgorithm {
 	 * @param iterations: Represent the number of times we want to launch the algorithm
 	 */
 	void trainAlgorithm(int iterations);
+	
+	void saveScore();
 }
