@@ -178,6 +178,7 @@ public class MSGridController {
             }
         }
         grid.updatePlayablePoints();
+        drawLines();
     }
 	
 	private void handleGridButtonAction(int x, int y) {
