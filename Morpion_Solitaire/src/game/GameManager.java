@@ -185,5 +185,5 @@ public class GameManager {
     	game.setupGame();
     	game.launchGame();
     	game.endGame();
-}
+    }
 }
