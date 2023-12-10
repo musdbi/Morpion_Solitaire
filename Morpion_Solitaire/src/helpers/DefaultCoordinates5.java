@@ -57,11 +57,11 @@ public enum DefaultCoordinates5 {
 		this.y = y;
 	}
 	
-	private int getX() {
+	public int getX() {
 		return this.x;
 	}
 	
-	private int getY() {
+	public int getY() {
 		return this.y;
 	}
 	

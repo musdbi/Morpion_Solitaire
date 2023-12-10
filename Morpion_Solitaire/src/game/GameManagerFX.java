@@ -61,7 +61,7 @@ public class GameManagerFX {
     	score = 0;
         board.initGrid();
         this.board.updatePlayablePoints();
-        this.board.drawGrid();
+        //this.board.drawGrid();
     }
     
     /**
@@ -90,6 +90,30 @@ public class GameManagerFX {
     	PlayedPoint playedPoint = playPoint();
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
+    }
+    
+    public void chooseMode() {
+    	int number;
+    	String type="";
+    	while (true) {
+    		System.out.println("Choose the mode among these: 4 D, 4 T, 5 D, 5 T:");
+            String userInput = scanner.nextLine();
+            String[] coordinates = userInput.replaceAll(" ", "").split("");
+            try {
+            	if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("You have to enter one number and one letter");
+            	number = Integer.parseInt(coordinates[0]);
+            	Mode.setNumber(number);
+            	type = coordinates[1];
+            	Mode.setType(type);
+            	break;
+            } catch (NumberFormatException e1) {
+                System.out.println("The number of the mode can not be a character");
+            } catch (ArrayIndexOutOfBoundsException e2) {
+            	System.out.println(e2.getMessage());
+            } catch (IllegalArgumentException e3) {
+                System.out.println(e3.getMessage());
+            }
+    	}
     }
     
     public PlayedPoint playPoint() {
@@ -141,6 +165,21 @@ public class GameManagerFX {
             }
     	}
     	return playableLines.get(line);
+    }
+    
+    public void playAt(int x, int y) {
+        // Vérifiez si le point est jouable
+        Point point = new Point(x, y);
+        if (!board.getPlayablePoints().containsKey(point)) {
+            // Gérez le cas où le point n'est pas jouable, par exemple, afficher une alerte
+            return;
+        }
+
+        // Jouez le point
+        PlayedPoint playedPoint = new PlayedPoint(point, board.getLines().size() + 1);
+        Line playedLine = chooseLine(playedPoint);
+        board.updateGrid(playedPoint, playedLine);
+        score = board.getLines().size(); // Mettez à jour le score
     }
     
     public String getScore() {
