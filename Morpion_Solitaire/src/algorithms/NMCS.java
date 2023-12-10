@@ -69,6 +69,7 @@ public class NMCS implements ResearchAlgorithm{
 	    }
 
 	    executor.shutdown(); // Shut down the executor service
+		DataManager.insertData(algoId, bestGrid.getLines().size());
 	    return bestGrid;
 	}
 	

@@ -58,9 +58,9 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		}
 		this.addGrid(simulatedGrid);	
 		this.addScore(simulatedGrid.getLines().size());
-		System.out.println("\nScore: " + simulatedGrid.getLines().size());
-		DataManager.insertData(algoId, simulatedGrid.getLines().size());
-		
+		if (this instanceof RandomAlgorithm) {
+			DataManager.insertData(algoId, simulatedGrid.getLines().size());
+		}
 		return simulatedGrid;
 	}
 	

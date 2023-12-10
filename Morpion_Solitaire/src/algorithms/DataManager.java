@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public class DataManager {
 	
+	private static int currRunningAlgoId = 0;;
+	
 	private static final String path = "D:\\git-repositories\\Morpion_Solitaire\\Morpion_Solitaire\\src\\algorithms\\test.txt";
 	
 	/**
@@ -91,6 +93,11 @@ public class DataManager {
         statistics.put("Sigma", Math.sqrt(variance));
 
         return statistics;
+	}
+	
+	public void setCurrRunningAlgo(int id) {
+		if (id != 0 && id !=1) throw new IllegalArgumentException("Id must be 1 or 2");
+		currRunningAlgoId = id;
 	}
 	
 	public static void main(String[] args) {
