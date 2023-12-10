@@ -6,6 +6,7 @@ import components.PlayedPoint;
 import components.Point;
 import game.GameManagerFX;
 import game.Mode;
+import helpers.DefaultCoordinates4;
 import helpers.DefaultCoordinates5;
 import java.util.HashSet;
 import java.util.Objects;
@@ -45,24 +46,32 @@ public class MSGridController {
 	
 	public void initGameManager() {
         this.gameManager = GameManagerFX.getInstance();
-        updateGridUI();
+        if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) {
+        	updateGridUI4DT();
+        }
+	    if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) {
+	    	updateGridUI4DT();
+	    }
+	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) {
+	    	updateGridUI5DT();
+	    }
+	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("D")) {
+	    	updateGridUI5DT();
+	    }
         updateLabels();
     }
 	
 	private void drawLines() {
 	    Grid grid = gameManager.getGrid();
-	    for (components.Line line : grid.getLines()) {
-	        // Obtenir les points de départ et de fin de la ligne
+	    for (Line line : grid.getLines()) {
 	        Set<Point> ends = line.getEndsOfLine();
 	        Point[] endPoints = ends.toArray(new Point[0]);
 	        Point startPoint = endPoints[0];
 	        Point endPoint = endPoints[1];
 
-	        // Trouver les boutons correspondants
 	        Button startButton = buttonGrid[startPoint.getY()][startPoint.getX()];
 	        Button endButton = buttonGrid[endPoint.getY()][endPoint.getX()];
 
-	        // Créer une ligne graphique
 	        javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line();
 	        guiLine.setStartX(startButton.getLayoutX() + startButton.getWidth() / 2);
 	        guiLine.setStartY(startButton.getLayoutY() + startButton.getHeight() / 2);
@@ -70,12 +79,11 @@ public class MSGridController {
 	        guiLine.setEndY(endButton.getLayoutY() + endButton.getHeight() / 2);
 	        guiLine.setStroke(javafx.scene.paint.Color.RED);
 
-	        // Ajouter la ligne à la grille
 	        gameGrid.getChildren().add(guiLine);
 	    }
 	}
 	
-	private void updateGridUI() {
+	private void updateGridUI5DT() {
         Grid grid = gameManager.getGrid();
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates5.getValues();
         gameGrid.getChildren().clear();
@@ -86,30 +94,86 @@ public class MSGridController {
                 final int finalY = y;
                 
             	Button button = new Button();
-                button.setMinSize(25, 25);
+                button.setMinSize(30,30);
                 button.setText("*");
                 button.setFont(new Font(12));
-                button.setStyle("-fx-background-color: white;");
                
                 if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
                 	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
+                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: red");
                 }
-                else if (grid.getPoint(x, y).isPlayed()) button.setText("X");
-                else button.setText("*");
+                else if (grid.getPoint(x, y).isPlayed()) {
+                	button.setText("X");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                }
+                else {
+                	button.setText("*");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                }
                 
                 button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
                 buttonGrid[y][x] = button;
                 gameGrid.add(button, x, y);
             }
         }
-        drawLines();
+        grid.updatePlayablePoints();
+    }
+	
+	private void updateGridUI4DT() {
+        Grid grid = gameManager.getGrid();
+        HashSet<Integer> defaultPointsHashes = DefaultCoordinates4.getValues();
+        gameGrid.getChildren().clear();
+        for (int y = 0; y < Grid.getSize(); y++) {
+            for (int x = 0; x < Grid.getSize(); x++) {
+            	
+            	final int finalX = x;
+                final int finalY = y;
+                
+            	Button button = new Button();
+                button.setMinSize(30,30);
+                button.setText("*");
+                button.setFont(new Font(12));
+               
+                if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
+                	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
+                    button.setText(String.valueOf(playedPoint.getId()));
+                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: red");
+                }
+                else if (grid.getPoint(x, y).isPlayed()) {
+                	button.setText("X");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                }
+                else {
+                	button.setText("*");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                }
+                
+                button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
+                buttonGrid[y][x] = button;
+                gameGrid.add(button, x, y);
+            }
+        }
+        grid.updatePlayablePoints();
     }
 	
 	private void handleGridButtonAction(int x, int y) {
-	    gameManager.playAt(x, y); // Jouez le point à la position (x, y)
-	    updateGridUI(); // Mettre à jour l'interface utilisateur
-	    updateLabels(); // Mettre à jour les informations du joueur
+		if (!gameManager.getGrid().getPoint(x, y).isPlayed()) {
+			gameManager.playAt(x, y); // Jouez le point à la position (x, y)
+			if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) {
+	        	updateGridUI4DT();
+	        }
+		    if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) {
+		    	updateGridUI4DT();
+		    }
+		    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) {
+		    	updateGridUI5DT();
+		    }
+		    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("D")) {
+		    	updateGridUI5DT();
+		    }
+		    updateLabels();
+		}
 	}
 	
 	public void updateLabels() {
@@ -136,3 +200,4 @@ public class MSGridController {
 		else MSMenuApp.bgSound.play();
 	}
 }
+
