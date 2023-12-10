@@ -23,7 +23,7 @@
          </font>
       </Text>
       <TextField fx:id="nomJoueur" alignment="CENTER" layoutX="443.0" layoutY="339.0" prefHeight="27.0" prefWidth="382.0" style="-fx-border-color: black; -fx-font-size: 18;" />
-      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="Back" textAlignment="CENTER">
+      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="Back to menu" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

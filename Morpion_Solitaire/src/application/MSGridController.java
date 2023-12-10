@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -65,6 +66,13 @@ public class MSGridController {
         updateLabels();
     }
 	
+	public void endGame(ActionEvent event) {
+        gameManager.endGame();
+        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
+        initGameManager();
+        updateLabels();
+    }
+	
 	private void drawLines() {
 	    Grid grid = gameManager.getGrid();
 	    javafx.geometry.Point2D paneCoords = principal.localToScene(0, 0);
@@ -88,16 +96,13 @@ public class MSGridController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.RED);
+	            guiLine.setStroke(javafx.scene.paint.Color.GRAY);
 
 	            principal.getChildren().add(guiLine);
 	        });
 	    }
 	}
 
-
-
-	
 	private Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y && node instanceof Button) {

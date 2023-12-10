@@ -30,15 +30,18 @@ import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
 import components.*;
+import game.GameManager;
 import game.GameManagerFX;
 import game.Mode;
 
 public class MSMenuApp extends Application {
 	
+	private GameManagerFX gm;
+	
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
     
-    private Image icon = new Image(getClass().getResourceAsStream("res/logo2.png"));
+    private Image icon = new Image(getClass().getResourceAsStream("res/logo_nobg.png"));
     protected static MediaPlayer hoverSound;
     protected static MediaPlayer clickSound;
     protected static MediaPlayer bgSound;
@@ -178,19 +181,7 @@ public class MSMenuApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
     	
-//     // Passez l'instance GameManagerFX aux scènes qui en ont besoin
-//    	
-//        //NameScene						
-//    	FXMLLoader loader = new FXMLLoader(getClass().getResource("NameScene.fxml"));
-//        Parent root = loader.load();
-//        MSSceneController controllerName = loader.getController();
-//        controllerName.initGameManager(gameManager);
-//        
-//        //GridScene
-//        loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
-//        root = loader.load();
-//        MSGridController controllerGrid = loader.getController();
-//        controllerGrid.initGameManager(gameManager);
+    	gm = GameManagerFX.getInstance();
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));

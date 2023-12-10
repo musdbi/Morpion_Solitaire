@@ -83,17 +83,23 @@ public class Scoreboard {
             List<ScoreTuple> uniqueCombo = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-            	if (!line.isEmpty()) {
-            		Scanner scanner = new Scanner (line);
-            		scanner.useDelimiter(" played points - ");
-            		int recordedScore = scanner.nextInt();
-            		String name = scanner.next();
-                    uniqueCombo.add(new ScoreTuple(recordedScore, name));
-            		scanner.close();
-            	}
+                if (!line.isEmpty()) {
+                    try (Scanner scanner = new Scanner(line)) {
+                        scanner.useDelimiter(" played points - ");
+                        if (scanner.hasNextInt()) {
+                            int recordedScore = scanner.nextInt();
+                            if (scanner.hasNext()) {
+                                String name = scanner.next();
+                                uniqueCombo.add(new ScoreTuple(recordedScore, name));
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error processing line: " + line);
+                        e.printStackTrace();
+                    }
+                }
             }
             reader.close();
-            
             Collections.sort(uniqueCombo, new TupleComparator());
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));

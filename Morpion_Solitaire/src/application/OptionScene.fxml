@@ -100,12 +100,12 @@
             </ImageView>
          </children>
       </Pane>
-      <Button layoutX="597.0" layoutY="615.0" mnemonicParsing="false" onAction="#checkBGSound" text="Togglemusic" textAlignment="CENTER">
+      <Button layoutX="597.0" layoutY="615.0" mnemonicParsing="false" onAction="#checkBGSound" text="Toggle music" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" text="BACK" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

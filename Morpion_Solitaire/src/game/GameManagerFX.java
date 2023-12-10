@@ -86,8 +86,9 @@ public class GameManagerFX {
 
     public void endGame(){
         this.score = this.board.getLines().size();
-        System.out.println("Partie terminée, score: " + this.score);
         ranking.addScore(currentPlayer, score);
+        ranking.append();
+        ranking.sort();
     }
     
     public void resetGame() {
@@ -102,30 +103,6 @@ public class GameManagerFX {
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
     }
-    
-//    public void chooseMode() {
-//    	int number;
-//    	String type="";
-//    	while (true) {
-//    		System.out.println("Choose the mode among these: 4 D, 4 T, 5 D, 5 T:");
-//            String userInput = scanner.nextLine();
-//            String[] coordinates = userInput.replaceAll(" ", "").split("");
-//            try {
-//            	if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("You have to enter one number and one letter");
-//            	number = Integer.parseInt(coordinates[0]);
-//            	Mode.setNumber(number);
-//            	type = coordinates[1];
-//            	Mode.setType(type);
-//            	break;
-//            } catch (NumberFormatException e1) {
-//                System.out.println("The number of the mode can not be a character");
-//            } catch (ArrayIndexOutOfBoundsException e2) {
-//            	System.out.println(e2.getMessage());
-//            } catch (IllegalArgumentException e3) {
-//                System.out.println(e3.getMessage());
-//            }
-//    	}
-//    }
     
     public PlayedPoint playPoint() {
     	int x, y = 0;
