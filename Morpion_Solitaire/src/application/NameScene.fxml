@@ -17,13 +17,13 @@
             <Image url="@res/fond.png" />
          </image>
       </ImageView>
-      <Text layoutX="431.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez choisir votre nom :" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text layoutX="431.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select your name :" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
       <TextField fx:id="nomJoueur" alignment="CENTER" layoutX="443.0" layoutY="339.0" prefHeight="27.0" prefWidth="382.0" style="-fx-border-color: black; -fx-font-size: 18; -fx-region-border: true;" />
-      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour" textAlignment="CENTER">
+      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="Back" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

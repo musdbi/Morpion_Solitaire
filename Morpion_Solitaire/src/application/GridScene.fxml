@@ -88,7 +88,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour au menu" textAlignment="CENTER">
+      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

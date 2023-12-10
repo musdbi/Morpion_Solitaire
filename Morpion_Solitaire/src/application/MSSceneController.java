@@ -46,9 +46,9 @@ public class MSSceneController {
 	public void switchToGame (ActionEvent event) throws IOException {
 	    if (nomJoueur.getText().isEmpty()) {
 	    	Alert alert = new Alert(Alert.AlertType.ERROR);
-	        alert.setTitle("Erreur");
-	        alert.setHeaderText("Nom manquant");
-	        alert.setContentText("Veuillez entrer un nom !");
+	        alert.setTitle("Error");
+	        alert.setHeaderText("Missing Name");
+	        alert.setContentText("Please enter a name !");
 	        alert.showAndWait();
 	    } else {
 	    	
