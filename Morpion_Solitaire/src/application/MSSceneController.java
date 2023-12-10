@@ -51,7 +51,6 @@ public class MSSceneController {
 	        alert.setContentText("Please enter a name !");
 	        alert.showAndWait();
 	    } else {
-	    	
 	    	initGameManager ();
 	    	gameManager.setPlayerName(nomJoueur.getText());
 		    gameManager.setupGame();

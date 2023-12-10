@@ -11,7 +11,10 @@ import game.Mode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class GameManagerFX {
 
@@ -51,6 +54,7 @@ public class GameManagerFX {
         if (instance == null) {
             instance = new GameManagerFX();
         }
+        instance.resetGame();
         return instance;
     }
 
@@ -79,42 +83,49 @@ public class GameManagerFX {
         	this.board.drawGrid();
     	}
     }
-    
+
     public void endGame(){
         this.score = this.board.getLines().size();
         System.out.println("Partie terminée, score: " + this.score);
         ranking.addScore(currentPlayer, score);
     }
     
+    public void resetGame() {
+        score = 0;
+        board = new Grid();
+        board.initGrid();
+        board.updatePlayablePoints();
+    }
+
     public void play() {
     	PlayedPoint playedPoint = playPoint();
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
     }
     
-    public void chooseMode() {
-    	int number;
-    	String type="";
-    	while (true) {
-    		System.out.println("Choose the mode among these: 4 D, 4 T, 5 D, 5 T:");
-            String userInput = scanner.nextLine();
-            String[] coordinates = userInput.replaceAll(" ", "").split("");
-            try {
-            	if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("You have to enter one number and one letter");
-            	number = Integer.parseInt(coordinates[0]);
-            	Mode.setNumber(number);
-            	type = coordinates[1];
-            	Mode.setType(type);
-            	break;
-            } catch (NumberFormatException e1) {
-                System.out.println("The number of the mode can not be a character");
-            } catch (ArrayIndexOutOfBoundsException e2) {
-            	System.out.println(e2.getMessage());
-            } catch (IllegalArgumentException e3) {
-                System.out.println(e3.getMessage());
-            }
-    	}
-    }
+//    public void chooseMode() {
+//    	int number;
+//    	String type="";
+//    	while (true) {
+//    		System.out.println("Choose the mode among these: 4 D, 4 T, 5 D, 5 T:");
+//            String userInput = scanner.nextLine();
+//            String[] coordinates = userInput.replaceAll(" ", "").split("");
+//            try {
+//            	if (coordinates.length != 2) throw new ArrayIndexOutOfBoundsException("You have to enter one number and one letter");
+//            	number = Integer.parseInt(coordinates[0]);
+//            	Mode.setNumber(number);
+//            	type = coordinates[1];
+//            	Mode.setType(type);
+//            	break;
+//            } catch (NumberFormatException e1) {
+//                System.out.println("The number of the mode can not be a character");
+//            } catch (ArrayIndexOutOfBoundsException e2) {
+//            	System.out.println(e2.getMessage());
+//            } catch (IllegalArgumentException e3) {
+//                System.out.println(e3.getMessage());
+//            }
+//    	}
+//    }
     
     public PlayedPoint playPoint() {
     	int x, y = 0;
@@ -144,42 +155,52 @@ public class GameManagerFX {
     }
     
     public Line chooseLine(PlayedPoint playedPoint) {
-    	int line = 0;
-    	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
-    	if (playableLines.size() > 1){
-    		System.out.println("Which line do you want to play for " + playedPoint.toString() + " ?\n" + "Give the number of the line\n");
-        	for (int i =0; i < playableLines.size(); i++) {
-        		System.out.println("Line "+ (i + 1) +": " +playableLines.get(i));
-        	}
-    	}
-    	while (playableLines.size() > 1) {
-            String userInput = scanner.nextLine();
-            try {
-            	line = Integer.parseInt(userInput) - 1;
-            	if (!(0 <= line && line <= playableLines.size() - 1)) throw new NotALineException();
-                break;
-            } catch (NumberFormatException e1) {
-                System.out.println("Please enter a number of the list above.");
-            } catch (NotALineException e2) {
-                System.out.println(e2.getMessage());
+        List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
+        if (playableLines.size() <= 1) {
+            return playableLines.isEmpty() ? null : playableLines.get(0);
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Choose a Line");
+        alert.setHeaderText("Multiple lines available for point: " + playedPoint);
+        alert.setContentText("Choose one of the following lines:");
+
+        for (int i = 0; i < playableLines.size(); i++) {
+            Line line = playableLines.get(i);
+            String lineDescription = "Line " + (i + 1) + ": " + lineToString(line);
+            ButtonType buttonType = new ButtonType(lineDescription);
+            alert.getButtonTypes().set(i, buttonType);
+        }
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            for (int i = 0; i < playableLines.size(); i++) {
+                if (result.get() == alert.getButtonTypes().get(i)) {
+                    return playableLines.get(i);
+                }
             }
-    	}
-    	return playableLines.get(line);
+        }
+
+        return null;
+    }
+
+    private String lineToString(Line line) {
+        StringBuilder sb = new StringBuilder();
+        for (Point point : line.getPoints()) {
+            sb.append("(").append(point.getX()).append(",").append(point.getY()).append(") ");
+        }
+        return sb.toString();
     }
     
     public void playAt(int x, int y) {
-        // Vérifiez si le point est jouable
         Point point = new Point(x, y);
         if (!board.getPlayablePoints().containsKey(point)) {
-            // Gérez le cas où le point n'est pas jouable, par exemple, afficher une alerte
             return;
         }
-
-        // Jouez le point
         PlayedPoint playedPoint = new PlayedPoint(point, board.getLines().size() + 1);
         Line playedLine = chooseLine(playedPoint);
         board.updateGrid(playedPoint, playedLine);
-        score = board.getLines().size(); // Mettez à jour le score
+        score = board.getLines().size();
     }
     
     public String getScore() {
@@ -202,10 +223,14 @@ public class GameManagerFX {
 		return this.currentVersion;
 	}
 	
-	public void setPlayerName(String name) {
-		currentPlayer = name;
+	public void setPlayerName(String currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
-
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
     public void displayRanking(){
         ranking.write();
     }
