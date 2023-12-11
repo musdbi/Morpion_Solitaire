@@ -95,9 +95,8 @@ public class Grid {
 	    }
 
 	    this.lines = new HashSet<>();
-	    for (Line line : originalGrid.getLines()) {
-	        this.lines.add(new Line(line)); // Assuming Line has a copy constructor
-	    }
+	    for (Line line : originalGrid.getLines()) this.lines.add(new Line(line));
+	    
 
 	    this.visual = new String[originalGrid.getVisual().length][originalGrid.getVisual()[0].length];
 	    for (int y = 0; y < originalGrid.getVisual().length; y++) {

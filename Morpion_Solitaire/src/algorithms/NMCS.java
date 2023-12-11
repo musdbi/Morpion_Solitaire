@@ -2,8 +2,10 @@ package algorithms;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
 import components.Grid;
+import java.util.concurrent.*;
 
 public class NMCS implements ResearchAlgorithm{
 	
@@ -28,29 +30,45 @@ public class NMCS implements ResearchAlgorithm{
 		NMCSState initialState = setUpInitState();
 		long debut = System.currentTimeMillis();
         long dureeMax = 30 * 1000; // 30 secondes en millisecondes
-		return NMCS(initialState, depthLevel, debut, dureeMax);
+		return nmcs(initialState, depthLevel, debut, dureeMax);
 	}
 
-	public Grid NMCS(NMCSState state, int level, long debut, long dureeMax) {
-		if (level == 0) {
-			return state.rollout();
-		}
-		
-		state.exploreChilds();
-		Grid bestGrid = new Grid();
-//		while (!state.isTerminal()) {
-			List<NMCSState> randomChildList = state.getChilds();
-			Collections.shuffle(state.getChilds());
-			for (NMCSState childState: randomChildList) {
-				if (System.currentTimeMillis() - debut > dureeMax) {
-	                break; // Sortir de la boucle si la durée est dépassée
+	public Grid nmcs(NMCSState state, int level, long debut, long dureeMax) {
+	    if (level == 0) {
+	        return state.rollout();
+	    }
+
+	    state.exploreChilds();
+	    Grid bestGrid = new Grid();
+	    ExecutorService executor = Executors.newFixedThreadPool(3); // Creating a thread pool with 4 threads
+	    List<Future<Grid>> futures = new ArrayList<>();
+
+	    List<NMCSState> randomChildList = state.getChilds();
+	    Collections.shuffle(randomChildList);
+	    
+	    for (NMCSState childState : randomChildList) {
+	    	
+	        Callable<Grid> worker = new NMCSWorker(this, childState, level - 1, debut, dureeMax);
+	        Future<Grid> future = executor.submit(worker);
+	        futures.add(future);
+	    }
+
+	    for (Future<Grid> future : futures) {
+	    	if (System.currentTimeMillis() - debut > dureeMax) {
+                break; // Sortir de la boucle si la durée est dépassée
+            }
+	        try {
+	            Grid currentChildGrid = future.get();
+	            if (currentChildGrid.getLines().size() > bestGrid.getLines().size()) {
+	                bestGrid = currentChildGrid;
 	            }
-				
-				Grid currentChildGrid= NMCS(childState, level -1, debut, dureeMax);
-				if (currentChildGrid.getLines().size() > bestGrid.getLines().size()) bestGrid = currentChildGrid;
-			}
-//		}
-		return bestGrid;
+	        } catch (InterruptedException | ExecutionException e) {
+	            e.printStackTrace(); // Handle exceptions as needed
+	        }
+	    }
+
+	    executor.shutdown(); // Shut down the executor service
+	    return bestGrid;
 	}
 	
 	@Override
@@ -83,12 +101,12 @@ public class NMCS implements ResearchAlgorithm{
 //        System.out.println("Time taken: " + elapsedTime + " seconds");
 //        System.out.println("Grid found: \n" + level1);
         
-		Grid level2 = nmcs2.algorithm();
-        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
-		endTime = System.currentTimeMillis();
-		elapsedTime = (endTime - startTime) * 0.001;
-        System.out.println("Time taken: " + elapsedTime + " seconds");
-        System.out.println("Grid found: \n" + level2);
+//		Grid level2 = nmcs2.algorithm();
+//        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
+//		endTime = System.currentTimeMillis();
+//		elapsedTime = (endTime - startTime) * 0.001;
+//        System.out.println("Time taken: " + elapsedTime + " seconds");
+//        System.out.println("Grid found: \n" + level2);
         
         Grid level3 = nmcs3.algorithm();
         System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
