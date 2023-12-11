@@ -17,7 +17,7 @@ public class MSTitle extends Pane {
 
         text = new Text(spread);
         text.setFont(Font.loadFont(MSMenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 48));
-        text.setFill(Color.WHITE);
+        text.setFill(Color.web("#EEE8AA"));
         text.setEffect(new DropShadow(30, Color.BLACK));
 
         getChildren().addAll(text);

@@ -33,7 +33,7 @@ public class MSMenuItem extends Pane {
         text.setTranslateX(5);
         text.setTranslateY(20);
         text.setFont(Font.loadFont(MSMenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 14));
-        text.setFill(Color.WHITE);
+        text.setFill(Color.web("#EEE8AA"));
 
         getChildren().addAll(bg, text);
         

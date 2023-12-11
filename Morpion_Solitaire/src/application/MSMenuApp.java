@@ -67,7 +67,7 @@ public class MSMenuApp extends Application {
         double lineX = WIDTH / 2 - 100;
         double lineY = HEIGHT / 3 + 50;
 
-        addLine(lineX, lineY);
+        addLine(lineX, lineY);	
         addMenu(lineX + 5, lineY + 5, primaryStage);
 
         startAnimation();
@@ -76,7 +76,7 @@ public class MSMenuApp extends Application {
     }
 
     private void addBackground() {
-        ImageView imageView = new ImageView(new Image(getClass().getResource("res/fond.png").toExternalForm()));
+        ImageView imageView = new ImageView(new Image(getClass().getResource("res/Selenium.jpg").toExternalForm()));
         imageView.setFitWidth(WIDTH);
         imageView.setFitHeight(HEIGHT);
 
@@ -149,7 +149,7 @@ public class MSMenuApp extends Application {
         });
         root.getChildren().add(menuBox);
     }
- 
+
 	private Scene selectNameScene() {
     	Parent newRoot;
     	try {
