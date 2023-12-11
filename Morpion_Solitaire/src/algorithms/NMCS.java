@@ -115,10 +115,4 @@ public class NMCS implements ResearchAlgorithm{
         System.out.println("Time taken: " + elapsedTime + " seconds");
         System.out.println("Grid found: \n" + level3);
 	}
-
-	@Override
-	public void saveScore() {
-		// TODO Auto-generated method stub
-		
-	}
 }
