@@ -112,11 +112,21 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="1117.0" layoutY="166.0" mnemonicParsing="false" onAction="#endGame" text="NEW GAME" textAlignment="CENTER">
+      <Button layoutX="1118.0" layoutY="127.0" mnemonicParsing="false" onAction="#endGame" text="end GAME" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="712.0" layoutX="1027.0" stroke="BLACK" strokeType="INSIDE" width="1.0" />
+      <Button layoutX="1130.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetGame" text="RESET" textAlignment="CENTER">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
+         </font>
+      </Button>
+      <Button layoutX="1131.0" layoutY="207.0" mnemonicParsing="false" onAction="#hint" text="hint" textAlignment="CENTER">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
