@@ -7,7 +7,6 @@ import components.Point;
 import exceptions.IllegalPlayedPointException;
 import exceptions.NotALineException;
 import exceptions.OutOfGridException;
-import game.Mode;
 
 import java.util.ArrayList;
 import java.util.List;
