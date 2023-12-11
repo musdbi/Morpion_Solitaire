@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MSSceneController {
+public class MSNameController {
 	
 	@FXML
 	private Stage stage;
@@ -29,14 +29,6 @@ public class MSSceneController {
 		gameManager = GameManagerFX.getInstance();
     }
 	
-	public void switchToName (ActionEvent event) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("NameScene.fxml"));
-		stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene (root);
-		stage.setScene(scene);
-		stage.show();
-	}
-	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	    stage.setScene(MSMenuApp.menuScene);
@@ -45,13 +37,12 @@ public class MSSceneController {
 	
 	public void switchToGame (ActionEvent event) throws IOException {
 	    if (nomJoueur.getText().isEmpty()) {
-	    	Alert alert = new Alert(Alert.AlertType.INFORMATION);
-	        alert.setTitle("Erreur");
-	        alert.setHeaderText("Nom manquant");
-	        alert.setContentText("Veuillez entrer un nom !");
+	    	Alert alert = new Alert(Alert.AlertType.ERROR);
+	        alert.setTitle("Error");
+	        alert.setHeaderText("Missing Name");
+	        alert.setContentText("Please enter a name !");
 	        alert.showAndWait();
 	    } else {
-	    	
 	    	initGameManager ();
 	    	gameManager.setPlayerName(nomJoueur.getText());
 		    gameManager.setupGame();
@@ -68,10 +59,5 @@ public class MSSceneController {
 		    stage.show();
 				
 	    }
-	}
-	
-	public void checkBGSound (ActionEvent event) {
-		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
-		else MSMenuApp.bgSound.play();
 	}
 }

@@ -30,15 +30,18 @@ import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
 import components.*;
+import game.GameManager;
 import game.GameManagerFX;
 import game.Mode;
 
 public class MSMenuApp extends Application {
 	
-    private static final int WIDTH = 1280;
+	private GameManagerFX gm;
+
+	private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
     
-    private Image icon = new Image(getClass().getResourceAsStream("res/logo2.png"));
+    private Image icon = new Image(getClass().getResourceAsStream("res/logo_nobg.png"));
     protected static MediaPlayer hoverSound;
     protected static MediaPlayer clickSound;
     protected static MediaPlayer bgSound;
@@ -115,24 +118,22 @@ public class MSMenuApp extends Application {
         st.play();
     }
 
-    private void addMenu(double x, double y, Stage primaryStage) {
+	private void addMenu(double x, double y, Stage primaryStage) {
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
         menuData.forEach(data -> {
         MSMenuItem item = new MSMenuItem(data.getKey());
         if (data.getKey().equals("Play")) {
             item.setOnAction(() -> {
-                menuScene = primaryStage.getScene();
                 primaryStage.setScene(selectNameScene());
             });
         } else if (data.getKey().equals("Game Options")) {
         	item.setOnAction(() -> {
-                menuScene = primaryStage.getScene();
                 primaryStage.setScene(selectOptionScene());
             });
         } else if (data.getKey().equals("Scoreboard")) {
         	item.setOnAction(() -> {
-                GameManagerFX.getSB().show();
+                primaryStage.setScene(selectScoreboardScene());
             });
         } else {
             item.setOnAction(data.getValue());
@@ -174,23 +175,25 @@ public class MSMenuApp extends Application {
     	Scene scene = new Scene (newRoot);
     	return scene;
     }
+	
+	private Scene selectScoreboardScene() {
+    	Parent newRoot;
+    	try {
+    		newRoot = FXMLLoader.load(getClass().getResource("ScoreboardScene.fxml"));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("Could not load the FXML");
+            GameManagerFX.getSB().show();
+    		return null;
+    	}
+    	Scene scene = new Scene (newRoot);
+    	return scene;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
     	
-//     // Passez l'instance GameManagerFX aux scènes qui en ont besoin
-//    	
-//        //NameScene						
-//    	FXMLLoader loader = new FXMLLoader(getClass().getResource("NameScene.fxml"));
-//        Parent root = loader.load();
-//        MSSceneController controllerName = loader.getController();
-//        controllerName.initGameManager(gameManager);
-//        
-//        //GridScene
-//        loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
-//        root = loader.load();
-//        MSGridController controllerGrid = loader.getController();
-//        controllerGrid.initGameManager(gameManager);
+    	gm = GameManagerFX.getInstance();
     	
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
@@ -230,5 +233,7 @@ public class MSMenuApp extends Application {
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        menuScene = primaryStage.getScene();
     }
 }

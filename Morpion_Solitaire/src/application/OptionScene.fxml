@@ -15,20 +15,20 @@
             <Image url="@res/fond.png" />
          </image>
       </ImageView>
-      <Text layoutX="447.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez choisir votre MODE :" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text layoutX="447.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="select your MODE:" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
       <Pane layoutX="662.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: black;">
          <children>
-            <ToggleButton layoutX="78.0" layoutY="335.0" mnemonicParsing="false" onAction="#set5D" text="Choisir ce mode" />
+            <ToggleButton layoutX="78.0" layoutY="335.0" mnemonicParsing="false" onAction="#set5D" text="Select this mode" />
             <Text layoutX="109.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5D" textAlignment="CENTER" wrappingWidth="41.199996948242074">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="33.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le &quot;5&quot; signifie qu'une ligne nécessite 5 croix, et le &quot;D&quot; signifie modèle &quot;disjoint&quot; : deux lignes sur le même alignement ne peuvent pas se toucher, elles doivent être disjointes." textAlignment="CENTER" wrappingWidth="185.9999999999999">
+            <Text layoutX="33.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The &quot;5&quot; means that a line requires 5 points, and the &quot;D&quot; stands for &quot;disjoint&quot; pattern: two lines on the same alignment can't touch, they must be disjoint." textAlignment="CENTER" wrappingWidth="185.9999999999999">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
                </font>
@@ -42,13 +42,13 @@
       </Pane>
       <Pane layoutX="60.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: black;">
          <children>
-            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set4D" text="Choisir ce mode" />
+            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set4D" text="Select this mode" />
             <Text layoutX="109.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4D" textAlignment="CENTER" wrappingWidth="41.199996948242074">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="37.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le &quot;4&quot; signifie qu'une ligne nécessite 4 croix, et le &quot;D&quot; signifie modèle &quot;disjoint&quot; : deux lignes sur le même alignement ne peuvent pas se toucher, elles doivent être disjointes." textAlignment="CENTER" wrappingWidth="185.9999999999999">
+            <Text layoutX="37.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The &quot;4&quot; means that a line requires 4 points, and the &quot;D&quot; stands for &quot;disjoint&quot; pattern: two lines on the same alignment can't touch, they must be disjoint." textAlignment="CENTER" wrappingWidth="185.9999999999999">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
                </font>
@@ -62,13 +62,13 @@
       </Pane>
       <Pane layoutX="354.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: black;">
          <children>
-            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set4T" text="Choisir ce mode" />
+            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set4T" text="Select this mode" />
             <Text layoutX="109.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4t" textAlignment="CENTER" wrappingWidth="41.199996948242074">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="40.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le &quot;4&quot; signifie qu'une ligne nécessite 4 croix, et le &quot;T&quot; signifie modèle &quot;Touchant&quot; : deux lignes sur le même alignement peuvent se toucher aux extrémités" textAlignment="CENTER" wrappingWidth="185.99999999999994">
+            <Text layoutX="40.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The &quot;4&quot; means that a line requires 4 points, and the &quot;T&quot; stands for &quot;Touching&quot; pattern: two lines on the same alignment can touch at the ends." textAlignment="CENTER" wrappingWidth="185.99999999999994">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
                </font>
@@ -82,13 +82,13 @@
       </Pane>
       <Pane layoutX="961.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: black;">
          <children>
-            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set5T" text="Choisir ce mode" />
+            <ToggleButton layoutX="79.0" layoutY="335.0" mnemonicParsing="false" onAction="#set5T" text="Select this mode" />
             <Text layoutX="109.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5t" textAlignment="CENTER" wrappingWidth="41.199996948242074">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
                </font>
             </Text>
-            <Text layoutX="37.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le &quot;5&quot; signifie qu'une ligne nécessite 5 croix, et le &quot;T&quot; signifie modèle &quot;Touchant&quot; : deux lignes sur le même alignement peuvent se toucher aux extrémités" textAlignment="CENTER" wrappingWidth="185.9999999999999">
+            <Text layoutX="37.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The &quot;5&quot; means that a line requires 5 points, and the &quot;T&quot; stands for &quot;Touching&quot; pattern: two lines on the same alignment can touch at the ends." textAlignment="CENTER" wrappingWidth="185.9999999999999">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
                </font>
@@ -100,12 +100,12 @@
             </ImageView>
          </children>
       </Pane>
-      <Button layoutX="597.0" layoutY="615.0" mnemonicParsing="false" onAction="#checkBGSound" text="Togglemusic" textAlignment="CENTER">
+      <Button layoutX="597.0" layoutY="615.0" mnemonicParsing="false" onAction="#checkBGSound" text="Toggle music" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" text="Retour" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
