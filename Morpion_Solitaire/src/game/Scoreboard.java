@@ -6,6 +6,9 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import game.ScoreTuple;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 
 public class Scoreboard {
 	
@@ -27,6 +30,23 @@ public class Scoreboard {
 	      System.out.println("Exception " + ioe);
 	    }
 		scores = new TreeMap<>(Collections.reverseOrder());
+	}
+	
+	public void clear () {
+		scores.clear();
+	}
+	
+	public void show() {
+	    if (Desktop.isDesktopSupported()) {
+	        try {
+	            File file = new File(path);
+	            Desktop.getDesktop().open(file);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Desktop is not supported");
+	    }
 	}
 	
 	public void addScore(String playerName, int score) {
@@ -67,26 +87,26 @@ public class Scoreboard {
             List<ScoreTuple> uniqueCombo = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-            	if (!line.isEmpty()) {
-            		Scanner scanner = new Scanner (line);
-            		scanner.useDelimiter(" played points - ");
-            		int recordedScore = scanner.nextInt();
-            		String name = scanner.next();
-                    uniqueCombo.add(new ScoreTuple(recordedScore, name));
-            		scanner.close();
-            	}
+                if (!line.isEmpty()) {
+                    try (Scanner scanner = new Scanner(line)) {
+                        scanner.useDelimiter(" played points - ");
+                        if (scanner.hasNextInt()) {
+                            int recordedScore = scanner.nextInt();
+                            if (scanner.hasNext()) {
+                                String name = scanner.next();
+                                uniqueCombo.add(new ScoreTuple(recordedScore, name));
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error processing line: " + line);
+                        e.printStackTrace();
+                    }
+                }
             }
             reader.close();
-            
             Collections.sort(uniqueCombo, new TupleComparator());
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write("ScoreBoard :");
-    		writer.newLine();
-    		writer.newLine();
-    		writer.write("--------------------------------------------------------");
-    		writer.newLine();
-    		writer.newLine();
     		for (ScoreTuple entry : uniqueCombo) {
     	        writer.write(entry.getScore() + " played points - " + entry.getName());
     	        writer.newLine();

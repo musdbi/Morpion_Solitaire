@@ -197,7 +197,7 @@ public class Grid {
 			}	
 		}
 		this.updatePossibleMoves();
-		this.updateVisualGrid();
+//		this.updateVisualGrid();
 	}
 	
 

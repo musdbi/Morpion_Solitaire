@@ -112,6 +112,7 @@ public class NMCS implements ResearchAlgorithm{
 		endTime = System.currentTimeMillis();
 		elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
+
         System.out.println("Grid found: \n" + level2);
         
 //        Grid level3 = nmcs3.algorithm();
@@ -119,6 +120,7 @@ public class NMCS implements ResearchAlgorithm{
 //		endTime = System.currentTimeMillis();
 //		elapsedTime = (endTime - startTime) * 0.001;
 //        System.out.println("Time taken: " + elapsedTime + " seconds");
+//        System.out.println("Grid found: \n" + level3);
 //        System.out.println("Grid found: \n" + level3);
 	}
 }
