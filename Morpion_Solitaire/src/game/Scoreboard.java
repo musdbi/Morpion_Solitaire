@@ -32,6 +32,10 @@ public class Scoreboard {
 		scores = new TreeMap<>(Collections.reverseOrder());
 	}
 	
+	public void clear () {
+		scores.clear();
+	}
+	
 	public void show() {
 	    if (Desktop.isDesktopSupported()) {
 	        try {

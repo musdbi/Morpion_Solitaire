@@ -89,6 +89,7 @@ public class GameManagerFX {
         ranking.addScore(currentPlayer, score);
         ranking.append();
         ranking.sort();
+        ranking.clear();
     }
     
     public void resetGame() {
@@ -210,12 +211,5 @@ public class GameManagerFX {
 	
     public void displayRanking(){
         ranking.write();
-    }
-
-    public static void main(String[] args) {
-    	GameManagerFX game = new GameManagerFX();
-    	game.setupGame();
-    	game.launchGame();
-    	game.endGame();
     }
 }

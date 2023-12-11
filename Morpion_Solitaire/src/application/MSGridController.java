@@ -67,10 +67,12 @@ public class MSGridController {
     }
 	
 	public void endGame(ActionEvent event) {
-        gameManager.endGame();
-        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
-        initGameManager();
-        updateLabels();
+		if (!gameManager.getScore().equals("0")) {
+	        gameManager.endGame();
+	        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
+	        initGameManager();
+	        updateLabels(); 
+		}
     }
 	
 	private void drawLines() {

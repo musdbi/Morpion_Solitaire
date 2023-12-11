@@ -1,28 +1,3 @@
 ScoreBoard :
 
 --------------------------------------------------------
-
-8 played points - pierrot
-
-6 played points - mus
-
-5 played points - aze
-
-5 played points - pierrot
-
-5 played points - pierrot
-
-4 played points - mus
-
-4 played points - mus
-
-4 played points - aze
-
-3 played points - mus
-
-2 played points - aze
-
-1 played points - pierre
-
-0 played points - az
-
