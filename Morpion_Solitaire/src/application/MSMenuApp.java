@@ -37,8 +37,8 @@ import game.Mode;
 public class MSMenuApp extends Application {
 	
 	private GameManagerFX gm;
-	
-    private static final int WIDTH = 1280;
+
+	private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
     
     private Image icon = new Image(getClass().getResourceAsStream("res/logo_nobg.png"));
@@ -118,24 +118,22 @@ public class MSMenuApp extends Application {
         st.play();
     }
 
-    private void addMenu(double x, double y, Stage primaryStage) {
+	private void addMenu(double x, double y, Stage primaryStage) {
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
         menuData.forEach(data -> {
         MSMenuItem item = new MSMenuItem(data.getKey());
         if (data.getKey().equals("Play")) {
             item.setOnAction(() -> {
-                menuScene = primaryStage.getScene();
                 primaryStage.setScene(selectNameScene());
             });
         } else if (data.getKey().equals("Game Options")) {
         	item.setOnAction(() -> {
-                menuScene = primaryStage.getScene();
                 primaryStage.setScene(selectOptionScene());
             });
         } else if (data.getKey().equals("Scoreboard")) {
         	item.setOnAction(() -> {
-                GameManagerFX.getSB().show();
+                primaryStage.setScene(selectScoreboardScene());
             });
         } else {
             item.setOnAction(data.getValue());
@@ -172,6 +170,20 @@ public class MSMenuApp extends Application {
     	} catch (Exception e) {
     		e.printStackTrace();
     		System.out.println("Could not load the FXML");
+    		return null;
+    	}
+    	Scene scene = new Scene (newRoot);
+    	return scene;
+    }
+	
+	private Scene selectScoreboardScene() {
+    	Parent newRoot;
+    	try {
+    		newRoot = FXMLLoader.load(getClass().getResource("ScoreboardScene.fxml"));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("Could not load the FXML");
+            GameManagerFX.getSB().show();
     		return null;
     	}
     	Scene scene = new Scene (newRoot);
@@ -221,5 +233,7 @@ public class MSMenuApp extends Application {
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        menuScene = primaryStage.getScene();
     }
 }

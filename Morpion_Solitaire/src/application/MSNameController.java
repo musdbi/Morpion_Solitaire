@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MSSceneController {
+public class MSNameController {
 	
 	@FXML
 	private Stage stage;
@@ -28,14 +28,6 @@ public class MSSceneController {
 	public void initGameManager() {
 		gameManager = GameManagerFX.getInstance();
     }
-	
-	public void switchToName (ActionEvent event) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("NameScene.fxml"));
-		stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene (root);
-		stage.setScene(scene);
-		stage.show();
-	}
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -67,10 +59,5 @@ public class MSSceneController {
 		    stage.show();
 				
 	    }
-	}
-	
-	public void checkBGSound (ActionEvent event) {
-		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
-		else MSMenuApp.bgSound.play();
 	}
 }

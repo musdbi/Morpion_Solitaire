@@ -107,12 +107,6 @@ public class Scoreboard {
             Collections.sort(uniqueCombo, new TupleComparator());
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write("ScoreBoard :");
-    		writer.newLine();
-    		writer.newLine();
-    		writer.write("--------------------------------------------------------");
-    		writer.newLine();
-    		writer.newLine();
     		for (ScoreTuple entry : uniqueCombo) {
     	        writer.write(entry.getScore() + " played points - " + entry.getName());
     	        writer.newLine();
