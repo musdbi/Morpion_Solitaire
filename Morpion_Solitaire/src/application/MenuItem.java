@@ -11,11 +11,11 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class MSMenuItem extends Pane {
+public class MenuItem extends Pane {
     private Text text;
     private Polygon bg;
 
-    public MSMenuItem(String name) {
+    public MenuItem(String name) {
         Polygon bg = new Polygon(
                 0, 0,
                 200, 0,
@@ -32,21 +32,21 @@ public class MSMenuItem extends Pane {
         text = new Text(name);
         text.setTranslateX(5);
         text.setTranslateY(20);
-        text.setFont(Font.loadFont(MSMenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 14));
+        text.setFont(Font.loadFont(MenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 14));
         text.setFill(Color.web("#EEE8AA"));
 
         getChildren().addAll(bg, text);
         
         setOnMouseEntered(e -> {
-        	MSMenuApp.hoverSound.stop();
-        	MSMenuApp.clickSound.stop();
-            MSMenuApp.hoverSound.play();
+        	MenuApp.hoverSound.stop();
+        	MenuApp.clickSound.stop();
+            MenuApp.hoverSound.play();
         });
         
         setOnMouseClicked(e -> {
-        	MSMenuApp.hoverSound.stop();
-            MSMenuApp.clickSound.stop();
-            MSMenuApp.clickSound.play();
+        	MenuApp.hoverSound.stop();
+            MenuApp.clickSound.stop();
+            MenuApp.clickSound.play();
         });
     }
 

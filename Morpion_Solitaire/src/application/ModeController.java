@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MSModeController {
+public class ModeController {
 	
 	@FXML
 	private Stage stage;
@@ -17,7 +17,7 @@ public class MSModeController {
 		Mode.setNumber(4);
 		Mode.setType("D");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
@@ -25,7 +25,7 @@ public class MSModeController {
 		Mode.setNumber(4);
 		Mode.setType("T");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
@@ -33,7 +33,7 @@ public class MSModeController {
 		Mode.setNumber(5);
 		Mode.setType("D");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
@@ -41,18 +41,18 @@ public class MSModeController {
 		Mode.setNumber(5);
 		Mode.setType("T");
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
 	public void checkBGSound (ActionEvent event) {
-		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
-		else MSMenuApp.bgSound.play();
+		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();
+		else MenuApp.bgSound.play();
 	}
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 }

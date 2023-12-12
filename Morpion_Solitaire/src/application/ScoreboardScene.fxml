@@ -8,23 +8,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MSScoreboardController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ScoreboardController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@res/fond.png" />
+            <Image url="@res/Selenium.jpg" />
          </image>
       </ImageView>
-      <Text layoutX="447.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCOREBOARD" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text fill="PALEGOLDENROD" layoutX="447.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCOREBOARD" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" text="BACK TO MENU" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-border-color: black; -fx-background-color: #EEE8AA;" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <ListView fx:id="scoreListView" layoutX="447.0" layoutY="172.0" prefHeight="464.0" prefWidth="406.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;" />
+      <ListView fx:id="scoreListView" layoutX="447.0" layoutY="172.0" prefHeight="464.0" prefWidth="406.0" style="-fx-background-color: transparent; -fx-border-color: #EEE8AA; -fx-border-style: solid; -fx-border-width: 2px;" />
    </children>
 </Pane>

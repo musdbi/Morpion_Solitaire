@@ -29,7 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MSGridController {
+public class GridController {
 	
 	@FXML
 	private Stage stage;
@@ -248,12 +248,12 @@ public class MSGridController {
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
 	public void checkBGSound (ActionEvent event) {
-		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
-		else MSMenuApp.bgSound.play();
+		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();
+		else MenuApp.bgSound.play();
 	}
 }

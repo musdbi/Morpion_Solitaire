@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MSNameController {
+public class NameController {
 	
 	@FXML
 	private Stage stage;
@@ -31,7 +31,7 @@ public class MSNameController {
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
@@ -49,7 +49,7 @@ public class MSNameController {
 		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
 		   	root = loader.load();
 
-		   	MSGridController gridController = loader.getController();
+		   	GridController gridController = loader.getController();
 		    gridController.initGameManager();
 		    gridController.updateLabels();
 		         

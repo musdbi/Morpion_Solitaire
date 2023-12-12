@@ -34,7 +34,7 @@ import game.GameManager;
 import game.GameManagerFX;
 import game.Mode;
 
-public class MSMenuApp extends Application {
+public class MenuApp extends Application {
 	
 	private GameManagerFX gm;
 
@@ -49,7 +49,7 @@ public class MSMenuApp extends Application {
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
             new Pair<String, Runnable>("Play", () -> {}),
             new Pair<String, Runnable>("Game Options", () -> {}),
-            new Pair<String, Runnable>("Additional Content", () -> {}),
+            new Pair<String, Runnable>("Research Algorithm", () -> {}),
             new Pair<String, Runnable>("Scoreboard", () -> {}),
             new Pair<String, Runnable>("Exit to Desktop", Platform::exit)
     );
@@ -84,7 +84,7 @@ public class MSMenuApp extends Application {
     }
 
     private void addTitle() {
-        MSTitle title = new MSTitle("MORPION SOLITAIRE");
+        Title title = new Title("MORPION SOLITAIRE");
         title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2);
         title.setTranslateY(HEIGHT / 3);
 
@@ -95,7 +95,7 @@ public class MSMenuApp extends Application {
         line = new Line(x, y, x, y + 190);
         line.setStrokeWidth(3);
         line.setStroke(Color.color(1, 1, 1, 0.75));
-        line.setEffect(new DropShadow(5, Color.BLACK));
+        line.setEffect(new DropShadow(5, Color.WHITE));
         line.setScaleY(0);
 
         root.getChildren().add(line);
@@ -122,7 +122,7 @@ public class MSMenuApp extends Application {
         menuBox.setTranslateX(x);
         menuBox.setTranslateY(y);
         menuData.forEach(data -> {
-        MSMenuItem item = new MSMenuItem(data.getKey());
+        MenuItem item = new MenuItem(data.getKey());
         if (data.getKey().equals("Play")) {
             item.setOnAction(() -> {
                 primaryStage.setScene(selectNameScene());

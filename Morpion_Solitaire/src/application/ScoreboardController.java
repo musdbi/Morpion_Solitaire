@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class MSScoreboardController {
+public class ScoreboardController {
 	
 		private final static String path = "./classement.txt";
 	
@@ -38,7 +38,7 @@ public class MSScoreboardController {
 	    
 		public void switchToMenu (ActionEvent event) {
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		    stage.setScene(MSMenuApp.menuScene);
+		    stage.setScene(MenuApp.menuScene);
 		    stage.show();
 		}
 	}
