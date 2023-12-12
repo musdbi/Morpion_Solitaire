@@ -14,12 +14,13 @@ import algorithms.ResearchAlgorithm;
 
 public class NMCS implements ResearchAlgorithm{
 	
-	private static final int algoId = 2;
+	private static int algoId;
 	
 	private final int depthLevel;
 	
 	public NMCS(int depthLevel) {
 		this.depthLevel = depthLevel;
+		this.algoId = depthLevel;
 	}
 	
 	public NMCSState setUpInitState() {
