@@ -11,8 +11,6 @@ import game.Mode;
 
 public class RandomAlgorithm implements ResearchAlgorithm{
 	
-	private static final int algoId = 1;
-	
 	private Random random;
 	
 	/**
@@ -58,8 +56,11 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		}
 		this.addGrid(simulatedGrid);	
 		this.addScore(simulatedGrid.getLines().size());
-		if (this instanceof RandomAlgorithm) {
-			DataManager.insertData(algoId, simulatedGrid.getLines().size());
+		if (DataManager.getCurrRunningAlgo() == 0) {
+			DataManager.insertData(
+					DataManager.getCurrRunningAlgo(),
+					"" + Mode.getNumber() + Mode.getType(),
+					simulatedGrid.getLines().size());
 		}
 		return simulatedGrid;
 	}
@@ -121,18 +122,11 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	public static synchronized double getSigma() {
 		return sigma;
 	}
-	
-	public static int getId() {
-		return algoId;
-	}
 
 	public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-//        
-//        Mode.setNumber(5);
-//        Mode.setType("T");
-
-		ResearchAlgorithm randomAlgo = new RandomAlgorithm();
+        DataManager.setCurrRunningAlgo(0);
+        ResearchAlgorithm randomAlgo = new RandomAlgorithm();
 		int it = 50;
 		randomAlgo.trainAlgorithm(it);
 		RandomAlgorithm.calculateStatistics();
