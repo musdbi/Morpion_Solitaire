@@ -21,7 +21,7 @@ public class DataManager {
 	
 	private static int currRunningAlgoId;
 	
-	private static final String path = "D:\\git-repositories\\Morpion_Solitaire\\Morpion_Solitaire\\src\\algorithms\\algo_scores.csv";
+	private static final String path = "./algo_scores.csv";
 
 	/**
 	 * This class insert new line in the scores.csv file
