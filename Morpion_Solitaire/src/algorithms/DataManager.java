@@ -26,7 +26,7 @@ public class DataManager {
 	/**
 	 * This class insert new line in the scores.csv file
 	 */
-	public static void insertData(int algoId, String mode, int score){
+	public static synchronized void insertData(int algoId, String mode, int score){
 		try (CSVWriter writer = new CSVWriter(new FileWriter(path, true))) {
             String[] data = {String.valueOf(algoId), String.valueOf(mode), String.valueOf(score)};
             writer.writeNext(data);
@@ -38,22 +38,26 @@ public class DataManager {
 	
 	public static List<Integer> getData(int algoId, String mode) throws CsvValidationException, NumberFormatException {
 		List<Integer> scores = new ArrayList<>();
-
+		System.out.println("1");
         try (CSVReader reader = new CSVReader(new FileReader(path))) {
             String[] line;
             while ((line = reader.readNext()) != null) {
-                int fileAlgoId = Integer.parseInt(line[0]);
-                String fileMode = line[1];
-                if (fileAlgoId == algoId && mode.equals(fileMode)) {
-                    int score = Integer.parseInt(line[2]);
-                    scores.add(score);
-                }
+            	// If the line is not empty
+        		if (!line[0].equals("")){
+        			int fileAlgoId = Integer.parseInt(line[0]);
+                    String fileMode = line[1];
+                    if (fileAlgoId == algoId && mode.equals(fileMode)) {
+                        int score = Integer.parseInt(line[2]);
+                        scores.add(score);
+                    }
+        		}
+                
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        catch(NumberFormatException e2) {
-        }
+//        catch(NumberFormatException e2) {
+//        }
         return scores;
     }
 	
@@ -106,6 +110,7 @@ public class DataManager {
 	
 	public static void main(String[] args) throws CsvValidationException, NumberFormatException {
 		System.out.println(DataManager.calculateStatistics(0, "5T"));
-		
+		System.out.println(DataManager.calculateStatistics(1, "5T"));
+		System.out.println(DataManager.calculateStatistics(2, "5T"));
 	}
 }

@@ -45,7 +45,7 @@ public class NMCS implements ResearchAlgorithm{
 	    Grid bestGrid = new Grid();
 	    
 	    // Creating a thread pool
-	    ExecutorService executor = Executors.newFixedThreadPool(2);
+	    ExecutorService executor = Executors.newFixedThreadPool(3);
 	    List<Future<Grid>> futures = new ArrayList<>();
 	    
 	    // Shuffling list so we don't only search in left childs due to time limit
@@ -75,6 +75,7 @@ public class NMCS implements ResearchAlgorithm{
 
 	    executor.shutdown();
 	    
+	    // Ensure to update score at the very end at the end and not for every threads
 	    if (level == depthLevel) {
 	    	// Save score in csv file
 	    	DataManager.insertData(
@@ -118,23 +119,23 @@ public class NMCS implements ResearchAlgorithm{
 		
 		/**                        DEPTH 2                       */
         
-//		DataManager.setCurrRunningAlgo(2);
-//		Grid level2 = nmcs2.algorithm();
-//        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
-//		endTime = System.currentTimeMillis();
-//		elapsedTime = (endTime - startTime) * 0.001;
-//        System.out.println("Time taken: " + elapsedTime + " seconds");
-//        System.out.println("Grid found: \n" + level2);
-        
-		/**                        DEPTH 3                        */
-		
-		DataManager.setCurrRunningAlgo(3);
-        Grid level3 = nmcs3.algorithm();
-        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+		DataManager.setCurrRunningAlgo(2);
+		Grid level2 = nmcs2.algorithm();
+        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
 		endTime = System.currentTimeMillis();
 		elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
-        System.out.println("Grid found: \n" + level3);
-        System.out.println("Grid found: \n" + level3);
+        System.out.println("Grid found: \n" + level2);
+        
+		/**                        DEPTH 3                        */
+		
+//		DataManager.setCurrRunningAlgo(3);
+//        Grid level3 = nmcs3.algorithm();
+//        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+//		endTime = System.currentTimeMillis();
+//		elapsedTime = (endTime - startTime) * 0.001;
+//        System.out.println("Time taken: " + elapsedTime + " seconds");
+//        System.out.println("Grid found: \n" + level3);
+//        System.out.println("Grid found: \n" + level3);
 	}
 }
