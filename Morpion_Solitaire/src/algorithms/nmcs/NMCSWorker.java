@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.nmcs;
 
 import java.util.concurrent.Callable;
 
@@ -19,6 +19,9 @@ public class NMCSWorker implements Callable<Grid>{
         this.dureeMax = dureeMax;
     }
 
+	/**
+	 * Asynchronously executes the nmcs for a given level
+	 */
 	@Override
     public Grid call() {
         return nmcs.nmcs(childState, level, debut, dureeMax);

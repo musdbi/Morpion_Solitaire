@@ -1,11 +1,13 @@
-package algorithms;
+package algorithms.random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MultiThreading extends Thread{
+import algorithms.ResearchAlgorithm;
+
+public class RandomAlgoThreading extends Thread{
 	
 	/**
 	 * The research algorithm we are training
@@ -32,7 +34,7 @@ public class MultiThreading extends Thread{
 	 */
 	private int threadIterations;
 		
-	public MultiThreading(ResearchAlgorithm algo, int numberOfThreads, int iterations) {
+	public RandomAlgoThreading(ResearchAlgorithm algo, int numberOfThreads, int iterations) {
 		this.algo = algo;
 		this.numberOfThreads = numberOfThreads;
 		this.iterations = iterations;
@@ -44,17 +46,23 @@ public class MultiThreading extends Thread{
 		algo.trainAlgorithm(this.iterations);
 	}
 	
+	
+	/**
+	 * Execute the algorithm the given amount of times and divide in threads the task to gain time.
+	 * 
+	 * @throws InterruptedException
+	 */
 	public void trainAlgorithm() throws InterruptedException {
 		long startTime = System.currentTimeMillis();
 		
-		List<MultiThreading> threads = new ArrayList<>(); // List to keep order of thread for .join()
+		List<RandomAlgoThreading> threads = new ArrayList<>(); // List to keep order of thread for .join()
 		for(int i = 0; i < this.numberOfThreads; i++) {
-			MultiThreading thread = new MultiThreading(algo, numberOfThreads, threadIterations);
+			RandomAlgoThreading thread = new RandomAlgoThreading(algo, numberOfThreads, threadIterations);
 			threads.add(thread);
 			thread.start();
 		}
 		
-		for(MultiThreading thread: threads) {
+		for(RandomAlgoThreading thread: threads) {
 			thread.join();
 		}
 
@@ -64,14 +72,10 @@ public class MultiThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		MultiThreading randomMultiThread = new MultiThreading(new RandomAlgorithm(), 4, 552);
+		RandomAlgoThreading randomMultiThread = new RandomAlgoThreading(new RandomAlgorithm(), 4, 100);
 		randomMultiThread.trainAlgorithm();
-		RandomAlgorithm.calculateStatistics();
-		System.out.println("Nombres d'itérations au total: " + RandomAlgorithm.getScores().size());
 		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
 		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");
 		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);;
-		System.out.println("Le score est en moyenne: " + RandomAlgorithm.getMean());
-		System.out.println("L'écart-type est: " + RandomAlgorithm.getSigma());
 	}
 }

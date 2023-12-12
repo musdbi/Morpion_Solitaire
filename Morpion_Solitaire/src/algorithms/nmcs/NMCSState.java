@@ -1,10 +1,11 @@
-package algorithms;
+package algorithms.nmcs;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import algorithms.random.RandomAlgorithm;
 import components.Grid;
 import components.Point;
 import components.Line;
@@ -39,7 +40,7 @@ public class NMCSState {
 		
 	/**
 	 * Explore the child states of the current state.
-	 * i.e play every possible moves of the current state grid and create states from the new grids
+	 * i.e create one new state for every possible move
 	 */
 	public void exploreChilds(){
 		if (!this.currentStateGrid.getPossibleMoves().isEmpty()) {
@@ -55,12 +56,20 @@ public class NMCSState {
 		}
 	}
 	
+	
+	/**
+	 * @return the result of a random algorithm starting at the current child grid
+	 */
 	public Grid rollout() {
 		RandomAlgorithm randomAlgo = new RandomAlgorithm(this.currentStateGrid);
 		return randomAlgo.algorithm();
 
 	}
 	
+	
+	/**
+	 * @return true / false if the state has no possible child i.e if we can't play any more move
+	 */
 	public boolean isTerminal() {
 		return currentStateGrid.getPlayablePoints().isEmpty();
 	}
@@ -71,19 +80,5 @@ public class NMCSState {
 	
 	public List<NMCSState> getChilds(){
 		return this.childStates;
-	}
-	
-	
-	public static void main(String[] args) {
-		Grid grid = new Grid();
-		grid.initGrid();
-		grid.updatePlayablePoints();
-		NMCSState initState = new NMCSState(null, grid);
-		initState.exploreChilds();
-		
-		System.out.println(initState.currentStateGrid);
-		for(NMCSState childState: initState.getChilds()) {
-			System.out.println(childState.getGrid());
-		}
 	}
 }
