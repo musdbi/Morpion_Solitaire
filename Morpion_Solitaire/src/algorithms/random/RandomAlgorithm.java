@@ -58,6 +58,12 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		return simulatedGrid;
 	}
 	
+	
+	/**
+	 * Play a random point and a random line (if there is the choice) on the given grid
+	 *
+	 * @param grid
+	 */
 	public void playRandomMove(Grid grid){
 		List<Line> lines = new ArrayList<>(grid.getPossibleMoves().keySet());
         Line randomLine = lines.get(random.nextInt(lines.size()));

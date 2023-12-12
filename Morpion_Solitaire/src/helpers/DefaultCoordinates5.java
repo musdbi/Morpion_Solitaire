@@ -3,7 +3,7 @@ package helpers;
 import java.util.HashSet;
 import java.util.Objects;
 
-import exceptions.OutOfGridException;
+import helpers.exceptions.OutOfGridException;
 
 public enum DefaultCoordinates5 {
 	p1(10, 7),

@@ -38,7 +38,19 @@ public class NMCS implements ResearchAlgorithm{
         long dureeMax = 30 * 1000; // 30 seconds time limit
 		return nmcs(initialState, depthLevel, debut, dureeMax);
 	}
-
+	
+	
+	/**
+	 * This method executes the monte-carlo search. 
+	 * In practise, we will never reach the maximum depth level (i.e a terminal state)
+	 * so we do not test if the state is terminal or not
+	 * 
+	 * @param state
+	 * @param level
+	 * @param debut
+	 * @param dureeMax
+	 * @return the result of the monte carlo search for a given depth level and time limit
+	 */
 	public Grid nmcs(NMCSState state, int level, long debut, long dureeMax) {
 	    if (level == 0) {
 	        return state.rollout();

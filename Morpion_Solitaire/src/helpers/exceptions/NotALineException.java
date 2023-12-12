@@ -1,4 +1,4 @@
-package exceptions;
+package helpers.exceptions;
 
 public class NotALineException extends IllegalArgumentException {
 	public NotALineException (String message) {

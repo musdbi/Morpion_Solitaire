@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import exceptions.OutOfGridException;
 import game.Mode;
 
 import java.util.HashSet;
@@ -16,6 +15,7 @@ import helpers.DefaultCoordinates4;
 import helpers.DefaultCoordinates5;
 import helpers.Direction;
 import helpers.Orientation;
+import helpers.exceptions.OutOfGridException;
 
 
 public class Grid {

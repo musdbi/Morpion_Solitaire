@@ -4,10 +4,10 @@ import components.Grid;
 import components.Line;
 import components.PlayedPoint;
 import components.Point;
-import exceptions.IllegalPlayedPointException;
-import exceptions.NotALineException;
-import exceptions.OutOfGridException;
 import game.Mode;
+import helpers.exceptions.IllegalPlayedPointException;
+import helpers.exceptions.NotALineException;
+import helpers.exceptions.OutOfGridException;
 
 import java.util.ArrayList;
 import java.util.List;

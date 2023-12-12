@@ -1,4 +1,4 @@
-package exceptions;
+package helpers.exceptions;
 
 public class OutOfGridException extends IllegalArgumentException {
 	public OutOfGridException (String message) {

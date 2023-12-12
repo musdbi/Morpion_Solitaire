@@ -19,12 +19,20 @@ import com.opencsv.exceptions.CsvValidationException;
  */
 public class DataManager {
 	
+	/**
+	 * Id of the algorithm we are currently using.
+	 * This attribute is essentially use to ensure correct save of the score in the csv file.
+	 * Indeed, NMCS uses Random Algo. Therefore, we don't want the random algo to acess the inserData()
+	 * method when it is called by NMCS. @see RandomAlgorithm#algorithm()
+	 */
 	private static int currRunningAlgoId;
 	
 	private static final String path = "./algo_scores.csv";
 
 	/**
-	 * This class insert new line in the scores.csv file
+	 * This method insert new line in the scores.csv file
+	 * We set it to synchronized to ensure different thread do not access it at the 
+	 * same time 
 	 */
 	public static synchronized void insertData(int algoId, String mode, int score){
 		try (CSVWriter writer = new CSVWriter(new FileWriter(path, true))) {
@@ -56,8 +64,8 @@ public class DataManager {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-//        catch(NumberFormatException e2) {
-//        }
+        catch(NumberFormatException e2) {
+        }
         return scores;
     }
 	

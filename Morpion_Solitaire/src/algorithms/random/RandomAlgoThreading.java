@@ -46,6 +46,12 @@ public class RandomAlgoThreading extends Thread{
 		algo.trainAlgorithm(this.iterations);
 	}
 	
+	
+	/**
+	 * Execute the algorithm the given amount of times and divide in threads the task to gain time.
+	 * 
+	 * @throws InterruptedException
+	 */
 	public void trainAlgorithm() throws InterruptedException {
 		long startTime = System.currentTimeMillis();
 		

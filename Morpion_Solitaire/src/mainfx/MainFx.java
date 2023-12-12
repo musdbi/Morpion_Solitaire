@@ -1,4 +1,4 @@
-package mainFx;
+package mainfx;
 
 import application.MSMenuApp;
 import javafx.application.Application;
