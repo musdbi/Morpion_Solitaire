@@ -1,9 +1,11 @@
-package algorithms;
+package algorithms.random;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import algorithms.DataManager;
+import algorithms.ResearchAlgorithm;
 import components.Grid;
 import components.Line;
 import components.PlayedPoint;

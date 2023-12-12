@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.nmcs;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +8,9 @@ import components.Grid;
 import game.Mode;
 
 import java.util.concurrent.*;
+
+import algorithms.DataManager;
+import algorithms.ResearchAlgorithm;
 
 public class NMCS implements ResearchAlgorithm{
 	

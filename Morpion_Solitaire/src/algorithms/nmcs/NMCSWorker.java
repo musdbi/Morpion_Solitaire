@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.nmcs;
 
 import java.util.concurrent.Callable;
 

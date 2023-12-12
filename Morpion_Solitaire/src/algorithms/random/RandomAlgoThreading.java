@@ -1,9 +1,11 @@
-package algorithms;
+package algorithms.random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import algorithms.ResearchAlgorithm;
 
 public class RandomAlgoThreading extends Thread{
 	

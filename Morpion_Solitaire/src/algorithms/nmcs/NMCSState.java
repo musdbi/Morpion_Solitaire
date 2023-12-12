@@ -1,10 +1,11 @@
-package algorithms;
+package algorithms.nmcs;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import algorithms.random.RandomAlgorithm;
 import components.Grid;
 import components.Point;
 import components.Line;
