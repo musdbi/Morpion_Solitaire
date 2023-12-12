@@ -117,8 +117,8 @@ public class DataManager {
 	}
 	
 	public static void main(String[] args) throws CsvValidationException, NumberFormatException {
-		System.out.println(DataManager.calculateStatistics(0, "5T"));
-		System.out.println(DataManager.calculateStatistics(1, "5T"));
-		System.out.println(DataManager.calculateStatistics(2, "5T"));
+		System.out.println("Random algo: " + DataManager.calculateStatistics(0, "5T"));
+		System.out.println("NMCS depth 1: " + DataManager.calculateStatistics(1, "5T"));
+		System.out.println("NMCS depth 2: " + DataManager.calculateStatistics(2, "5T"));
 	}
 }
