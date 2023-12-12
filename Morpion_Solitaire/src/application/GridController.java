@@ -9,6 +9,7 @@ import game.Mode;
 import helpers.DefaultCoordinates4;
 import helpers.DefaultCoordinates5;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javafx.application.Platform;
@@ -28,7 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MSGridController {
+public class GridController {
 	
 	@FXML
 	private Stage stage;
@@ -75,6 +76,15 @@ public class MSGridController {
 		}
     }
 	
+	public void resetGame(ActionEvent event) {
+		if (!gameManager.getScore().equals("0")) {
+	        gameManager.resetGame();
+	        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
+	        initGameManager();
+	        updateLabels(); 
+		}
+    }
+	
 	private void drawLines() {
 	    Grid grid = gameManager.getGrid();
 	    javafx.geometry.Point2D paneCoords = principal.localToScene(0, 0);
@@ -104,6 +114,24 @@ public class MSGridController {
 	        });
 	    }
 	}
+	
+	public void hint() {
+	    showHints();
+	}
+	
+	private void showHints() {
+	    Grid grid = gameManager.getGrid();
+	    Map<Point, Set<Line>> playablePoints = grid.getPlayablePoints();
+
+	    for (Map.Entry<Point, Set<Line>> entry : playablePoints.entrySet()) {
+	        Point point = entry.getKey();
+	        Button button = findButtonInGrid(gameGrid, point.getX(), point.getY());
+	        if (button != null) {
+	            button.setText("?");
+	            button.setStyle("-fx-text-fill: green; -fx-background-color: transparent; -fx-font-weight: bold;");
+	        }
+	    }
+	}
 
 	private Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
@@ -126,21 +154,20 @@ public class MSGridController {
                 
             	Button button = new Button();
                 button.setMinSize(30,30);
-                button.setText("*");
                 button.setFont(new Font(12));
-               
+                
                 if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
                 	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
-                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: red");
+                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 else if (grid.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
-                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 else {
-                	button.setText("*");
-                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                	button.setText("•");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 
                 button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
@@ -163,21 +190,20 @@ public class MSGridController {
                 
             	Button button = new Button();
                 button.setMinSize(30,30);
-                button.setText("*");
                 button.setFont(new Font(12));
                
                 if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
                 	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
-                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: red");
+                    button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 else if (grid.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
-                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 else {
-                	button.setText("*");
-                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold;");
+                	button.setText("•");
+                	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 
                 button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
@@ -222,12 +248,12 @@ public class MSGridController {
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
 	public void checkBGSound (ActionEvent event) {
-		if (MSMenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MSMenuApp.bgSound.pause();
-		else MSMenuApp.bgSound.play();
+		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();
+		else MenuApp.bgSound.play();
 	}
 }

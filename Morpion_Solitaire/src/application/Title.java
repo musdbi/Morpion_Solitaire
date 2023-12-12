@@ -6,18 +6,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class MSTitle extends Pane {
+public class Title extends Pane {
     private Text text;
 
-    public MSTitle(String name) {
+    public Title(String name) {
         String spread = "";
         for (char c : name.toCharArray()) {
             spread += c + " ";
         }
 
         text = new Text(spread);
-        text.setFont(Font.loadFont(MSMenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 48));
-        text.setFill(Color.WHITE);
+        text.setFont(Font.loadFont(MenuApp.class.getResource("res/Penumbra-HalfSerif-Std_35114.ttf").toExternalForm(), 48));
+        text.setFill(Color.web("#EEE8AA"));
         text.setEffect(new DropShadow(30, Color.BLACK));
 
         getChildren().addAll(text);
