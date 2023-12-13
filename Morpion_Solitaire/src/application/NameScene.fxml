@@ -15,7 +15,7 @@
          </font>
       </Text>
       <TextField fx:id="nomJoueur" alignment="CENTER" layoutX="484.0" layoutY="327.0" prefHeight="27.0" prefWidth="370.0" styleClass="name" stylesheets="@scoreboard.css" />
-      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Back to menu" textAlignment="CENTER">
+      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" styleClass="back-to-menu" stylesheets="@css.css" text="Back to menu" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

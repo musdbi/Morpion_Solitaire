@@ -88,9 +88,9 @@ public class MenuApp extends Application {
         int red = 40;   // Decimal equivalent of hexadecimal 28
         int green = 57; // Decimal equivalent of hexadecimal 39
         int blue = 67;  // Decimal equivalent of hexadecimal 43
-        
-        Color color = Color.rgb(red, green, blue);
-
+//        Color color = Color.rgb(red, green, blue);
+//        Color color = Color.web("#294328");
+        Color color = Color.web("#284337");
         Rectangle background = new Rectangle(WIDTH, HEIGHT, color);
 //        background.setEffect(new DropShadow(30, Color.WHITE));
         root.getChildren().add(background);
