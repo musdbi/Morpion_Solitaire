@@ -10,12 +10,12 @@
     -fx-cursor: hand; /* Use 'hand' for pointer */
     -fx-background-radius: 0 0 10 0; /* Adjust the clip-path effect with background-radius */
     -fx-effect: null; /* Remove default focus outline */
-    -fx-transition: -fx-background-color 0.3s ease;
+    -fx-transition: -fx-background-color 0.5s ease;
 }
 
 .back-to-menu:hover {
     -fx-background-color: rgba(0, 0, 0, 0.5);
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 3, 1, 0, 0); /* Adjusted shadow for smaller button */
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 3, 1, 0, 0); /* Adjusted shadow for 
     -fx-transform: scale(0.5); /* Scale down on hover */
 }
 
@@ -25,7 +25,7 @@
 
 /* Remove background color of ListView */
 .list {
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(0, 0, 0, 0.0);
 }
 
 .name {
@@ -39,6 +39,7 @@
     -fx-border-color: #EEE8AA;;
     -fx-pref-width: 300px;
     -fx-pref-height: 30px;
+    -fx-transition: 0.5s;
 }
 
 .name:hover{
