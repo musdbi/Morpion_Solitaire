@@ -29,6 +29,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
+
 import components.*;
 import game.GameManager;
 import game.GameManagerFX;
@@ -152,23 +153,6 @@ public class MenuApp extends Application {
             item.setOnAction(data.getValue());
         }
         item.setTranslateX(-300);
-
-//     // Add hover effect
-//        item.setOnMouseEntered(event -> {
-//            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), item);
-//            scaleTransition.setToX(2);
-//            scaleTransition.setToY(1.0);
-//            scaleTransition.play();
-//            // You can also change color or add other effects here
-//        });
-//
-//        item.setOnMouseExited(event -> {
-//            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), item);
-//            scaleTransition.setToX(1.0);
-//            scaleTransition.setToY(1.0);
-//            scaleTransition.play();
-//            // Revert changes on mouse exit
-//        });
         
         Rectangle clip = new Rectangle(300, 30);
         clip.translateXProperty().bind(item.translateXProperty().negate());

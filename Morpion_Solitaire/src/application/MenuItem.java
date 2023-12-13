@@ -1,10 +1,6 @@
 package application;
 
 import javafx.beans.binding.Bindings;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -13,7 +9,6 @@ import javafx.scene.text.Text;
 
 public class MenuItem extends Pane {
     private Text text;
-    private Polygon bg;
 
     public MenuItem(String name) {
     	 Polygon bg = new Polygon(
@@ -33,7 +28,7 @@ public class MenuItem extends Pane {
          bg.setStroke(Color.web("#CDBF96"));
          bg.fillProperty().bind(
                  Bindings.when(hoverProperty())
-                     .then(Color.color(0, 0, 0, 0.5))
+                     .then(Color.color(0, 0, 0, 0.50))
                      .otherwise(Color.color(0, 0, 0, 0.25))
              );
          text = new Text(name);
