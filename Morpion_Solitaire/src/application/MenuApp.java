@@ -75,18 +75,31 @@ public class MenuApp extends Application {
         return root;
     }
 
+//    private void addBackground() {
+//        ImageView imageView = new ImageView(new Image(getClass().getResource("res/Selenium.jpg").toExternalForm()));
+//        imageView.setFitWidth(WIDTH);
+//        imageView.setFitHeight(HEIGHT);
+//
+//        root.getChildren().add(imageView);
+//    }
+    
     private void addBackground() {
-        ImageView imageView = new ImageView(new Image(getClass().getResource("res/Selenium.jpg").toExternalForm()));
-        imageView.setFitWidth(WIDTH);
-        imageView.setFitHeight(HEIGHT);
+        int red = 40;   // Decimal equivalent of hexadecimal 28
+        int green = 57; // Decimal equivalent of hexadecimal 39
+        int blue = 67;  // Decimal equivalent of hexadecimal 43
+        
+        Color color = Color.rgb(red, green, blue);
 
-        root.getChildren().add(imageView);
+        Rectangle background = new Rectangle(WIDTH, HEIGHT, color);
+//        background.setEffect(new DropShadow(30, Color.WHITE));
+        root.getChildren().add(background);
     }
 
     private void addTitle() {
         Title title = new Title("MORPION SOLITAIRE");
         title.setTranslateX(WIDTH / 2 - title.getTitleWidth() / 2);
         title.setTranslateY(HEIGHT / 3);
+        title.setEffect(new DropShadow(30, Color.BLACK));
 
         root.getChildren().add(title);
     }
@@ -94,8 +107,8 @@ public class MenuApp extends Application {
     private void addLine(double x, double y) {
         line = new Line(x, y, x, y + 190);
         line.setStrokeWidth(3);
-        line.setStroke(Color.color(1, 1, 1, 0.75));
-        line.setEffect(new DropShadow(5, Color.WHITE));
+        line.setStroke(Color.web("#CDBF96"));
+        line.setEffect(new DropShadow(15, Color.web("#CDBF96")));
         line.setScaleY(0);
 
         root.getChildren().add(line);
@@ -139,7 +152,7 @@ public class MenuApp extends Application {
             item.setOnAction(data.getValue());
         }
         item.setTranslateX(-300);
-        
+
 //     // Add hover effect
 //        item.setOnMouseEntered(event -> {
 //            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100), item);
