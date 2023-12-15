@@ -66,6 +66,10 @@ public class PlayedPoint extends Point{
 		return "Played point: (" + this.getX() + "," + this.getY() + ")";
 	}
 	
+	public String toStringBis() {
+		return "(" + this.getX() + "," + this.getY() + ")";
+	}
+	
 	public int getId() {
 		return this.id;
 	}

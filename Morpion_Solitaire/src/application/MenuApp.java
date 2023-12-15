@@ -86,7 +86,7 @@ public class MenuApp extends Application {
 
     private void addBackground() {
     	// Colors to blend
-        Color color = Color.web("#284337");
+        Color color = Color.web("#283943");
         Rectangle background = new Rectangle(WIDTH, HEIGHT, color);
         root.getChildren().add(background);
 //        background.setEffect(new DropShadow(30, Color.WHITE));
@@ -146,6 +146,10 @@ public class MenuApp extends Application {
         	item.setOnAction(() -> {
                 primaryStage.setScene(selectScoreboardScene());
             });
+        } else if (data.getKey().equals("Research Algorithm")) {
+        	item.setOnAction(() -> {
+                primaryStage.setScene(selectResearchAlgorithmScene());
+            });
         } else {
             item.setOnAction(data.getValue());
         }
@@ -184,6 +188,38 @@ public class MenuApp extends Application {
     		return null;
     	}
     	Scene scene = new Scene (newRoot);
+    	return scene;
+    }
+	
+	private GridPane findGridPaneById(Node node, String id) {
+	    if (node instanceof GridPane && id.equals(node.getId())) {
+	        return (GridPane) node;
+	    }
+	    if (node instanceof Parent) {
+	        for (Node child : ((Parent) node).getChildrenUnmodifiable()) {
+	            GridPane found = findGridPaneById(child, id);
+	            if (found != null) {
+	                return found;
+	            }
+	        }
+	    }
+	    return null;
+	}
+	
+	private Scene selectResearchAlgorithmScene() {
+    	Parent newRoot;
+    	try {
+    		newRoot = FXMLLoader.load(getClass().getResource("ResearchAlgorithm.fxml"));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		System.out.println("Could not load the FXML");
+    		return null;
+    	}
+    	Scene scene = new Scene (newRoot);
+    	GridPane firstPane = findGridPaneById(scene.getRoot(), "firstAlgoGameGrid");
+    	GridPane secondPane = findGridPaneById(scene.getRoot(), "secondAlgoGameGrid");
+    	firstPane.setVisible(false);
+    	secondPane.setVisible(false);
     	return scene;
     }
 	

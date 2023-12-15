@@ -133,7 +133,7 @@ public class GridController {
 	        }
 	    }
 	}
-
+	
 	private Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y && node instanceof Button) {
@@ -238,10 +238,7 @@ public class GridController {
 		if (gameManager != null) {
             nomJoueur.setText(gameManager.getPlayerName());
             if (mode.getText().isEmpty()) {
-                if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) mode.setText("4T");
-        	    if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) mode.setText("4D");
-        	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) mode.setText("5T");
-        	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("D")) mode.setText("5D");
+            	mode.setText(Mode.toStringStatic());
             }
     	    score.setText(gameManager.getScore());
         }

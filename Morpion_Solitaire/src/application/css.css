@@ -1,6 +1,5 @@
 .background {
-	-fx-background: linear-gradient(to right, #284337, #284337,#284337, #283943);
-	
+	-fx-background: #283943;
 }
 
 .back-to-menu {
