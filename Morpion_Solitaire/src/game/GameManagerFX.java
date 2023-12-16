@@ -142,12 +142,12 @@ public class GameManagerFX {
         alert.setTitle("Choose a Line");
         alert.setHeaderText("Multiple lines available for point : " + playedPoint.toStringBis());
         alert.setContentText("Choose one of the following lines : ");
-
-        for (int i = 0; i < playableLines.size(); i++) {
-            Line line = playableLines.get(i);
-            String lineDescription = "Line " + (i + 1) + " : " + lineToString(line);
+        alert.getButtonTypes().clear();
+        
+        for (Line line : playableLines) {
+            String lineDescription = "Line " + (playableLines.indexOf(line) + 1) + " : " + lineToString(line);
             ButtonType buttonType = new ButtonType(lineDescription);
-            alert.getButtonTypes().set(i, buttonType);
+            alert.getButtonTypes().add(buttonType);
         }
         
         Optional<ButtonType> result = alert.showAndWait();

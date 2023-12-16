@@ -13,11 +13,11 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="58.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="25.0" prefWidth="98.0" styleClass="back-to-menu" stylesheets="@css.css" text="BACK TO MENU" textAlignment="CENTER" textFill="PALEGOLDENROD">
+      <Button layoutX="58.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="25.0" prefWidth="98.0" styleClass="back-to-menu" stylesheets="@res/css.css" text="BACK TO MENU" textAlignment="CENTER" textFill="PALEGOLDENROD">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <ListView fx:id="scoreListView" layoutX="447.0" layoutY="172.0" prefHeight="464.0" prefWidth="406.0" style="-fx-border-color: #EEE8AA; -fx-border-style: solid; -fx-border-width: 2px; -fx-background-color: rgba(0, 0, 0, 0.25);" styleClass="list" stylesheets="@scoreboard.css" />
+      <ListView fx:id="scoreListView" layoutX="447.0" layoutY="172.0" prefHeight="464.0" prefWidth="406.0" style="-fx-border-color: #EEE8AA; -fx-border-style: solid; -fx-border-width: 2px; -fx-background-color: rgba(0, 0, 0, 0.25);" styleClass="list" stylesheets="@res/scoreboard.css" />
    </children>
 </Pane>

@@ -41,26 +41,14 @@ public class MenuItem extends Pane {
          
          setOnMouseEntered(e -> {
          	MenuApp.hoverSound.stop();
-         	MenuApp.clickSound.stop();
-             MenuApp.hoverSound.play();
-             bg.getPoints().set(2, 215.0); // Resetting the point at index 2 to its original X-axis value
-             bg.getPoints().set(4, 230.0); // Resetting the point at index 3 to its original X-axis value
-             bg.getPoints().set(6, 215.0); // Adjusting the point at index 3 (200, 30) to 230 on X-axis
+            MenuApp.hoverSound.play();
+//            bg.getPoints().set(2, 215.0); // Resetting the point at index 2 to its original X-axis value
+//            bg.getPoints().set(4, 230.0); // Resetting the point at index 3 to its original X-axis value
+//            bg.getPoints().set(6, 215.0); // Adjusting the point at index 3 (200, 30) to 230 on X-axis
          });
          
          bg.setOnMouseExited(e -> {
-             // Réinitialisation des points du polygone à leur forme d'origine
              bg.getPoints().setAll(originalPoints);
-         });
-         
-         setOnMouseClicked(e -> {
-         	MenuApp.hoverSound.stop();
-             MenuApp.clickSound.stop();
-             MenuApp.clickSound.play();
-             bg.getPoints().set(2, 215.0); // Resetting the point at index 2 to its original X-axis value
-             bg.getPoints().set(3, 230.0); // Resetting the point at index 3 to its original X-axis value
-             bg.getPoints().set(4, 215.0); // Adjusting the point at index 3 (200, 30) to 230 on X-axis
-
          });
      }
 

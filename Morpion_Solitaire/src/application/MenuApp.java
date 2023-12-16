@@ -44,7 +44,6 @@ public class MenuApp extends Application {
     
     private Image icon = new Image(getClass().getResourceAsStream("res/logo_nobg.png"));
     protected static MediaPlayer hoverSound;
-    protected static MediaPlayer clickSound;
     protected static MediaPlayer bgSound;
     
     private List<Pair<String, Runnable>> menuData = Arrays.asList(
@@ -75,14 +74,6 @@ public class MenuApp extends Application {
 
         return root;
     }
-
-//    private void addBackground() {
-//        ImageView imageView = new ImageView(new Image(getClass().getResource("res/Selenium.jpg").toExternalForm()));
-//        imageView.setFitWidth(WIDTH);
-//        imageView.setFitHeight(HEIGHT);
-//
-//        root.getChildren().add(imageView);
-//    }
 
     private void addBackground() {
     	// Colors to blend
@@ -271,11 +262,6 @@ public class MenuApp extends Application {
                 bgSound.play();
             }
         });
-        
-     // Charger le fichier audio pour le son de clique
-        String clickSoundFile = getClass().getResource("res/clickb.mp3").toExternalForm();
-        Media clickMedia = new Media(clickSoundFile);
-        clickSound = new MediaPlayer(clickMedia);
         
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);
