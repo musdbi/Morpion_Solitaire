@@ -20,23 +20,25 @@ public class GraphicController {
 	private AreaChart<Number, Number> chart;
 	
 	public void initialize () {
+		chart.getData().clear();
 		if (ResearchAlgorithmController.getScore0() != null) {
-			plotGaussianCurve(ResearchAlgorithmController.getScore0().get("Mean"), ResearchAlgorithmController.getScore0().get("Variance"));
+			plotGaussianCurve(ResearchAlgorithmController.getScore0().get("Mean"), ResearchAlgorithmController.getScore0().get("Variance"),"Random Algorithm");
 		}
 		if (ResearchAlgorithmController.getScore1() != null) {
-		    plotGaussianCurve(ResearchAlgorithmController.getScore1().get("Mean"), ResearchAlgorithmController.getScore1().get("Variance"));
+		    plotGaussianCurve(ResearchAlgorithmController.getScore1().get("Mean"), ResearchAlgorithmController.getScore1().get("Variance"),"NMCS Level 1");
 		}
 		if (ResearchAlgorithmController.getScore2() != null) {
-		    plotGaussianCurve(ResearchAlgorithmController.getScore2().get("Mean"), ResearchAlgorithmController.getScore2().get("Variance"));
+		    plotGaussianCurve(ResearchAlgorithmController.getScore2().get("Mean"), ResearchAlgorithmController.getScore2().get("Variance"),"NMCS Level 2");
 		}
 		if (ResearchAlgorithmController.getScore3() != null) {
-		    plotGaussianCurve(ResearchAlgorithmController.getScore3().get("Mean"), ResearchAlgorithmController.getScore3().get("Variance"));
+		    plotGaussianCurve(ResearchAlgorithmController.getScore3().get("Mean"), ResearchAlgorithmController.getScore3().get("Variance"),"NMCS Level 3");
 		}
 	}
 	
-	public void plotGaussianCurve(double mean, double variance) {
+	public void plotGaussianCurve(double mean, double variance, String legendName) {
         GaussianCurve gaussianCurve = new GaussianCurve(mean, variance);
         XYChart.Series<Number, Number> series = gaussianCurve.createGaussianSeries();
+        series.setName(legendName);
         chart.getData().add(series);
     }
 	
