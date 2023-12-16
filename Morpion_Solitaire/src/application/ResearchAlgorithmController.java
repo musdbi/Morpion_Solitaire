@@ -2,7 +2,9 @@ package application;
 
 import algorithms.DataManager;
 import algorithms.ResearchAlgorithm;
+import algorithms.nmcs.NMCS;
 import algorithms.random.RandomAlgorithm;
+import com.opencsv.exceptions.CsvValidationException;
 import components.Grid;
 import components.Line;
 import components.PlayedPoint;
@@ -11,12 +13,15 @@ import game.GameManagerFX;
 import game.Mode;
 import helpers.DefaultCoordinates4;
 import helpers.DefaultCoordinates5;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,13 +36,12 @@ public class ResearchAlgorithmController {
 	
 	@FXML
 	private Stage stage;
+	private Parent root;
 	
 	@FXML
     private GridPane firstAlgoGameGrid;
 	@FXML
     private GridPane secondAlgoGameGrid;
-	@FXML
-	private Text mode;
 	@FXML
 	private Text firstAlgoScore;
 	@FXML
@@ -49,63 +53,73 @@ public class ResearchAlgorithmController {
 	@FXML
 	private Pane principal;
 	
+	private int depth = 2;
+	
 	private RandomAlgorithm firstRandomAlgo;
-	private RandomAlgorithm secondRandomAlgo;
+	private NMCS secondRandomAlgo;
 	
 	public void startFirstAlgorithm (ActionEvent event) {
-		mode.setText(Mode.toStringStatic());
 		long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);
         firstRandomAlgo = new RandomAlgorithm();
-		int it = 50;
-		firstRandomAlgo.trainAlgorithm(it);
+		firstRandomAlgo.trainAlgorithm(1);
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;
 		String formattedNumber = String.format("%.2f", elapsedTime);
 		firstAlgoTime.setText(formattedNumber + " S");
 		firstAlgoScore.setText(String.valueOf(firstRandomAlgo.getGrid().getLines().size()));
-        System.out.println("Time taken: " + elapsedTime + " seconds");
-        if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) {
-        	displayGridfirstAlgo4DT();
-        }
-	    if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) {
-	    	displayGridfirstAlgo4DT();
-	    }
-	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) {
-	    	displayGridfirstAlgo5DT();
-	    }
-	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("D")) {
-	    	displayGridfirstAlgo5DT();
-	    }
+		if (Mode.toStringStatic().equals("4D") || Mode.toStringStatic().equals("4T")) displayGridfirstAlgo4DT();
+		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridfirstAlgo5DT();
         firstAlgoGameGrid.setVisible(true);
+        try {
+			GraphicController.setScore0(DataManager.calculateStatistics(0, Mode.toStringStatic()));
+		} catch (CsvValidationException e) {
+			throw new IllegalStateException(e);
+		} catch (NumberFormatException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 	
 	public void startSecondAlgorithm (ActionEvent event) {
-		mode.setText(Mode.toStringStatic());
 		long startTime = System.currentTimeMillis();
-        DataManager.setCurrRunningAlgo(0);
-        secondRandomAlgo = new RandomAlgorithm();
-		int it = 50;
-		secondRandomAlgo.trainAlgorithm(it);
+		secondRandomAlgo = new NMCS(depth);
+		DataManager.setCurrRunningAlgo(depth);
+		Grid nmc = secondRandomAlgo.algorithm();
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;
 		String formattedNumber = String.format("%.2f", elapsedTime);
 		secondAlgoTime.setText(formattedNumber + " S");
-		secondAlgoScore.setText(String.valueOf(secondRandomAlgo.getGrid().getLines().size()));
-        System.out.println("Time taken: " + elapsedTime + " seconds");
-        if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) {
-        	displayGridsecondAlgo4DT();
-        }
-	    if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) {
-	    	displayGridsecondAlgo4DT();
-	    }
-	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) {
-	    	displayGridsecondAlgo5DT();
-	    }
-	    if (Mode.getNumber() == 5 && Mode.getType().toString().equals("D")) {
-	    	displayGridsecondAlgo5DT();
-	    }
+		secondAlgoScore.setText(String.valueOf(nmc.getLines().size()));
+		if (Mode.toStringStatic().equals("4D") || Mode.toStringStatic().equals("4T")) displayGridsecondAlgo4DT(nmc);
+		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridsecondAlgo5DT(nmc);
         secondAlgoGameGrid.setVisible(true);
+        if (depth == 1) {
+        	try {
+    			GraphicController.setScore1(DataManager.calculateStatistics(1, Mode.toStringStatic()));
+    		} catch (CsvValidationException e) {
+    			throw new IllegalStateException(e);
+    		} catch (NumberFormatException e) {
+    			throw new IllegalStateException(e);
+    		}
+        }
+        else if (depth == 2){
+        	try {
+    			GraphicController.setScore2(DataManager.calculateStatistics(2, Mode.toStringStatic()));
+    		} catch (CsvValidationException e) {
+    			throw new IllegalStateException(e);
+    		} catch (NumberFormatException e) {
+    			throw new IllegalStateException(e);
+    		}
+        }
+        else if (depth == 3) {
+        	try {
+    			GraphicController.setScore3(DataManager.calculateStatistics(3, Mode.toStringStatic()));
+    		} catch (CsvValidationException e) {
+    			throw new IllegalStateException(e);
+    		} catch (NumberFormatException e) {
+    			throw new IllegalStateException(e);
+    		}
+        }
 	}
 	
 	private void displayGridfirstAlgo5DT() {
@@ -138,8 +152,7 @@ public class ResearchAlgorithmController {
         drawLinesFirst();
     }
 
-	private void displayGridsecondAlgo5DT() {
-        Grid grid = secondRandomAlgo.getGrid();
+	private void displayGridsecondAlgo5DT(Grid grid) {
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates5.getValues();
         secondAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -165,7 +178,7 @@ public class ResearchAlgorithmController {
                 secondAlgoGameGrid.add(button, x, y);
             }
         }
-        drawLinesSecond();
+        drawLinesSecond(grid);
     }
 	
 	private void displayGridfirstAlgo4DT() {
@@ -198,8 +211,7 @@ public class ResearchAlgorithmController {
         drawLinesFirst();
     }
 	
-	private void displayGridsecondAlgo4DT() {
-        Grid grid = secondRandomAlgo.getGrid();
+	private void displayGridsecondAlgo4DT(Grid grid) {
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates4.getValues();
         secondAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -225,7 +237,7 @@ public class ResearchAlgorithmController {
                 secondAlgoGameGrid.add(button, x, y);
             }
         }
-        drawLinesSecond();
+        drawLinesSecond(grid);
     }
 	
 	private void drawLinesFirst() {
@@ -258,8 +270,7 @@ public class ResearchAlgorithmController {
 	    }
 	}
 	
-	private void drawLinesSecond() {
-	    Grid grid = secondRandomAlgo.getGrid();
+	private void drawLinesSecond(Grid grid) {
 	    javafx.geometry.Point2D paneCoords = principal.localToScene(0, 0);
 
 	    for (Line line : grid.getLines()) {
@@ -295,6 +306,34 @@ public class ResearchAlgorithmController {
 	        }
 	    }
 	    return null;
+	}
+	
+	public void setDepthOne (ActionEvent event) {
+		depth = 1;
+	}
+	
+	public void setDepthTwo (ActionEvent event) {
+		depth = 2;
+	}
+	
+	public void setDepthThree (ActionEvent event) {
+		depth = 3;
+	}
+	
+	public void switchToGraphics (ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("GraphicScene.fxml"));
+	   	try {
+			root = loader.load();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+
+	   	GraphicController graphicsController = loader.getController();
+	   	graphicsController.initialize();	
+	    stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+	    Scene scene = new Scene (root);
+	    stage.setScene(scene);
+	    stage.show();
 	}
 	
 	public void switchToMenu (ActionEvent event) {

@@ -71,10 +71,8 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	}
 
 	public void trainAlgorithm(int iterations) { 
-		Grid gridBis;
 		for (int i = 0; i < iterations; i++) {
-			gridBis = algorithm();
-			if (gridBis.getLines().size() > grid.getLines().size()) grid = gridBis;
+			grid = algorithm();
 		}
 	}
 

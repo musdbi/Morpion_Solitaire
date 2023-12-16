@@ -122,12 +122,12 @@
          </rowConstraints>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="569.0" layoutX="640.0" layoutY="143.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
-      <Text fill="PALEGOLDENROD" layoutX="120.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text fill="PALEGOLDENROD" layoutX="120.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <Text fill="PALEGOLDENROD" layoutX="763.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text fill="PALEGOLDENROD" layoutX="763.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
@@ -156,17 +156,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="96.0" layoutX="641.0" layoutY="10.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
-      <Text fill="PALEGOLDENROD" layoutX="589.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODE :">
-         <font>
-            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="mode" fill="PALEGOLDENROD" layoutX="661.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0">
-         <font>
-            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
-         </font>
-      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="116.0" layoutX="641.0" layoutY="10.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
       <Text fill="PALEGOLDENROD" layoutX="140.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
@@ -207,5 +197,37 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
+      <ToggleButton layoutX="839.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthOne" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="1">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton layoutX="953.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthTwo" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="2">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton layoutX="1065.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthThree" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="3">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton layoutX="566.0" layoutY="120.0" mnemonicParsing="false" onAction="#switchToGraphics" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="distribution curves">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
    </children>
 </Pane>

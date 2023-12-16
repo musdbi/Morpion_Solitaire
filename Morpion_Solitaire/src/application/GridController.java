@@ -16,6 +16,7 @@ import java.util.Set;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,9 +35,7 @@ public class GridController {
 	
 	@FXML
 	private Stage stage;
-	private Scene scene;
-	private Parent root;
-	
+		
 	@FXML
     private GridPane gameGrid;
 	@FXML
@@ -74,6 +73,7 @@ public class GridController {
 	        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
 	        initGameManager();
 	        updateLabels(); 
+	        //switchToGameOverScene();
 		}
     }
 	
@@ -82,7 +82,7 @@ public class GridController {
 	        gameManager.resetGame();
 	        principal.getChildren().removeIf(node -> node instanceof javafx.scene.shape.Line);
 	        initGameManager();
-	        updateLabels(); 
+	        updateLabels();
 		}
     }
 	
@@ -243,6 +243,26 @@ public class GridController {
     	    score.setText(gameManager.getScore());
         }
 	}
+	
+	private void switchToGameOverScene() {
+	    try {
+	        if (stage != null) {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+	            Parent gameOverRoot = loader.load();
+	            Scene gameOverScene = new Scene(gameOverRoot);
+
+	            GameOverController gameOverController = loader.getController();
+	            gameOverController.setScore(gameManager.getScore());
+	            gameOverController.setGridScene(stage.getScene());
+
+	            stage.setScene(gameOverScene);
+	            stage.show();
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

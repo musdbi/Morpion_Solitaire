@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #283943;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GameOverController">
+   <children>
+      <Text fill="PALEGOLDENROD" layoutX="437.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GAME OVER !" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="50.0" />
+         </font>
+      </Text>
+      <ToggleButton layoutX="535.0" layoutY="335.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="40.0" prefWidth="208.0" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="start new game">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton layoutX="535.0" layoutY="417.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="40.0" prefWidth="208.0" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="back to menu">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow height="10.0" radius="4.5" width="10.0" />
+         </effect>
+      </ToggleButton>
+      <Text fill="PALEGOLDENROD" layoutX="427.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="the game ended with score : " textAlignment="CENTER" wrappingWidth="405.9999999999999">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="scoreText" fill="PALEGOLDENROD" layoutX="752.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="17.999984741210824">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

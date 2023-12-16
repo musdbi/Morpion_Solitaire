@@ -61,7 +61,7 @@ public class NMCS implements ResearchAlgorithm{
 	    Grid bestGrid = new Grid();
 	    
 	    // Creating a thread pool
-	    ExecutorService executor = Executors.newFixedThreadPool(3);
+	    ExecutorService executor = Executors.newFixedThreadPool(2);
 	    List<Future<Grid>> futures = new ArrayList<>();
 	    
 	    // Shuffling list so we don't only search in left childs due to time limit

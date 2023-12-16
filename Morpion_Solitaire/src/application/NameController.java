@@ -19,7 +19,6 @@ public class NameController {
 	
 	@FXML
 	private Stage stage;
-	private Scene scene;
 	private Parent root;
 	@FXML
 	private TextField nomJoueur;
@@ -55,7 +54,7 @@ public class NameController {
 		    gridController.updateLabels();
 		         
 		    stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		    scene = new Scene (root);
+		    Scene scene = new Scene (root);
 		    stage.setScene(scene);
 		    stage.show();
 				
