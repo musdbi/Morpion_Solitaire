@@ -16,6 +16,7 @@ import helpers.DefaultCoordinates5;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javafx.application.Platform;
@@ -57,7 +58,41 @@ public class ResearchAlgorithmController {
 	
 	private RandomAlgorithm firstRandomAlgo;
 	private NMCS secondRandomAlgo;
+	private static Map<String, Double> score0;
+	private static Map<String, Double> score1;
+	private static Map<String, Double> score2;
+	private static Map<String, Double> score3;
 	
+	public static void initialize() {
+	    for (int i = 0; i < 4; i++) {
+	        try {
+	            setScore(i);
+	        } catch (CsvValidationException | NumberFormatException e) {
+	            throw new IllegalStateException(e);
+	        }
+	    }
+	}
+
+	private static void setScore(int index) throws CsvValidationException, NumberFormatException {
+	    switch (index) {
+	        case 0:
+	            ResearchAlgorithmController.setScore0(DataManager.calculateStatistics(0, Mode.toStringStatic()));
+	            break;
+	        case 1:
+	            ResearchAlgorithmController.setScore1(DataManager.calculateStatistics(1, Mode.toStringStatic()));
+	            break;
+	        case 2:
+	            ResearchAlgorithmController.setScore2(DataManager.calculateStatistics(2, Mode.toStringStatic()));
+	            break;
+	        case 3:
+	            ResearchAlgorithmController.setScore3(DataManager.calculateStatistics(3, Mode.toStringStatic()));
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Index out of range: " + index);
+	    }
+	}
+
+
 	public void startFirstAlgorithm (ActionEvent event) {
 		long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);
@@ -71,13 +106,6 @@ public class ResearchAlgorithmController {
 		if (Mode.toStringStatic().equals("4D") || Mode.toStringStatic().equals("4T")) displayGridfirstAlgo4DT();
 		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridfirstAlgo5DT();
         firstAlgoGameGrid.setVisible(true);
-        try {
-			GraphicController.setScore0(DataManager.calculateStatistics(0, Mode.toStringStatic()));
-		} catch (CsvValidationException e) {
-			throw new IllegalStateException(e);
-		} catch (NumberFormatException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 	
 	public void startSecondAlgorithm (ActionEvent event) {
@@ -93,33 +121,6 @@ public class ResearchAlgorithmController {
 		if (Mode.toStringStatic().equals("4D") || Mode.toStringStatic().equals("4T")) displayGridsecondAlgo4DT(nmc);
 		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridsecondAlgo5DT(nmc);
         secondAlgoGameGrid.setVisible(true);
-        if (depth == 1) {
-        	try {
-    			GraphicController.setScore1(DataManager.calculateStatistics(1, Mode.toStringStatic()));
-    		} catch (CsvValidationException e) {
-    			throw new IllegalStateException(e);
-    		} catch (NumberFormatException e) {
-    			throw new IllegalStateException(e);
-    		}
-        }
-        else if (depth == 2){
-        	try {
-    			GraphicController.setScore2(DataManager.calculateStatistics(2, Mode.toStringStatic()));
-    		} catch (CsvValidationException e) {
-    			throw new IllegalStateException(e);
-    		} catch (NumberFormatException e) {
-    			throw new IllegalStateException(e);
-    		}
-        }
-        else if (depth == 3) {
-        	try {
-    			GraphicController.setScore3(DataManager.calculateStatistics(3, Mode.toStringStatic()));
-    		} catch (CsvValidationException e) {
-    			throw new IllegalStateException(e);
-    		} catch (NumberFormatException e) {
-    			throw new IllegalStateException(e);
-    		}
-        }
 	}
 	
 	private void displayGridfirstAlgo5DT() {
@@ -334,6 +335,38 @@ public class ResearchAlgorithmController {
 	    Scene scene = new Scene (root);
 	    stage.setScene(scene);
 	    stage.show();
+	}
+	
+	public static Map<String, Double> getScore0() {
+		return score0;
+	}
+
+	public static Map<String, Double> getScore1() {
+		return score1;
+	}
+
+	public static Map<String, Double> getScore2() {
+		return score2;
+	}
+
+	public static Map<String, Double> getScore3() {
+		return score3;
+	}
+	
+	public static void setScore0(Map<String, Double> score) {
+		score0 = score;
+	}
+	
+	public static void setScore1(Map<String, Double> score) {
+		score1 = score;
+	}
+	
+	public static void setScore2(Map<String, Double> score) {
+		score2 = score;
+	}
+	
+	public static void setScore3(Map<String, Double> score) {
+		score3 = score;
 	}
 	
 	public void switchToMenu (ActionEvent event) {

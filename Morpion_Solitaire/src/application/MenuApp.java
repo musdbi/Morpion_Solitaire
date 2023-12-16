@@ -139,6 +139,7 @@ public class MenuApp extends Application {
             });
         } else if (data.getKey().equals("Research Algorithm")) {
         	item.setOnAction(() -> {
+        		ResearchAlgorithmController.initialize();
                 primaryStage.setScene(selectResearchAlgorithmScene());
             });
         } else {

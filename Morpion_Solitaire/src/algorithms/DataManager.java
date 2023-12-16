@@ -44,7 +44,6 @@ public class DataManager {
 	
 	public static List<Integer> getData(int algoId, String mode) throws CsvValidationException, NumberFormatException {
 		List<Integer> scores = new ArrayList<>();
-		System.out.println("1");
         try (CSVReader reader = new CSVReader(new FileReader(path))) {
             String[] line;
             while ((line = reader.readNext()) != null) {
