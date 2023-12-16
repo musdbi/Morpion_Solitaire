@@ -76,6 +76,6 @@ public class RandomAlgoThreading extends Thread{
 		randomMultiThread.trainAlgorithm();
 		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
 		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");
-		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);;
+		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);
 	}
 }

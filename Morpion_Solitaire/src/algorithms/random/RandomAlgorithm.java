@@ -12,7 +12,7 @@ import components.PlayedPoint;
 import game.Mode;
 
 public class RandomAlgorithm implements ResearchAlgorithm{
-	
+
 	private Random random;
 	
 	/**
@@ -58,7 +58,6 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		return simulatedGrid;
 	}
 	
-	
 	/**
 	 * Play a random point and a random line (if there is the choice) on the given grid
 	 *
@@ -70,13 +69,17 @@ public class RandomAlgorithm implements ResearchAlgorithm{
         PlayedPoint randomPlayedPoint = new PlayedPoint(grid.getPossibleMoves().get(randomLine), grid.getLines().size() + 1);
         grid.updateGrid(randomPlayedPoint, randomLine);
 	}
-	
+
 	public void trainAlgorithm(int iterations) { 
 		for (int i = 0; i < iterations; i++) {
-			algorithm();
+			grid = algorithm();
 		}
 	}
-	
+
+	public Grid getGrid() {
+		return grid;
+	}
+
 	public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);

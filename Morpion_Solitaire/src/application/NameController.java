@@ -3,6 +3,7 @@ package application;
 import components.Grid;
 import game.GameManagerFX;
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class MSNameController {
+public class NameController {
 	
 	@FXML
 	private Stage stage;
-	private Scene scene;
 	private Parent root;
 	@FXML
 	private TextField nomJoueur;
@@ -31,7 +31,7 @@ public class MSNameController {
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    stage.setScene(MSMenuApp.menuScene);
+	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
 	
@@ -49,12 +49,12 @@ public class MSNameController {
 		   	FXMLLoader loader = new FXMLLoader(getClass().getResource("GridScene.fxml"));
 		   	root = loader.load();
 
-		   	MSGridController gridController = loader.getController();
+		   	GridController gridController = loader.getController();
 		    gridController.initGameManager();
 		    gridController.updateLabels();
 		         
 		    stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		    scene = new Scene (root);
+		    Scene scene = new Scene (root);
 		    stage.setScene(scene);
 		    stage.show();
 				

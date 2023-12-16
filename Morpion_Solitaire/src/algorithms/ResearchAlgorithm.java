@@ -13,6 +13,7 @@ public interface  ResearchAlgorithm {
 	
 	/**
 	 * @param iterations: Represent the number of times we want to launch the algorithm
+	 * @return 
 	 */
 	void trainAlgorithm(int iterations);
 }

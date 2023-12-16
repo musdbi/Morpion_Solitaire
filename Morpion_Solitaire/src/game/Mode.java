@@ -23,4 +23,11 @@ public class Mode {
 	public static StringBuilder getType() {
 		return type;
 	}
+	
+	public static String toStringStatic () {
+        if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) return "4T";
+    	if (Mode.getNumber() == 4 && Mode.getType().toString().equals("D")) return "4D";
+    	if (Mode.getNumber() == 5 && Mode.getType().toString().equals("T")) return "5T";
+    	return "5D";
+    }
 }

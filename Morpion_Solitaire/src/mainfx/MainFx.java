@@ -1,10 +1,10 @@
 package mainfx;
 
-import application.MSMenuApp;
+import application.MenuApp;
 import javafx.application.Application;
 
 public class MainFx {
 	public static void main(String[] args){
-        Application.launch(MSMenuApp.class, args);
+        Application.launch(MenuApp.class, args);
     }
 }
