@@ -264,7 +264,7 @@ public class ResearchAlgorithmController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.BLACK);
+	            guiLine.setStroke(javafx.scene.paint.Color.WHITE);
 
 	            principal.getChildren().add(guiLine);
 	        });
@@ -293,7 +293,7 @@ public class ResearchAlgorithmController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.BLACK);
+	            guiLine.setStroke(javafx.scene.paint.Color.WHITE);
 
 	            principal.getChildren().add(guiLine);
 	        });

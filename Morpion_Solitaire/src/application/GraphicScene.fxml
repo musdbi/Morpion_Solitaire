@@ -31,5 +31,15 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
+      <Text fill="PALEGOLDENROD" layoutX="595.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODE :">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="mode" fill="PALEGOLDENROD" layoutX="675.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
+         </font>
+      </Text>
    </children>
 </Pane>
