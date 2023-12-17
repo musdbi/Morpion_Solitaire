@@ -47,13 +47,6 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	        playRandomMove(simulatedGrid);
 	        simulatedGrid.updatePlayablePoints();
 		}
-<<<<<<< HEAD
-		System.out.println(this.grid.getPlayablePoints());
-		System.out.println(simulatedGrid.getPlayablePoints());
-=======
-//		System.out.println(simulatedGrid);
-		
->>>>>>> master
 		// Saving score in csv file
 		if (DataManager.getCurrRunningAlgo() == 0) {
 			DataManager.insertData(
