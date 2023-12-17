@@ -1,6 +1,7 @@
 package application;
 
 import algorithms.GaussianCurve;
+import game.Mode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GraphicController {
@@ -18,28 +20,33 @@ public class GraphicController {
 	private Stage stage;
 	@FXML
 	private AreaChart<Number, Number> chart;
+	@FXML
+	private Text mode;
 	
 	public void initialize () {
+		mode.setText(Mode.toStringStatic());
 		chart.getData().clear();
-		if (ResearchAlgorithmController.getScore0() != null) {
+		if (!Double.isNaN(ResearchAlgorithmController.getScore0().get("Mean"))) {
 			plotGaussianCurve(ResearchAlgorithmController.getScore0().get("Mean"), ResearchAlgorithmController.getScore0().get("Variance"),"Random Algorithm");
 		}
-		if (ResearchAlgorithmController.getScore1() != null) {
+		if (!Double.isNaN(ResearchAlgorithmController.getScore1().get("Mean"))) {
 		    plotGaussianCurve(ResearchAlgorithmController.getScore1().get("Mean"), ResearchAlgorithmController.getScore1().get("Variance"),"NMCS Level 1");
 		}
-		if (ResearchAlgorithmController.getScore2() != null) {
+		if (!Double.isNaN(ResearchAlgorithmController.getScore2().get("Mean"))) {
 		    plotGaussianCurve(ResearchAlgorithmController.getScore2().get("Mean"), ResearchAlgorithmController.getScore2().get("Variance"),"NMCS Level 2");
 		}
-		if (ResearchAlgorithmController.getScore3() != null) {
+		if (!Double.isNaN(ResearchAlgorithmController.getScore3().get("Mean"))) {
 		    plotGaussianCurve(ResearchAlgorithmController.getScore3().get("Mean"), ResearchAlgorithmController.getScore3().get("Variance"),"NMCS Level 3");
 		}
 	}
 	
 	public void plotGaussianCurve(double mean, double variance, String legendName) {
-        GaussianCurve gaussianCurve = new GaussianCurve(mean, variance);
-        XYChart.Series<Number, Number> series = gaussianCurve.createGaussianSeries();
-        series.setName(legendName);
-        chart.getData().add(series);
+		if (!(variance == 0 || mean == 0)) {
+	        GaussianCurve gaussianCurve = new GaussianCurve(mean, variance);
+	        XYChart.Series<Number, Number> series = gaussianCurve.createGaussianSeries();
+	        series.setName(legendName);
+	        chart.getData().add(series);
+		}
     }
 	
 	public void switchToMenu (ActionEvent event) {
@@ -47,5 +54,4 @@ public class GraphicController {
 	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
-
 }
