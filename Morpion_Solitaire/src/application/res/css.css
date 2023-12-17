@@ -42,11 +42,10 @@
 
 .button:hover:hover {
     -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 2, 1, 0, 0);
 }
 
 /* Remove background color of ListView */
 .list {
     -fx-background-color: transparent;
 }
-
-/* */

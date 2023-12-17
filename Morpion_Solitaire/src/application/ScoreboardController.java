@@ -28,6 +28,7 @@ public class ScoreboardController {
 	    
 	    private void loadScores() {
 	        try {
+	            scoreListView.setStyle("-fx-control-inner-background: #283943;-fx-border-color: #EEE8AA; -fx-border-width: 1px; -fx-text-fill: #EEE8AA;"); 
 	            List<String> scores = Files.readAllLines(Paths.get(path));
 	            scoreListView.getItems().addAll(scores);
 	        } catch (Exception e) {

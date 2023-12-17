@@ -139,6 +139,7 @@ public class NMCS implements ResearchAlgorithm{
         
 //		DataManager.setCurrRunningAlgo(2);
 //		Grid level2 = nmcs2.algorithm();
+//		nmcs2.trainAlgorithm(15);
 //        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
 //		endTime = System.currentTimeMillis();
 //		elapsedTime = (endTime - startTime) * 0.001;
@@ -148,12 +149,12 @@ public class NMCS implements ResearchAlgorithm{
 		/**                        DEPTH 3                        */
 		
 		DataManager.setCurrRunningAlgo(3);
-        nmcs3.trainAlgorithm(50);
-//        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+		Grid level3 = nmcs3.algorithm();
+		nmcs3.trainAlgorithm(15);
+        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
 		endTime = System.currentTimeMillis();
 		elapsedTime = (endTime - startTime) * 0.001;
         System.out.println("Time taken: " + elapsedTime + " seconds");
-//        System.out.println("Grid found: \n" + level3);
-//        System.out.println("Grid found: \n" + level3);
+        System.out.println("Grid found: \n" + level3);
 	}
 }
