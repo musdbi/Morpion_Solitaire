@@ -1,5 +1,6 @@
 package game;
 
+import application.GridController;
 import components.Grid;
 import components.Line;
 import components.PlayedPoint;
@@ -8,13 +9,16 @@ import game.Mode;
 import helpers.exceptions.IllegalPlayedPointException;
 import helpers.exceptions.NotALineException;
 import helpers.exceptions.OutOfGridException;
-
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.GridPane;
 
 public class GameManagerFX {
 
@@ -132,6 +136,53 @@ public class GameManagerFX {
     	return new PlayedPoint(this.board.getPoint(x, y), this.board.getLines().size() + 1); // Adding number of lines + 1 for played point id because lines of grid have not been updtated yet
     }
     
+    public Line chooseLine(PlayedPoint playedPoint, GridController grid) {
+        List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
+        if (playableLines.size() <= 1) {
+            return playableLines.isEmpty() ? null : playableLines.get(0);
+        }
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Choose a Line");
+        alert.setHeaderText("Multiple lines available for point : " + playedPoint.toStringBis());
+        alert.setContentText("Choose one of the following lines : ");
+        alert.getButtonTypes().clear();
+        
+        String[] tableauDeCouleurs = {
+                "#FF0000", "#42FF00", "#0017FF", "#FFF000", "#FF8F00", "#FF00D8", "#00F0FF", "#FF009E", "#686868", "#000000"
+            };
+        
+        String[] tableauDeCouleursBis = {
+                "RED", "GREEN", "BLUE", "YELLOW", "ORANGE",
+                "MAGENTA", "CYAN", "PINK", "LIGHT_GRAY", "BLACK"
+            };
+        
+        int j = 0;
+        
+        for (Line line : playableLines) {
+        	
+            ButtonType buttonType = new ButtonType(tableauDeCouleursBis [j]);
+            alert.getButtonTypes().add(buttonType);
+            
+            for (Point point : line.getEndsOfLine()) {
+            	if (!point.equals(playedPoint)) grid.findButtonInGrid(grid.getGameGrid(), point.getX(),point.getY()).setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: " + tableauDeCouleurs[j]);
+            }
+            
+            j+=1;
+         }   
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            for (int i = 0; i < playableLines.size(); i++) {
+                if (result.get() == alert.getButtonTypes().get(i)) {
+                    return playableLines.get(i);
+                }
+            }
+        }
+
+        return null;
+    }
+    
     public Line chooseLine(PlayedPoint playedPoint) {
         List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
         if (playableLines.size() <= 1) {
@@ -170,13 +221,13 @@ public class GameManagerFX {
         return sb.toString();
     }
     
-    public void playAt(int x, int y) {
+    public void playAt(int x, int y, GridController grid) {
         Point point = new Point(x, y);
         if (!board.getPlayablePoints().containsKey(point)) {
             return;
         }
         PlayedPoint playedPoint = new PlayedPoint(point, board.getLines().size() + 1);
-        Line playedLine = chooseLine(playedPoint);
+        Line playedLine = chooseLine(playedPoint, grid);
         board.updateGrid(playedPoint, playedLine);
         score = board.getLines().size();
     }
