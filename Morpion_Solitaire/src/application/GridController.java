@@ -108,7 +108,7 @@ public class GridController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.BLACK);
+	            guiLine.setStroke(javafx.scene.paint.Color.web("#FF5757"));
 
 	            principal.getChildren().add(guiLine);
 	        });

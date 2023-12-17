@@ -41,11 +41,13 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	@Override
 	public Grid algorithm() {
+		System.out.println(this.grid);
 		Grid simulatedGrid = new Grid(this.grid);
 		while (!simulatedGrid.getPlayablePoints().isEmpty()){
 	        playRandomMove(simulatedGrid);
 	        simulatedGrid.updatePlayablePoints();
 		}
+//		System.out.println(simulatedGrid);
 		
 		// Saving score in csv file
 		if (DataManager.getCurrRunningAlgo() == 0) {
@@ -57,7 +59,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		
 		return simulatedGrid;
 	}
-	
+
 	/**
 	 * Play a random point and a random line (if there is the choice) on the given grid
 	 *
@@ -72,7 +74,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 
 	public void trainAlgorithm(int iterations) { 
 		for (int i = 0; i < iterations; i++) {
-			grid = algorithm();
+			algorithm();
 		}
 	}
 
@@ -84,7 +86,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
         long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);
         ResearchAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 50;
+		int it = 10;
 		randomAlgo.trainAlgorithm(it);
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;

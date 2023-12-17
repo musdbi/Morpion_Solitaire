@@ -88,12 +88,12 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="27.0" layoutY="25.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="BACK TO MENU" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" styleClass="back-to-menu" stylesheets="@res/css.css" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
       </Button>
-      <Button layoutX="1105.0" layoutY="508.0" mnemonicParsing="false" onAction="#checkBGSound" prefHeight="20.0" prefWidth="93.0" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Toggle music" textAlignment="CENTER">
+      <Button layoutX="1095.0" layoutY="508.0" mnemonicParsing="false" onAction="#checkBGSound" prefHeight="33.0" prefWidth="116.0" stylesheets="@res/css.css" text="TOGGLE MUSIC" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -116,7 +116,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="1118.0" layoutY="127.0" mnemonicParsing="false" onAction="#endGame" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="end GAME" textAlignment="CENTER">
+      <Button layoutX="1119.0" layoutY="124.0" mnemonicParsing="false" onAction="#endGame" stylesheets="@res/css.css" text="END GAME" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -125,7 +125,7 @@
          </effect>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="712.0" layoutX="1027.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
-      <Button layoutX="1130.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetGame" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="RESET" textAlignment="CENTER">
+      <Button layoutX="1119.0" layoutY="91.0" mnemonicParsing="false" onAction="#resetGame" prefHeight="23.0" prefWidth="66.0" stylesheets="@res/css.css" text="RESET" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -133,7 +133,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Button layoutX="1132.0" layoutY="228.0" mnemonicParsing="false" onAction="#hint" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="hint" textAlignment="CENTER">
+      <Button layoutX="1119.0" layoutY="235.0" mnemonicParsing="false" onAction="#hint" prefHeight="23.0" prefWidth="67.0" stylesheets="@res/css.css" text="HINT" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
