@@ -18,7 +18,7 @@
       </Text>
       <Pane layoutX="662.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: #EEE8AA;">
          <children>
-            <ToggleButton layoutX="66.0" layoutY="334.0" mnemonicParsing="false" onAction="#set5D" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Select this mode">
+            <ToggleButton layoutX="75.0" layoutY="332.0" mnemonicParsing="false" onAction="#set5D" styleClass="button" stylesheets="@res/css.css" text="SELECT THIS MODE">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
                </font>
@@ -44,7 +44,7 @@
       </Pane>
       <Pane layoutX="60.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: #EEE8AA;">
          <children>
-            <ToggleButton layoutX="66.0" layoutY="336.0" mnemonicParsing="false" onAction="#set4D" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Select this mode">
+            <ToggleButton layoutX="79.0" layoutY="332.0" mnemonicParsing="false" onAction="#set4D" styleClass="button" stylesheets="@res/css.css" text="SELECT THIS MODE">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
                </font>
@@ -70,7 +70,7 @@
       </Pane>
       <Pane layoutX="354.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: #EEE8AA;">
          <children>
-            <ToggleButton layoutX="66.0" layoutY="335.0" mnemonicParsing="false" onAction="#set4T" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Select this mode">
+            <ToggleButton layoutX="79.0" layoutY="332.0" mnemonicParsing="false" onAction="#set4T" styleClass="button" stylesheets="@res/css.css" text="SELECT THIS MODE">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
                </font>
@@ -96,7 +96,7 @@
       </Pane>
       <Pane layoutX="961.0" layoutY="167.0" prefHeight="387.0" prefWidth="259.0" style="-fx-border-color: #EEE8AA;">
          <children>
-            <ToggleButton layoutX="67.0" layoutY="335.0" mnemonicParsing="false" onAction="#set5T" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Select this mode">
+            <ToggleButton layoutX="79.0" layoutY="332.0" mnemonicParsing="false" onAction="#set5T" styleClass="button" stylesheets="@res/css.css" text="SELECT THIS MODE">
                <font>
                   <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
                </font>
@@ -120,7 +120,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button layoutX="597.0" layoutY="615.0" mnemonicParsing="false" onAction="#checkBGSound" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="Toggle music" textAlignment="CENTER">
+      <Button layoutX="582.0" layoutY="613.0" mnemonicParsing="false" onAction="#checkBGSound" prefHeight="33.0" prefWidth="116.0" stylesheets="@res/css.css" text="TOGGLE MUSIC" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -128,7 +128,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="BACK TO MENU" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" styleClass="back-to-menu" stylesheets="@res/css.css" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

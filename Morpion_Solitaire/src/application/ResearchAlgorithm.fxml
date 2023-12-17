@@ -132,7 +132,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <ToggleButton layoutX="296.0" layoutY="151.0" mnemonicParsing="false" onAction="#startFirstAlgorithm" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="start">
+      <ToggleButton layoutX="293.0" layoutY="149.0" mnemonicParsing="false" onAction="#startFirstAlgorithm" styleClass="button" stylesheets="@res/css.css" text="START">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -140,7 +140,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="939.0" layoutY="151.0" mnemonicParsing="false" onAction="#startSecondAlgorithm" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="start">
+      <ToggleButton layoutX="936.0" layoutY="149.0" mnemonicParsing="false" onAction="#startSecondAlgorithm" styleClass="button" stylesheets="@res/css.css" text="START">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -148,7 +148,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <Button layoutX="47.0" layoutY="45.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="BACK TO MENU" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" styleClass="back-to-menu" stylesheets="@res/css.css" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -156,7 +156,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="116.0" layoutX="641.0" layoutY="10.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="111.0" layoutX="641.0" layoutY="10.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
       <Text fill="PALEGOLDENROD" layoutX="140.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCORE :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
@@ -187,7 +187,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Text fill="PALEGOLDENROD" layoutX="1095.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME :">
+      <Text fill="PALEGOLDENROD" layoutX="1095.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME :">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
@@ -197,7 +197,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <ToggleButton layoutX="839.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthOne" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="1">
+      <ToggleButton layoutX="839.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthOne" styleClass="button" stylesheets="@res/css.css" text="1">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -205,7 +205,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="953.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthTwo" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="2">
+      <ToggleButton layoutX="936.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthTwo" styleClass="button" stylesheets="@res/css.css" text="2">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -213,7 +213,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="1065.0" layoutY="107.0" mnemonicParsing="false" onAction="#setDepthThree" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="3">
+      <ToggleButton layoutX="1033.0" layoutY="109.0" minWidth="25.0" mnemonicParsing="false" onAction="#setDepthThree" prefHeight="23.0" prefWidth="25.0" styleClass="button" stylesheets="@res/css.css" text="3">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -221,7 +221,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="566.0" layoutY="120.0" mnemonicParsing="false" onAction="#switchToGraphics" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="distribution curves">
+      <ToggleButton layoutX="583.0" layoutY="121.0" mnemonicParsing="false" onAction="#switchToGraphics" styleClass="button" stylesheets="@res/css.css" text="DISTRIBUTION CURVES">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>

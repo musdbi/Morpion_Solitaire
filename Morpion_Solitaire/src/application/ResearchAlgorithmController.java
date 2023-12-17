@@ -56,6 +56,8 @@ public class ResearchAlgorithmController {
 	
 	private int depth = 2;
 	
+	private Grid gridFirst;
+	
 	private RandomAlgorithm firstRandomAlgo;
 	private NMCS secondRandomAlgo;
 	private static Map<String, Double> score0;
@@ -97,12 +99,12 @@ public class ResearchAlgorithmController {
 		long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);
         firstRandomAlgo = new RandomAlgorithm();
-		firstRandomAlgo.trainAlgorithm(1);
+		this.gridFirst = firstRandomAlgo.algorithm();
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;
 		String formattedNumber = String.format("%.2f", elapsedTime);
 		firstAlgoTime.setText(formattedNumber + " S");
-		firstAlgoScore.setText(String.valueOf(firstRandomAlgo.getGrid().getLines().size()));
+		firstAlgoScore.setText(String.valueOf(this.gridFirst.getLines().size()));
 		if (Mode.toStringStatic().equals("4D") || Mode.toStringStatic().equals("4T")) displayGridfirstAlgo4DT();
 		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridfirstAlgo5DT();
         firstAlgoGameGrid.setVisible(true);
@@ -124,7 +126,6 @@ public class ResearchAlgorithmController {
 	}
 	
 	private void displayGridfirstAlgo5DT() {
-        Grid grid = firstRandomAlgo.getGrid();
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates5.getValues();
         firstAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -134,12 +135,12 @@ public class ResearchAlgorithmController {
                 button.setMinSize(30,30);
                 button.setFont(new Font(12));
                 
-                if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
-                	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
+                if (gridFirst.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
+                	PlayedPoint playedPoint = (PlayedPoint) gridFirst.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
                     button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
-                else if (grid.getPoint(x, y).isPlayed()) {
+                else if (gridFirst.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
@@ -153,7 +154,7 @@ public class ResearchAlgorithmController {
         drawLinesFirst();
     }
 
-	private void displayGridsecondAlgo5DT(Grid grid) {
+	private void displayGridsecondAlgo5DT(Grid gridSecond) {
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates5.getValues();
         secondAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -163,12 +164,12 @@ public class ResearchAlgorithmController {
                 button.setMinSize(30,30);
                 button.setFont(new Font(12));
                 
-                if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
-                	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
+                if (gridSecond.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
+                	PlayedPoint playedPoint = (PlayedPoint) gridSecond.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
                     button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
-                else if (grid.getPoint(x, y).isPlayed()) {
+                else if (gridSecond.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
@@ -179,11 +180,10 @@ public class ResearchAlgorithmController {
                 secondAlgoGameGrid.add(button, x, y);
             }
         }
-        drawLinesSecond(grid);
+        drawLinesSecond(gridSecond);
     }
 	
 	private void displayGridfirstAlgo4DT() {
-        Grid grid = firstRandomAlgo.getGrid();
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates4.getValues();
         firstAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -193,12 +193,12 @@ public class ResearchAlgorithmController {
                 button.setMinSize(30,30);
                 button.setFont(new Font(12));
                
-                if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
-                	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
+                if (gridFirst.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
+                	PlayedPoint playedPoint = (PlayedPoint) gridFirst.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
                     button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
-                else if (grid.getPoint(x, y).isPlayed()) {
+                else if (gridFirst.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
@@ -212,7 +212,7 @@ public class ResearchAlgorithmController {
         drawLinesFirst();
     }
 	
-	private void displayGridsecondAlgo4DT(Grid grid) {
+	private void displayGridsecondAlgo4DT(Grid gridSecond) {
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates4.getValues();
         secondAlgoGameGrid.getChildren().clear();
         for (int y = 0; y < Grid.getSize(); y++) {
@@ -222,12 +222,12 @@ public class ResearchAlgorithmController {
                 button.setMinSize(30,30);
                 button.setFont(new Font(12));
                
-                if (grid.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
-                	PlayedPoint playedPoint = (PlayedPoint) grid.getPoint(x, y);
+                if (gridSecond.getPoint(x, y).isPlayed() && !defaultPointsHashes.contains(Objects.hash(x, y))) {
+                	PlayedPoint playedPoint = (PlayedPoint) gridSecond.getPoint(x, y);
                     button.setText(String.valueOf(playedPoint.getId()));
                     button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
-                else if (grid.getPoint(x, y).isPlayed()) {
+                else if (gridSecond.getPoint(x, y).isPlayed()) {
                 	button.setText("X");
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
@@ -238,14 +238,13 @@ public class ResearchAlgorithmController {
                 secondAlgoGameGrid.add(button, x, y);
             }
         }
-        drawLinesSecond(grid);
+        drawLinesSecond(gridSecond);
     }
 	
 	private void drawLinesFirst() {
-	    Grid grid = firstRandomAlgo.getGrid();
 	    javafx.geometry.Point2D paneCoords = principal.localToScene(0, 0);
 
-	    for (Line line : grid.getLines()) {
+	    for (Line line : gridFirst.getLines()) {
 	        Set<Point> ends = line.getEndsOfLine();
 	        Point[] endPoints = ends.toArray(new Point[0]);
 	        Point startPoint = endPoints[0];
@@ -264,17 +263,17 @@ public class ResearchAlgorithmController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.WHITE);
+	            guiLine.setStroke(javafx.scene.paint.Color.web("#FF5757"));
 
 	            principal.getChildren().add(guiLine);
 	        });
 	    }
 	}
 	
-	private void drawLinesSecond(Grid grid) {
+	private void drawLinesSecond(Grid gridSecond) {
 	    javafx.geometry.Point2D paneCoords = principal.localToScene(0, 0);
 
-	    for (Line line : grid.getLines()) {
+	    for (Line line : gridSecond.getLines()) {
 	        Set<Point> ends = line.getEndsOfLine();
 	        Point[] endPoints = ends.toArray(new Point[0]);
 	        Point startPoint = endPoints[0];
@@ -293,7 +292,7 @@ public class ResearchAlgorithmController {
 	            double endY = endButtonSceneCoords.getY() - paneCoords.getY() + endButton.getHeight() / 2; 
 
 	            javafx.scene.shape.Line guiLine = new javafx.scene.shape.Line(startX, startY, endX, endY);
-	            guiLine.setStroke(javafx.scene.paint.Color.WHITE);
+	            guiLine.setStroke(javafx.scene.paint.Color.web("#FF5757"));
 
 	            principal.getChildren().add(guiLine);
 	        });
@@ -340,15 +339,15 @@ public class ResearchAlgorithmController {
 	public static Map<String, Double> getScore0() {
 		return score0;
 	}
-
+	
 	public static Map<String, Double> getScore1() {
 		return score1;
 	}
-
+	
 	public static Map<String, Double> getScore2() {
 		return score2;
 	}
-
+	
 	public static Map<String, Double> getScore3() {
 		return score3;
 	}
