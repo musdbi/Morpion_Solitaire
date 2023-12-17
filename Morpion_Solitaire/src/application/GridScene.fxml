@@ -116,7 +116,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="1118.0" layoutY="127.0" mnemonicParsing="false" onAction="#endGame" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="end GAME" textAlignment="CENTER">
+      <Button layoutX="1118.0" layoutY="127.0" mnemonicParsing="false" onAction="#endGame" stylesheets="@res/css.css" text="end GAME" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
@@ -125,7 +125,7 @@
          </effect>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="712.0" layoutX="1027.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
-      <Button layoutX="1130.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetGame" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="RESET" textAlignment="CENTER">
+      <Button layoutX="1130.0" layoutY="90.0" mnemonicParsing="false" onAction="#resetGame" stylesheets="@res/css.css" text="RESET" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

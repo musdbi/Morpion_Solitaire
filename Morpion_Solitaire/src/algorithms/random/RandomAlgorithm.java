@@ -46,7 +46,8 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	        playRandomMove(simulatedGrid);
 	        simulatedGrid.updatePlayablePoints();
 		}
-		
+		System.out.println(this.grid.getPlayablePoints());
+		System.out.println(simulatedGrid.getPlayablePoints());
 		// Saving score in csv file
 		if (DataManager.getCurrRunningAlgo() == 0) {
 			DataManager.insertData(
@@ -72,7 +73,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 
 	public void trainAlgorithm(int iterations) { 
 		for (int i = 0; i < iterations; i++) {
-			grid = algorithm();
+			algorithm();
 		}
 	}
 
@@ -81,13 +82,14 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	}
 
 	public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-        DataManager.setCurrRunningAlgo(0);
-        ResearchAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 1;
-		randomAlgo.trainAlgorithm(it);
-		long endTime = System.currentTimeMillis();
-		double elapsedTime = (endTime - startTime) * 0.001;
-        System.out.println("Time taken: " + elapsedTime + " seconds");
+//      long startTime = System.currentTimeMillis();
+//      DataManager.setCurrRunningAlgo(0);
+//      ResearchAlgorithm randomAlgo = new RandomAlgorithm();
+//		int it = 1;
+//		randomAlgo.trainAlgorithm(it);
+//		long endTime = System.currentTimeMillis();
+//		double elapsedTime = (endTime - startTime) * 0.001;
+//      System.out.println("Time taken: " + elapsedTime + " seconds");
+
 	}
 }
