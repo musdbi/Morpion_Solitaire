@@ -42,9 +42,9 @@ public class MenuItem extends Pane {
          setOnMouseEntered(e -> {
          	MenuApp.hoverSound.stop();
             MenuApp.hoverSound.play();
-//            bg.getPoints().set(2, 215.0); // Resetting the point at index 2 to its original X-axis value
-//            bg.getPoints().set(4, 230.0); // Resetting the point at index 3 to its original X-axis value
-//            bg.getPoints().set(6, 215.0); // Adjusting the point at index 3 (200, 30) to 230 on X-axis
+            bg.getPoints().set(2, 215.0); // Resetting the point at index 2 to its original X-axis value
+            bg.getPoints().set(4, 230.0); // Resetting the point at index 3 to its original X-axis value
+            bg.getPoints().set(6, 215.0); // Adjusting the point at index 3 (200, 30) to 230 on X-axis
          });
          
          bg.setOnMouseExited(e -> {

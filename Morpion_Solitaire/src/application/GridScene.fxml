@@ -117,6 +117,7 @@
          </font>
       </Text>
       <Button layoutX="1119.0" layoutY="124.0" mnemonicParsing="false" onAction="#endGame" stylesheets="@res/css.css" text="END GAME" textAlignment="CENTER">
+
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

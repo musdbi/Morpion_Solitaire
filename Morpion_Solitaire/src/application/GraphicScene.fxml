@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -17,6 +18,9 @@
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </AreaChart>
       <Text fill="PALEGOLDENROD" layoutX="457.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="distribution curves" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>

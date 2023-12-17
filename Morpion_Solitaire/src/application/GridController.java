@@ -128,7 +128,7 @@ public class GridController {
 	        Button button = findButtonInGrid(gameGrid, point.getX(), point.getY());
 	        if (button != null) {
 	            button.setText("?");
-	            button.setStyle("-fx-text-fill: green; -fx-background-color: transparent; -fx-font-weight: bold;");
+	            button.setStyle("-fx-text-fill: #FF5757; -fx-background-color: transparent; -fx-font-weight: bold;");
 	        }
 	    }
 	}
