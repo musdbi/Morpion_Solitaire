@@ -46,6 +46,26 @@ public class GraphicController {
 	        XYChart.Series<Number, Number> series = gaussianCurve.createGaussianSeries();
 	        series.setName(legendName);
 	        chart.getData().add(series);
+	        
+	        // Background of chart
+	        chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #283943;");
+	        
+	        // Label background color
+	        Node legend = chart.lookup(".chart-legend");
+	        if (legend != null) {
+	            legend.setStyle("-fx-background-color: #283943;");
+	        }
+	        
+	        // Label text color
+	        String legendItemStyle = "-fx-text-fill: #EEE8AA;";
+            for (Node item : legend.lookupAll(".chart-legend-item")) {
+                item.setStyle(legendItemStyle);
+            }
+            
+//         // Axis labels color
+            chart.getXAxis().setStyle("-fx-text-fill: white;");
+            chart.getYAxis().setStyle("-fx-text-fill: white;");
+
 		}
     }
 	

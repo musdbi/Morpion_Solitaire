@@ -51,7 +51,7 @@
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" /> 
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
@@ -122,12 +122,12 @@
          </rowConstraints>
       </GridPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="PALEGOLDENROD" height="569.0" layoutX="640.0" layoutY="143.0" stroke="PALEGOLDENROD" strokeType="INSIDE" width="1.0" />
-      <Text fill="PALEGOLDENROD" layoutX="120.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="first algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text fill="PALEGOLDENROD" layoutX="120.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Random algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <Text fill="PALEGOLDENROD" layoutX="763.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
+      <Text fill="PALEGOLDENROD" layoutX="763.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Simplified NMCS algorithm" textAlignment="CENTER" wrappingWidth="405.9999999999999">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
@@ -197,7 +197,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="18.0" />
          </font>
       </Text>
-      <ToggleButton layoutX="839.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthOne" styleClass="button" stylesheets="@res/css.css" text="1">
+      <ToggleButton layoutX="839.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthOne" styleClass="button" stylesheets="@res/css.css" text="Depth 1">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -205,7 +205,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="936.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthTwo" styleClass="button" stylesheets="@res/css.css" text="2">
+      <ToggleButton layoutX="936.0" layoutY="109.0" mnemonicParsing="false" onAction="#setDepthTwo" styleClass="button" stylesheets="@res/css.css" text="Depth 2">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
@@ -213,7 +213,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </ToggleButton>
-      <ToggleButton layoutX="1033.0" layoutY="109.0" minWidth="25.0" mnemonicParsing="false" onAction="#setDepthThree" prefHeight="23.0" prefWidth="25.0" styleClass="button" stylesheets="@res/css.css" text="3">
+      <ToggleButton layoutX="1033.0" layoutY="109.0" minWidth="25.0" mnemonicParsing="false" onAction="#setDepthThree" prefHeight="23.0" prefWidth="25.0" styleClass="button" stylesheets="@res/css.css" text="Depth 3">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="12.0" />
          </font>
