@@ -1,5 +1,6 @@
 package algorithms;
 
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,29 +26,28 @@ public class DataManager {
 	 */
 	private static int currRunningAlgoId;
 	
-	private static final String path = "./algo_scores.csv";
-
+	private static final String path = "./algo_scores2.csv";
+	
+	private static final String sep = ",";
 	/**
 	 * This method insert new line in the scores.csv file
 	 * We set it to synchronized to ensure different thread do not access it at the 
 	 * same time 
 	 */
-	public static synchronized void insertData(int algoId, String mode, int score){
-		try (CSVWriter writer = new CSVWriter(new FileWriter(path, true))) {
-            String[] data = {String.valueOf(algoId), String.valueOf(mode), String.valueOf(score)};
-            writer.writeNext(data);
+	public static synchronized void insertData(int algoId, String mode, int score) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+            writer.write(String.format("%d,%s,%d%n", algoId, mode, score));
             System.out.println("Data successfully inserted: " + algoId + ", " + mode + ", " + score);
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}
+    }
 	
 	public static List<Integer> getData(int algoId, String mode) throws CsvValidationException, NumberFormatException {
 		List<Integer> scores = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(path))) {
             String[] line;
             while ((line = reader.readNext()) != null) {
-            	// If the line is not empty
         		if (!line[0].equals("")){
         			int fileAlgoId = Integer.parseInt(line[0]);
                     String fileMode = line[1];
@@ -56,13 +56,12 @@ public class DataManager {
                         scores.add(score);
                     }
         		}
-                
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        catch(NumberFormatException e2) {
-        }
+//        catch(NumberFormatException e2) {
+//        }
         return scores;
     }
 	
@@ -117,5 +116,7 @@ public class DataManager {
 		System.out.println("Random algo: " + DataManager.calculateStatistics(0, "5T"));
 		System.out.println("NMCS depth 1: " + DataManager.calculateStatistics(1, "5T"));
 		System.out.println("NMCS depth 2: " + DataManager.calculateStatistics(2, "5T"));
+		System.out.println("NMCS depth 2: " + DataManager.calculateStatistics(3, "5T"));
+
 	}
 }
