@@ -24,10 +24,7 @@ public class GraphicController {
 	private Text mode;
 	
 	public void initialize () {
-		mode.setText(Mode.toStringStatic());Node fill = series.getNode().lookup(".chart-series-area-fill");
-		
 		chart.getData().clear();
-//		chart.setStyle("-fx-background-color: #283943;");
 		if (!Double.isNaN(ResearchAlgorithmController.getScore0().get("Mean"))) {
 			plotGaussianCurve(ResearchAlgorithmController.getScore0().get("Mean"), ResearchAlgorithmController.getScore0().get("Variance"),"Random Algorithm");
 		}
