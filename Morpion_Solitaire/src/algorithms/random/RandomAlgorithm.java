@@ -41,7 +41,6 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	@Override
 	public Grid algorithm() {
-		System.out.println(this.grid);
 		Grid simulatedGrid = new Grid(this.grid);
 		while (!simulatedGrid.getPlayablePoints().isEmpty()){
 	        playRandomMove(simulatedGrid);
