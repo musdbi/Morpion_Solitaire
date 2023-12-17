@@ -133,7 +133,7 @@ public class GridController {
 	    }
 	}
 	
-	private Button findButtonInGrid(GridPane gridPane, int x, int y) {
+	public Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y && node instanceof Button) {
 	            return (Button) node;
@@ -141,7 +141,7 @@ public class GridController {
 	    }
 	    return null;
 	}
-	
+
 	private void updateGridUI5DT() {
         Grid grid = gameManager.getGrid();
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates5.getValues();
@@ -170,7 +170,7 @@ public class GridController {
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 
-                button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
+                button.setOnAction(event -> handleGridButtonAction(finalX, finalY, this));
                 gameGrid.add(button, x, y);
             }
         }
@@ -206,7 +206,7 @@ public class GridController {
                 	button.setStyle("-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #EEE8AA");
                 }
                 
-                button.setOnAction(event -> handleGridButtonAction(finalX, finalY));
+                button.setOnAction(event -> handleGridButtonAction(finalX, finalY, this));
                 gameGrid.add(button, x, y);
             }
         }
@@ -214,9 +214,9 @@ public class GridController {
         drawLines();
     }
 	
-	private void handleGridButtonAction(int x, int y) {
+	private void handleGridButtonAction(int x, int y, GridController grid) {
 		if (!gameManager.getGrid().getPoint(x, y).isPlayed()) {
-			gameManager.playAt(x, y); 
+			gameManager.playAt(x, y, this); 
 			if (Mode.getNumber() == 4 && Mode.getType().toString().equals("T")) {
 	        	updateGridUI4DT();
 	        }
@@ -252,5 +252,9 @@ public class GridController {
 	public void checkBGSound (ActionEvent event) {
 		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();
 		else MenuApp.bgSound.play();
+	}
+	
+	public GridPane getGameGrid() {
+		return gameGrid;
 	}
 }
