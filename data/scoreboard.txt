@@ -34,3 +34,5 @@
 
 1 played points - test
 
+1 played points - file rename test
+
