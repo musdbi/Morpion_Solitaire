@@ -26,9 +26,8 @@ public class DataManager {
 	 */
 	private static int currRunningAlgoId;
 	
-	private static final String path = "./algo_scores2.csv";
+	private static final String path = "./algo_scores.csv";
 	
-	private static final String sep = ",";
 	/**
 	 * This method insert new line in the scores.csv file
 	 * We set it to synchronized to ensure different thread do not access it at the 
