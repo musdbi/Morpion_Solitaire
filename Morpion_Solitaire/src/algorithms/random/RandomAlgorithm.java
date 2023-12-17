@@ -41,13 +41,19 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 	
 	@Override
 	public Grid algorithm() {
+		System.out.println(this.grid);
 		Grid simulatedGrid = new Grid(this.grid);
 		while (!simulatedGrid.getPlayablePoints().isEmpty()){
 	        playRandomMove(simulatedGrid);
 	        simulatedGrid.updatePlayablePoints();
 		}
+<<<<<<< HEAD
 		System.out.println(this.grid.getPlayablePoints());
 		System.out.println(simulatedGrid.getPlayablePoints());
+=======
+//		System.out.println(simulatedGrid);
+		
+>>>>>>> master
 		// Saving score in csv file
 		if (DataManager.getCurrRunningAlgo() == 0) {
 			DataManager.insertData(
@@ -58,7 +64,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
 		
 		return simulatedGrid;
 	}
-	
+
 	/**
 	 * Play a random point and a random line (if there is the choice) on the given grid
 	 *

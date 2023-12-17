@@ -23,7 +23,7 @@
             <InnerShadow height="10.0" radius="4.5" width="10.0" />
          </effect>
       </Button>
-      <Button layoutX="594.0" layoutY="411.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="OK" textAlignment="CENTER">
+      <Button layoutX="594.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchToGame" prefHeight="30.0" prefWidth="80.0" stylesheets="@res/css.css" text="OK" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>

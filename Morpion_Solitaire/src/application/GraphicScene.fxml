@@ -23,7 +23,7 @@
             <Font name="PenumbraHalfSerifStd-Reg" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="57.0" layoutY="55.0" mnemonicParsing="false" onAction="#switchToMenu" style="-fx-background-color: #EEE8AA; -fx-border-color: black;" text="BACK TO MENU" textAlignment="CENTER">
+      <Button layoutX="37.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMenu" styleClass="back-to-menu" stylesheets="@res/css.css" text="BACK TO MENU" textAlignment="CENTER">
          <font>
             <Font name="PenumbraHalfSerifStd-Reg" size="10.0" />
          </font>
