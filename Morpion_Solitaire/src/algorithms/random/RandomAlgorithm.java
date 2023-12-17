@@ -84,7 +84,7 @@ public class RandomAlgorithm implements ResearchAlgorithm{
         long startTime = System.currentTimeMillis();
         DataManager.setCurrRunningAlgo(0);
         ResearchAlgorithm randomAlgo = new RandomAlgorithm();
-		int it = 50;
+		int it = 1;
 		randomAlgo.trainAlgorithm(it);
 		long endTime = System.currentTimeMillis();
 		double elapsedTime = (endTime - startTime) * 0.001;
