@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ScoreboardController {
 	
-		private final static String path = "./classement.txt";
+		private final static String path = "./data/classement.txt";
 	
 		@FXML
 		private Stage stage;

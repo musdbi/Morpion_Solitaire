@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Scoreboard {
 	
-	private final static String path = "./classement.txt";
+	private final static String path = "./data/classement.txt";
 	
 	private TreeMap<Integer, String> scores;   
   
