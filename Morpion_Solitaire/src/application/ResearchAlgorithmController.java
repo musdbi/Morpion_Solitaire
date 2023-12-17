@@ -1,7 +1,6 @@
 package application;
 
 import algorithms.DataManager;
-import algorithms.ResearchAlgorithm;
 import algorithms.nmcs.NMCS;
 import algorithms.random.RandomAlgorithm;
 import com.opencsv.exceptions.CsvValidationException;
@@ -9,13 +8,11 @@ import components.Grid;
 import components.Line;
 import components.PlayedPoint;
 import components.Point;
-import game.GameManagerFX;
 import game.Mode;
 import helpers.DefaultCoordinates4;
 import helpers.DefaultCoordinates5;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;

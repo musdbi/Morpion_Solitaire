@@ -1,6 +1,11 @@
 package helpers.exceptions;
 
 public class NotALineException extends IllegalArgumentException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NotALineException (String message) {
 	       super(message) ;
 	}

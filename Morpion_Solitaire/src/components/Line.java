@@ -110,27 +110,4 @@ public class Line {
 	public Set<Point> getPoints(){
 		return points;
 	}
-	public static void main(String[] args) {
-		Set<Line> set = new HashSet<>();
-		Set<Point> points = new HashSet<>();
-
-		Point p1 = new Point(1,1);
-		Point p2 = new Point(1,2);
-		Point p3 = new Point(1,3);
-		Point p4 = new Point(1,4);
-		Point p5 = new Point(1,5);
-		Point p6 = new Point(1,6);
-		
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
-		Line line1 = new Line(points, Direction.VERTICAL);
-		set.add(line1);
-		System.out.println(set);
-		Line line2 = new Line(points, Direction.VERTICAL);
-		set.add(line2);
-		System.out.println(set);
-	}
 }

@@ -1,8 +1,6 @@
 package algorithms;
 
 import javafx.scene.chart.XYChart;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GaussianCurve {
 

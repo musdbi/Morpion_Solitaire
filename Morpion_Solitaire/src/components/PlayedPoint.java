@@ -1,13 +1,8 @@
 package components;
 
-import helpers.DefaultCoordinates4;
-import helpers.DefaultCoordinates5;
 import helpers.Direction;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
-
-import game.Mode;
 
 public class PlayedPoint extends Point{
 	

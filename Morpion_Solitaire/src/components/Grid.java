@@ -450,15 +450,4 @@ public class Grid {
 		if (x >= size || y >= size) throw new OutOfGridException("The point is outside the grid.");
 		return this.grid.get(Objects.hash(x, y));
 	}
-	
-	public static void main(String[] args) {
-		Grid grid = new Grid();
-		grid.initGrid();
-		grid.updatePlayablePoints();
-		Grid copy = new Grid(grid);
-		System.out.println(grid.getPossibleMoves());
-		System.out.println(copy.getPossibleMoves());
-
-		System.out.println(copy);
-	}
 }

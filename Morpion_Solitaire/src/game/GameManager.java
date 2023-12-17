@@ -28,9 +28,6 @@ public class GameManager {
     private Grid board;
     
 	private Scanner scanner;
-	
-	private Mode mode;
-
 
     /**
      * Constructs a GameManager object with one player

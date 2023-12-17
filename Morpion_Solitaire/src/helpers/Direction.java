@@ -3,8 +3,6 @@ package helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.Mode;
-
 import java.util.Collections;
 
 public enum Direction {

@@ -2,14 +2,10 @@ package application;
 
 import algorithms.GaussianCurve;
 import game.Mode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
