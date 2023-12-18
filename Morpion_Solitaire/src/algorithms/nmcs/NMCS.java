@@ -117,16 +117,16 @@ public class NMCS implements ResearchAlgorithm{
 	}
 	
 	public static void main(String[] args) {
-		Mode.setType("D");
-
-        long startTime = System.currentTimeMillis();
-        double endTime;
-        double elapsedTime;
-		NMCS nmcs1 = new NMCS(1);
-		NMCS nmcs2 = new NMCS(2);
-
-		NMCS nmcs3 = new NMCS(3);
-		NMCS nmcs4 = new NMCS(4);
+//		Mode.setType("D");
+//
+//        long startTime = System.currentTimeMillis();
+//        double endTime;
+//        double elapsedTime;
+//		NMCS nmcs1 = new NMCS(1);
+//		NMCS nmcs2 = new NMCS(2);
+//
+//		NMCS nmcs3 = new NMCS(3);
+//		NMCS nmcs4 = new NMCS(4);
 		
 		
 		/**                        DEPTH 1                        */
