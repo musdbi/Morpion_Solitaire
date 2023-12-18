@@ -12,6 +12,10 @@ public class Scoreboard {
 	private final static String path = "./data/scoreboard.txt";
 	
 	private TreeMap<Integer, String> scores;   
+	
+	/**
+     * Constructs a Scoreboard object by initializing the scores TreeMap and reading scores from a file.
+     */
   
 	public Scoreboard() {
 		File file = new File(path);
@@ -29,9 +33,17 @@ public class Scoreboard {
 		scores = new TreeMap<>(Collections.reverseOrder());
 	}
 	
+	/**
+     * Clears all scores from the scoreboard.
+     */
+	
 	public void clear () {
 		scores.clear();
 	}
+	
+	/**
+     * Opens the scoreboard file in the default file viewer of the desktop.
+     */
 	
 	public void show() {
 	    if (Desktop.isDesktopSupported()) {
@@ -46,11 +58,23 @@ public class Scoreboard {
 	    }
 	}
 	
+	/**
+     * Adds a score for a player to the scoreboard.
+     *
+     * @param playerName The name of the player.
+     * @param score The score of the player.
+     * @throws IllegalArgumentException if the player name is empty or score is negative.
+     */
+	
 	public void addScore(String playerName, int score) {
 		if (playerName.isEmpty()) throw new IllegalArgumentException("Please type a valid name.");
 		if (score < 0) throw new IllegalArgumentException("Score cannot be negative..");
         scores.put(score, playerName);
     }
+	
+	/**
+     * Writes the scores to the file, overwriting any existing content.
+     */
 
     public void write() {
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
@@ -65,6 +89,10 @@ public class Scoreboard {
     	}
     }
     
+    /**
+     * Appends the current scores to the end of the file.
+     */
+    
     public void append() {
     	try (BufferedWriter writer = new BufferedWriter(new FileWriter(path,true))) {
     	    for (Entry<Integer, String> entry : scores.entrySet()) {
@@ -77,6 +105,10 @@ public class Scoreboard {
     	    e.printStackTrace();
     	}
     }
+    
+    /**
+     * Sorts the scores in the file based on score values.
+     */
     
     public void sort() {
     	try {

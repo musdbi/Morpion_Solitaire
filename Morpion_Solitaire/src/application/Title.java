@@ -8,6 +8,11 @@ import javafx.scene.text.Text;
 
 public class Title extends Pane {
     private Text text;
+    
+    /**
+     * 
+     * @param name which will be the name displayed in the game title, in our case : Morpion Solitaire
+     */
 
     public Title(String name) {
         String spread = "";

@@ -23,15 +23,35 @@ public class NameController {
 	
 	private static GameManagerFX gameManager;
 	
+	/**
+     * Initializes the game manager by retrieving a single instance (singleton) of GameManagerFX.
+     */
+	
 	public void initGameManager() {
 		gameManager = GameManagerFX.getInstance();
     }
+	
+	/**
+     * Changes the current scene to return to the main menu.
+     * This method is triggered by an action event, typically a button click.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
+	
+	/**
+     * Changes the current scene to the game scene.
+     * Checks that the player name is not empty, displays an alert in the event of an error, 
+     * and initializes the game manager before switching scenes.
+     *
+     * @param event The event that triggered this method.
+     * @throws IOException If GridScene.fxml fails to load.
+     */
 	
 	public void switchToGame (ActionEvent event) throws IOException {
 	    if (nomJoueur.getText().isEmpty()) {

@@ -19,6 +19,10 @@ public class GraphicController {
 	@FXML
 	private Text mode;
 	
+	/*
+	 * Initialize the relevant mode and plot the distribution curves associated with each search algorithm, if statistics are available.
+	 */
+	
 	public void initialize () {
 		mode.setText(Mode.toStringStatic());
 		chart.getData().clear();
@@ -35,6 +39,13 @@ public class GraphicController {
 		    plotGaussianCurve(ResearchAlgorithmController.getScore3().get("Mean"), ResearchAlgorithmController.getScore3().get("Variance"),"NMCS Level 3");
 		}
 	}
+	
+	/**
+	 * Draw the curve
+	 * @param mean mean of the algorithm
+	 * @param variance variance of the algorithm
+	 * @param legendName legend associated with each algorithm
+	 */
 	
 	public void plotGaussianCurve(double mean, double variance, String legendName) {
 		if (!(variance == 0 || mean == 0)) {
@@ -64,6 +75,13 @@ public class GraphicController {
 
 		}
     }
+	
+	/**
+     * Changes the current scene to return to the main menu.
+     * This method is triggered by an action event, typically a button click.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
