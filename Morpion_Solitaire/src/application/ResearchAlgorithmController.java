@@ -62,6 +62,11 @@ public class ResearchAlgorithmController {
 	private static Map<String, Double> score2;
 	private static Map<String, Double> score3;
 	
+	/**
+     * Initializes score statistics for all search algorithms.
+     * This method must be called before using the class to set initial scores.
+     */
+	
 	public static void initialize() {
 	    for (int i = 0; i < 4; i++) {
 	        try {
@@ -71,6 +76,14 @@ public class ResearchAlgorithmController {
 	        }
 	    }
 	}
+	
+	/**
+     * Defines statistics for a specific algorithm.
+     *
+     * @param index Corresponds to the algorithm whose statistics are to be determined: 0 = RANDOM / 1 = NMCS 1 / 2 = NMCS 2 / 3 = NMCS 3.
+     * @throws CsvValidationException If an error occurs during CSV validation.
+     * @throws NumberFormatException If a number formatting error occurs.
+     */
 
 	private static void setScore(int index) throws CsvValidationException, NumberFormatException {
 	    switch (index) {
@@ -90,7 +103,12 @@ public class ResearchAlgorithmController {
 	            throw new IllegalArgumentException("Index out of range: " + index);
 	    }
 	}
-
+	
+	/**
+     * Starts the random algorithm and updates the user interface with the results.
+     *
+     * @param event The event that triggered this method.
+     */
 
 	public void startFirstAlgorithm (ActionEvent event) {
 		long startTime = System.currentTimeMillis();
@@ -106,6 +124,12 @@ public class ResearchAlgorithmController {
 		if (Mode.toStringStatic().equals("5D") || Mode.toStringStatic().equals("5T")) displayGridfirstAlgo5DT();
         firstAlgoGameGrid.setVisible(true);
 	}
+	
+	/**
+     * Starts NMCS and updates user interface with results.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void startSecondAlgorithm (ActionEvent event) {
 		long startTime = System.currentTimeMillis();
@@ -296,6 +320,15 @@ public class ResearchAlgorithmController {
 	    }
 	}
 	
+	/**
+     * Finds a button in a specified grid based on its coordinates.
+     *
+     * @param gridPane The grid to search in.
+     * @param x The X position in the grid.
+     * @param y The Y position in the grid.
+     * @return The button found, or null if no button is found.
+     */
+	
 	private Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y && node instanceof Button) {
@@ -316,6 +349,12 @@ public class ResearchAlgorithmController {
 	public void setDepthThree (ActionEvent event) {
 		depth = 3;
 	}
+	
+	/**
+     * Changes the current scene to display distribution curves.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void switchToGraphics (ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("GraphicScene.fxml"));
@@ -364,6 +403,13 @@ public class ResearchAlgorithmController {
 	public static void setScore3(Map<String, Double> score) {
 		score3 = score;
 	}
+	
+	/**
+     * Changes the current scene to return to the main menu.
+     * This method is triggered by an action event, typically a button click.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

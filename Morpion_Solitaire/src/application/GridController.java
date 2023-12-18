@@ -43,6 +43,10 @@ public class GridController {
 	
 	private GameManagerFX gameManager;
 	
+	/**
+     * Initializes the game manager and updates the game user interface according to the selected mode.
+     */
+	
 	public void initGameManager() {
         this.gameManager = GameManagerFX.getInstance();
         gameManager.setupGame();
@@ -61,6 +65,12 @@ public class GridController {
         updateLabels();
     }
 	
+	/**
+     * Ends the current game and resets the user interface for a new game.
+     *
+     * @param event The event that triggered this method.
+     */
+	
 	public void endGame(ActionEvent event) {
 		if (!gameManager.getScore().equals("0")) {
 	        gameManager.endGame();
@@ -70,6 +80,12 @@ public class GridController {
 		}
     }
 	
+	/**
+     * Resets the current game and updates the user interface.
+     *
+     * @param event The event that triggered this method.
+     */
+	
 	public void resetGame(ActionEvent event) {
 		if (!gameManager.getScore().equals("0")) {
 	        gameManager.resetGame();
@@ -78,6 +94,10 @@ public class GridController {
 	        updateLabels();
 		}
     }
+	
+	/**
+     * Draw lines on the grid according to the points played.
+     */
 	
 	private void drawLines() {
 	    Grid grid = gameManager.getGrid();
@@ -109,6 +129,10 @@ public class GridController {
 	    }
 	}
 	
+	/**
+     * Displays clues on the grid to help the player.
+     */
+	
 	public void hint() {
 	    showHints();
 	}
@@ -127,6 +151,15 @@ public class GridController {
 	    }
 	}
 	
+	/**
+     * Find a button in the game grid according to its coordinates.
+     *
+     * @param gridPane The grid to search in.
+     * @param x The X position in the grid.
+     * @param y The Y position in the grid.
+     * @return The button found, or null if no button is found.
+     */
+	
 	public Button findButtonInGrid(GridPane gridPane, int x, int y) {
 	    for (Node node : gridPane.getChildren()) {
 	        if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y && node instanceof Button) {
@@ -135,6 +168,10 @@ public class GridController {
 	    }
 	    return null;
 	}
+	
+	/**
+     * Updates the grid user interface for 5D or 5T mode.
+     */
 
 	private void updateGridUI5DT() {
         Grid grid = gameManager.getGrid();
@@ -172,6 +209,10 @@ public class GridController {
         drawLines();
     }
 	
+	/**
+     * Updates the grid user interface for 4D or 4T mode.
+     */
+	
 	private void updateGridUI4DT() {
         Grid grid = gameManager.getGrid();
         HashSet<Integer> defaultPointsHashes = DefaultCoordinates4.getValues();
@@ -208,6 +249,14 @@ public class GridController {
         drawLines();
     }
 	
+	/**
+     * Manages grid button actions and updates game status and user interface.
+     *
+     * @param x X coordinate of point played.
+     * @param y Y coordinate of the point played.
+     * @param grid The current grid controller.
+     */
+	
 	private void handleGridButtonAction(int x, int y, GridController grid) {
 		if (!gameManager.getGrid().getPoint(x, y).isPlayed()) {
 			gameManager.playAt(x, y, this); 
@@ -227,6 +276,10 @@ public class GridController {
 		}
 	}
 	
+	/**
+     * Updates labels displaying player name, game mode and score.
+     */
+	
 	public void updateLabels() {
 		if (gameManager != null) {
             nomJoueur.setText(gameManager.getPlayerName());
@@ -237,11 +290,23 @@ public class GridController {
         }
 	}
 	
+	/**
+     * Changes the current scene to return to the main menu.
+     * This method is triggered by an action event, typically a button click.
+     *
+     * @param event The event that triggered this method.
+     */
+	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	    stage.setScene(MenuApp.menuScene);
 	    stage.show();
 	}
+	
+	/**
+	 * Allows you to parameterize the music, i.e. trigger it if it is paused, or pause it if it is not.
+	 * @param event The event that triggered this method.
+	 */
 	
 	public void checkBGSound (ActionEvent event) {
 		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();

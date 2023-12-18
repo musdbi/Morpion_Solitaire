@@ -35,15 +35,20 @@ public class GameManagerFX {
 
 
     /**
-     * Constructs a GameManager object with one player
-     *
-     * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
+     * Constructs a GameManagerFX object. Initializes the game with a default player and an empty grid.
      */
+    
     public GameManagerFX(){
     	board = new Grid();
     	ranking = new Scoreboard();
     	currentPlayer = "player";
     }
+    
+    /**
+     * Gets the single instance of GameManagerFX, following the Singleton design pattern.
+     *
+     * @return The single instance of GameManagerFX.
+     */
     
     public static GameManagerFX getInstance() {
         if (instance == null) {
@@ -54,8 +59,9 @@ public class GameManagerFX {
     }
 
     /**
-     * Sets up the game
+     * Sets up the game by initializing the grid and updating playable points.
      */
+    
     public void setupGame(){
     	score = 0;
         board.initGrid();
@@ -64,10 +70,9 @@ public class GameManagerFX {
     }
     
     /**
-     * This method launch the game with the selected mode.
-     * 
-     * @param mode
+     * Launches the game in the selected mode and manages the game flow.
      */
+    
     public void launchGame(){
     	while (!this.board.getPlayablePoints().isEmpty()) {
     		this.play();
@@ -78,6 +83,10 @@ public class GameManagerFX {
         	this.board.drawGrid();
     	}
     }
+    
+    /**
+     * Ends the game, calculates the final score, and updates the leaderboard.
+     */
 
     public void endGame(){
         this.score = this.board.getLines().size();
@@ -87,18 +96,32 @@ public class GameManagerFX {
         ranking.clear();
     }
     
+    /**
+     * Resets the game grid and score to start a new game.
+     */
+    
     public void resetGame() {
         score = 0;
         board = new Grid();
         board.initGrid();
         board.updatePlayablePoints();
     }
+    
+    /**
+     * Manages a game turn by prompting the player to play a point and choose a line.
+     */
 
     public void play() {
     	PlayedPoint playedPoint = playPoint();
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
     }
+    
+    /**
+     * Prompts the player to enter a point to play and validates the input.
+     *
+     * @return The played point.
+     */
     
     public PlayedPoint playPoint() {
     	int x, y = 0;
@@ -126,6 +149,14 @@ public class GameManagerFX {
     	}
     	return new PlayedPoint(this.board.getPoint(x, y), this.board.getLines().size() + 1); // Adding number of lines + 1 for played point id because lines of grid have not been updtated yet
     }
+    
+    /**
+     * Allows the player to choose a line for the played point.
+     *
+     * @param playedPoint The played point.
+     * @param grid The grid controller for UI update.
+     * @return The chosen line for the played point.
+     */
     
     public Line chooseLine(PlayedPoint playedPoint, GridController grid) {
         List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
@@ -174,6 +205,13 @@ public class GameManagerFX {
         return null;
     }
     
+    /**
+     * Overloaded method of chooseLine without the grid controller.
+     *
+     * @param playedPoint The played point.
+     * @return The chosen line for the played point.
+     */
+    
     public Line chooseLine(PlayedPoint playedPoint) {
         List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));
         if (playableLines.size() <= 1) {
@@ -211,6 +249,14 @@ public class GameManagerFX {
         }
         return sb.toString();
     }
+    
+    /**
+     * Plays a move at a specific position on the grid.
+     *
+     * @param x The X-coordinate of the played point.
+     * @param y The Y-coordinate of the played point.
+     * @param grid The grid controller for UI update.
+     */
     
     public void playAt(int x, int y, GridController grid) {
         Point point = new Point(x, y);
