@@ -3,25 +3,18 @@ package application;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -30,10 +23,7 @@ import javafx.util.Pair;
 import java.util.Arrays;
 import java.util.List;
 
-import components.*;
-import game.GameManager;
 import game.GameManagerFX;
-import game.Mode;
 
 public class MenuApp extends Application {
 	
@@ -251,18 +241,18 @@ public class MenuApp extends Application {
         hoverSound.setVolume(0.015);
         
      // Charger le fichier audio pour la musique de fond
-//        String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
-//        Media bgMedia = new Media(bgSoundFile);
-//        bgSound = new MediaPlayer(bgMedia);
-//        bgSound.setVolume(0.1);
-//        bgSound.play();
-//        bgSound.setOnEndOfMedia(new Runnable() {
-//            @Override
-//            public void run() {
-//                bgSound.seek(Duration.ZERO);
-//                bgSound.play();
-//            }
-//        });
+        String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
+        Media bgMedia = new Media(bgSoundFile);
+        bgSound = new MediaPlayer(bgMedia);
+        bgSound.setVolume(0.1);
+        bgSound.play();
+        bgSound.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                bgSound.seek(Duration.ZERO);
+                bgSound.play();
+            }
+        });
         
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);

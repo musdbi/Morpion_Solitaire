@@ -2,19 +2,16 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import game.GameManagerFX;
-import game.Scoreboard;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
 public class ScoreboardController {
 	
-		private final static String path = "./classement.txt";
+		private final static String path = "./data/scoreboard.txt";
 	
 		@FXML
 		private Stage stage;

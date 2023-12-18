@@ -1,11 +1,10 @@
 package algorithms.random;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import algorithms.ResearchAlgorithm;
+import game.Mode;
 
 public class RandomAlgoThreading extends Thread{
 	
@@ -72,7 +71,8 @@ public class RandomAlgoThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		RandomAlgoThreading randomMultiThread = new RandomAlgoThreading(new RandomAlgorithm(), 4, 50);
+		Mode.setType("D");
+		RandomAlgoThreading randomMultiThread = new RandomAlgoThreading(new RandomAlgorithm(), 4, 100);
 		randomMultiThread.trainAlgorithm();
 		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
 		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");

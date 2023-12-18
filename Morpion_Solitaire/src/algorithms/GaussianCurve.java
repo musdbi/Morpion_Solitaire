@@ -1,8 +1,6 @@
 package algorithms;
 
 import javafx.scene.chart.XYChart;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GaussianCurve {
 
@@ -15,7 +13,7 @@ public class GaussianCurve {
         this.variance = variance;
         this.stdDeviation = Math.sqrt(variance);
     }
-
+    
     public XYChart.Series<Number, Number> createGaussianSeries() {
         XYChart.Series<Number, Number> series = new XYChart.Series<>();
         double startX = mean - 3 * stdDeviation;

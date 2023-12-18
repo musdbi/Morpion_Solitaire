@@ -1,6 +1,5 @@
 package application;
 
-import components.Grid;
 import game.GameManagerFX;
 import java.io.IOException;
 
@@ -12,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class NameController {

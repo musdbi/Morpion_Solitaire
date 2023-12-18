@@ -5,20 +5,14 @@ import components.Grid;
 import components.Line;
 import components.PlayedPoint;
 import components.Point;
-import game.Mode;
 import helpers.exceptions.IllegalPlayedPointException;
-import helpers.exceptions.NotALineException;
 import helpers.exceptions.OutOfGridException;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.GridPane;
 
 public class GameManagerFX {
 
@@ -37,8 +31,6 @@ public class GameManagerFX {
     
 	private Scanner scanner;
 	
-	private Mode mode;
-	
     private static GameManagerFX instance;
 
 
@@ -48,7 +40,6 @@ public class GameManagerFX {
      * @param currentVersion will specify which version of the game we are playing in (5T or 5D)
      */
     public GameManagerFX(){
-    	mode = new Mode();
     	board = new Grid();
     	ranking = new Scoreboard();
     	currentPlayer = "player";
@@ -69,7 +60,6 @@ public class GameManagerFX {
     	score = 0;
         board.initGrid();
         this.board.updatePlayablePoints();
-        //this.board.drawGrid();
     }
     
     /**
@@ -84,7 +74,7 @@ public class GameManagerFX {
         	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
         	System.out.println("Coups possible: " + this.board.getPossibleMoves());
 
-        	this.board.drawGrid();
+        	System.out.println(this.board);;
     	}
     }
 

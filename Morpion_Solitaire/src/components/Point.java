@@ -20,9 +20,12 @@ public class Point {
 		this.y = p.getY();
 	}
 	
+	
+	/**
+	 * Check if the point is in the grid
+	 */
 	public void checkRange() {
         if (x < 0 || y < 0) throw new OutOfGridException("Coordinates cannot be negative.");
-
         if (x >= 24 || y >= 24) throw new OutOfGridException("The point is outside the grid.");
     }
 	
@@ -61,9 +64,5 @@ public class Point {
 
     public int getY() {
     	return this.y;
-    }
-    
-    public static void main(String[] args) {
-    	
     }
 }

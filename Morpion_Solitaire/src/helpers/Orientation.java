@@ -2,7 +2,6 @@ package helpers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import game.Mode;
 
@@ -25,6 +24,10 @@ public enum Orientation {
         this.y = y;
     }
 	
+	/**
+	 * @return the list of incremented coordinate to move on Y
+	 * exemple, if Mode = 5T, for NW it will return: [-1, -2, -3, -4]
+	 */
 	public List<Integer> moveX(){
 		List<Integer> moveX = new ArrayList<>();
 		for (int i = 1; i <= Mode.getNumber() - 1; i++) {
@@ -33,6 +36,10 @@ public enum Orientation {
 		return moveX;
 	}
 	
+	/**
+	 * @return the list of incremented coordinate to move on Y
+	 * exemple, if Mode = 5T, for NW it will return: [1, 2, 3, 4]
+	 */
 	public List<Integer> moveY(){
 		List<Integer> moveY = new ArrayList<>();
 		for (int i = 1; i <= Mode.getNumber() - 1; i++) {
@@ -47,24 +54,5 @@ public enum Orientation {
 	
 	public int getY() {
 		return this.y;
-	}
-	
-	public static void main(String[] args) {
-		Mode.setNumber(5);
-		Mode.setType("T");
-		List<Integer> moveY = S.moveY();
-//		System.out.println(moveY);
-//		if (this.grid.get(Objects.hash(point.getX() + moveX.get(i), point.getY() + moveY.get(i))) == null){
-//			drawGrid();
-//			System.out.print("Point moving from: " + point);
-//			System.out.println("Moving vectors: ");
-//			for (int j = 0; j< moveX.size(); j ++)System.out.println(moveX.get(j) + " " + moveY.get(j));
-//			for (int k= 0; k <moveY.size(); k++) {
-//				System.out.println(moveY.get(k).getClass());
-//			}
-//			System.out.println("Actual moving vectors: " + moveX.get(i) + " " + moveY.get(i));
-//			System.out.println("Point we are going to: (" + point.getX() + moveX.get(i) + ", " +  point.getY() + moveY.get(i) + ")");
-//		}
-
 	}
 }

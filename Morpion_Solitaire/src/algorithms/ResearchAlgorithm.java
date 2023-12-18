@@ -7,7 +7,7 @@ public interface  ResearchAlgorithm {
 	
 	/**
 	 * Launch algorithm one time 
-	 * @return the simualted grid from the concerned algorithm
+	 * @return the result grid from the concerned algorithm
 	 */
 	Grid algorithm();
 	

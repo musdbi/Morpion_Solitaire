@@ -3,16 +3,13 @@ package game;
 import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import game.ScoreTuple;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
 public class Scoreboard {
 	
-	private final static String path = "./classement.txt";
+	private final static String path = "./data/scoreboard.txt";
 	
 	private TreeMap<Integer, String> scores;   
   
