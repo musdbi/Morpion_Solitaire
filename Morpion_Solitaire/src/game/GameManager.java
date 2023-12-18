@@ -50,7 +50,8 @@ public class GameManager {
         board = new Grid();
         board.initGrid();
         this.board.updatePlayablePoints();
-        this.board.drawGrid();
+        System.out.println(this.board
+        		);
     }
     
     /**
@@ -65,22 +66,33 @@ public class GameManager {
         	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
         	System.out.println("Coups possible: " + this.board.getPossibleMoves());
 
-        	this.board.drawGrid();
+        	System.out.println(this.board); 
     	}
     }
     
+    
+    /**
+     * Set the score and save it at the end of the game
+     */
     public void endGame(){
         this.score = this.board.getLines().size();
         System.out.println("Partie terminée, score: " + this.score);
         ranking.addScore(currentPlayer, score);
     }
     
+    /**
+     * Method for the player to chose a point to play and the associated line he wants
+     */
     public void play() {
     	PlayedPoint playedPoint = playPoint();
     	Line playedLine = chooseLine(playedPoint);
     	board.updateGrid(playedPoint, playedLine);
     }
     
+    
+    /**
+     * Method for the player to chose the mode
+     */
     public void chooseMode() {
     	int number;
     	String type="";
@@ -105,6 +117,9 @@ public class GameManager {
     	}
     }
     
+    /**
+     * Method for the player to chose the point to play
+     */
     public PlayedPoint playPoint() {
     	int x, y = 0;
     	while (true) {
@@ -132,6 +147,13 @@ public class GameManager {
     	return new PlayedPoint(this.board.getPoint(x, y), this.board.getLines().size() + 1); // Adding number of lines + 1 for played point id because lines of grid have not been updtated yet
     }
     
+    
+    /**
+     * Method to chose the line associated with the given point
+     * 
+     * @param playedPoint associated to possible liens
+     * @return the chosen line
+     */
     public Line chooseLine(PlayedPoint playedPoint) {
     	int line = 0;
     	List<Line> playableLines = new ArrayList<>(this.board.getPlayablePoints().get(playedPoint));

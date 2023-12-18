@@ -18,6 +18,8 @@ public class NMCSState {
 			
 	/**
 	 *  The previous state in monte-carlo tree search, i.e one play before this one
+	 *  
+	 *  Currently not used be useful if we want to improve the algorithm
 	 */
 	private NMCSState parentState;
 	
@@ -53,7 +55,6 @@ public class NMCSState {
 		}
 	}
 	
-	
 	/**
 	 * @return the result of a random algorithm starting at the current child grid
 	 */
@@ -63,8 +64,9 @@ public class NMCSState {
 
 	}
 	
-	
 	/**
+	 * Currently not used but useful if we want to improve our algorithm
+	 * 
 	 * @return true / false if the state has no possible child i.e if we can't play any more move
 	 */
 	public boolean isTerminal() {

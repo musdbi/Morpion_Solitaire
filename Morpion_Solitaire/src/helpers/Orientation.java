@@ -24,6 +24,10 @@ public enum Orientation {
         this.y = y;
     }
 	
+	/**
+	 * @return the list of incremented coordinate to move on Y
+	 * exemple, if Mode = 5T, for NW it will return: [-1, -2, -3, -4]
+	 */
 	public List<Integer> moveX(){
 		List<Integer> moveX = new ArrayList<>();
 		for (int i = 1; i <= Mode.getNumber() - 1; i++) {
@@ -32,6 +36,10 @@ public enum Orientation {
 		return moveX;
 	}
 	
+	/**
+	 * @return the list of incremented coordinate to move on Y
+	 * exemple, if Mode = 5T, for NW it will return: [1, 2, 3, 4]
+	 */
 	public List<Integer> moveY(){
 		List<Integer> moveY = new ArrayList<>();
 		for (int i = 1; i <= Mode.getNumber() - 1; i++) {

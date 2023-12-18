@@ -13,7 +13,11 @@ import algorithms.DataManager;
 import algorithms.ResearchAlgorithm;
 
 public class NMCS implements ResearchAlgorithm{
-		
+	
+	
+	/**
+	 * Depth level for the algorithm
+	 */
 	private final int depthLevel;
 	
 	public NMCS(int depthLevel) {
@@ -42,6 +46,10 @@ public class NMCS implements ResearchAlgorithm{
 	 * This method executes the monte-carlo search. 
 	 * In practise, we will never reach the maximum depth level (i.e a terminal state)
 	 * so we do not test if the state is terminal or not
+	 * 
+	 * Uses an executor service to submit tasks to the thread pool
+	 * 
+	 * Number of threads is set to 3
 	 * 
 	 * @param state
 	 * @param level
@@ -109,20 +117,23 @@ public class NMCS implements ResearchAlgorithm{
 	}
 	
 	public static void main(String[] args) {
-//        long startTime = System.currentTimeMillis();
-//        double endTime;
-//        double elapsedTime;
-//		NMCS nmcs1 = new NMCS(1);
-//		NMCS nmcs2 = new NMCS(2);
-//
-//		NMCS nmcs3 = new NMCS(3);
-//		NMCS nmcs4 = new NMCS(4);
+		Mode.setType("D");
+
+        long startTime = System.currentTimeMillis();
+        double endTime;
+        double elapsedTime;
+		NMCS nmcs1 = new NMCS(1);
+		NMCS nmcs2 = new NMCS(2);
+
+		NMCS nmcs3 = new NMCS(3);
+		NMCS nmcs4 = new NMCS(4);
 		
 		
 		/**                        DEPTH 1                        */
 		
 //		DataManager.setCurrRunningAlgo(1);
 //		Grid level1 = nmcs1.algorithm();
+//		nmcs1.trainAlgorithm(20);
 //        System.out.println("Score pour une recherch de profondeur 1: " + level1.getLines().size());
 //		endTime = System.currentTimeMillis();
 //		elapsedTime = (endTime - startTime) * 0.001;
@@ -131,9 +142,9 @@ public class NMCS implements ResearchAlgorithm{
 		
 		/**                        DEPTH 2                       */
         
-//		DataManager.setCurrRunningAlgo(2);
+//		DataManager.setCurrRunningAlgo(2);s
 //		Grid level2 = nmcs2.algorithm();
-//		nmcs2.trainAlgorithm(15);
+//		nmcs2.trainAlgorithm(20);
 //        System.out.println("Score pour une recherch de profondeur 2: " + level2.getLines().size());
 //		endTime = System.currentTimeMillis();
 //		elapsedTime = (endTime - startTime) * 0.001;
@@ -143,12 +154,11 @@ public class NMCS implements ResearchAlgorithm{
 		/**                        DEPTH 3                        */
 		
 //		DataManager.setCurrRunningAlgo(3);
-////		Grid level3 = nmcs3.algorithm();
-//		nmcs3.trainAlgorithm(18);
-////        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
+//		Grid level3 = nmcs3.algorithm();
+//        System.out.println("Score pour une recherch de profondeur 3: " + level3.getLines().size());
 //		endTime = System.currentTimeMillis();
 //		elapsedTime = (endTime - startTime) * 0.001;
 //        System.out.println("Time taken: " + elapsedTime + " seconds");
-////        System.out.println("Grid found: \n" + level3);
+//        System.out.println("Grid found: \n" + level3);
 	}
 }

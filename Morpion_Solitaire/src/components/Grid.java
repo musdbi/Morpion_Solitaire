@@ -67,6 +67,7 @@ public class Grid {
 	
 	/**
 	 * Constructor to make a defensive copy of a grid
+	 * Use defensive copies of Point, PlayedPoint, Line
 	 * 
 	 * @param grid
 	 */
@@ -147,17 +148,6 @@ public class Grid {
 		}
 	}
 	
-	public void drawGrid() {
-		System.out.println(this.toString());
-//		for (int y = size-1; y >= 0 ; y--) {
-//            for (int x = 0; x < size; x++) {
-//                System.out.print(visual[y][x]+ " ");
-//            }
-//            System.out.print("\n");
-//        }
-//        System.out.println("\n");
-	}
-	
 	public void updateVisualGrid() {
 		for (Point point: playablePoints.keySet()) {
 			visual[point.getY()][point.getX()] = "?";
@@ -180,11 +170,7 @@ public class Grid {
 	}
 
 	/**
-	 * Find all playable points
-	 * 
-	 * The search is limited to the sub grid defined by minPlayablePoint and maxPlayablePoint
-	 * 
-	 * It clears playable points before searching
+	 * Find all playable points and clears playable points before searching
 	 */ 
 	public void updatePlayablePoints() {
 		this.playablePoints.clear();
@@ -197,9 +183,8 @@ public class Grid {
 			}	
 		}
 		this.updatePossibleMoves();
-//		this.updateVisualGrid();
+		this.updateVisualGrid();
 	}
-	
 
 	/**
 	 * This method find the possible lines that can be create from a given Played Point
@@ -207,9 +192,9 @@ public class Grid {
 	 * @param 
 	 * 		point
 	 * @return 
-	 * 		a List of Point composed of n-1 played points (where n is the mode: 5T 4T 6T, etc) and one "normal" point,
+	 * 		a Set of Lines composed of n-1 PlayedPoint instances (where n is the mode: 5T 4T 6T, etc) and one Point instance,
 	 * 		where the normal point would be a playable point for the next move.
-	 * 		an empty List if there is no playable point for the next move from the current point
+	 * 		an empty set if there is no playable lines for the next move from the current point
 	 */
 	public Set<Line> findLinesAround(Point point) {
 		Set<Line> linesAround = new HashSet<>();
@@ -220,7 +205,7 @@ public class Grid {
 	}
 
 	/**
-	 * This method search for possible line to form with one point. It searches in on specific direction {@link helpers.Direction}
+	 * This method search for possible lines to form with one point. It searches in on specific direction {@link helpers.Direction}
 	 * 
 	 * @param point
 	 * @param direction
@@ -243,7 +228,7 @@ public class Grid {
 	 * @param point
 	 * @param direction
 	 * @param mode
-	 * @return
+	 * @return the set of possible disjoint lines
 	 */
 	public Set<Line> findNormalLinesInDirection(Point point, Direction direction){
 		Set<Line> lines = new HashSet<>();
@@ -278,7 +263,7 @@ public class Grid {
 	 *		If no, we repeat the process for the opposite orientation
 	 * 
 	 * Considering these conditions:
-	 * If we found a possible joint lien in one side; then it is not possible to find a possible joint line in the other side
+	 * If we found a possible joint line in one side; then it is not possible to find a possible joint line in the other side
 	 * and the method is done
 	 * 
 	 * 

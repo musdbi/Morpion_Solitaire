@@ -20,9 +20,14 @@ public enum Direction {
 		this.orientation2 = orientation2;
 	}
 	
+	
+	/**
+	 * @return the combined list of the orientation.moveX() method where orientation are the orientation
+	 * composing the current direction.
+	 * Ex: Horizontal: return the concatanated lists of W.moveX() and E.moveX() keeping the order
+	 */
 	public List<Integer> moveX(){
 		List<Integer> moveX = new ArrayList<>();
-		
 		List<Integer> reversedOrientation1 = this.orientation1.moveX();
 		Collections.reverse(reversedOrientation1);
 		moveX.addAll(reversedOrientation1);
@@ -31,6 +36,11 @@ public enum Direction {
 		return moveX;
 	}
 	
+	/**
+	 * @return the combined list of the orientation.moveY() method where orientation are the orientation
+	 * composing the current direction.
+	 * Ex: Horizontal: return the concatanated lists of W.moveY() and E.moveY() keeping the order
+	 */
 	public List<Integer> moveY(){
 		List<Integer> moveY = new ArrayList<>();
 		

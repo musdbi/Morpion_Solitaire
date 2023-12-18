@@ -27,6 +27,8 @@ public class Line {
 	 * 	1) Horizontal
 	 * 	2) Vertical
 	 * 	3) Diagonal
+	 * 
+	 * see {@link helpers.Direction}
 	 */
 	private Direction direction;
 	
@@ -42,6 +44,12 @@ public class Line {
 		this.points = new HashSet<Point>(points);
 	}
 	
+	
+	/**
+	 * Constructor for defensive copy
+	 * 
+	 * @param line
+	 */
 	public Line(Line line) {
 		this.points = new HashSet<Point>();
 		for (Point linePoint: line.getPoints()) {
@@ -76,6 +84,12 @@ public class Line {
         return Objects.hash(this.points.toArray());
     }
     
+    
+    /**
+     * Update the Point instance in a PlayedPoint instance when the line is played
+     * 
+     * @param point
+     */
     public void updatePlayedPoint(PlayedPoint point) {
 		if (point == null) throw new IllegalArgumentException ("Point cannot be null.");
 		if (!point.isPlayed()) throw new IllegalArgumentException ("Must be a played point");
@@ -83,6 +97,9 @@ public class Line {
 		this.points.add(point);
 	}
     
+    /**
+     * @return the extremities of the line
+     */
     public Set<Point> getEndsOfLine(){
     	Set<Point> endsOfLine = new HashSet<>();
     	 List<Point> points = new ArrayList<>(this.points);

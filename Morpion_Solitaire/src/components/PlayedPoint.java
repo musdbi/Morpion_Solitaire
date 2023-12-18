@@ -14,7 +14,7 @@ public class PlayedPoint extends Point{
 	
 	/**
 	 * The different direction of the lines that contain this played point
-	 * This attribute is essential to know for searching point
+	 * This attribute is essential to know when searching playable points
 	 */
 	private Set<Direction> involvedInDirections;
 	
@@ -39,6 +39,13 @@ public class PlayedPoint extends Point{
 		this.isEndOfLine = false;
 	}
 	
+	
+	/**
+	 * Constructor when a point is played
+	 * 
+	 * @param p
+	 * @param id
+	 */
 	public PlayedPoint(Point p, int id) {
 		super(p.getX(), p.getY());
 		this.involvedInDirections = new HashSet<>();
@@ -46,6 +53,11 @@ public class PlayedPoint extends Point{
 		this.id = id;
 	}
 	
+	/**
+	 * Constructor for defensive copies
+	 * 
+	 * @param playedPoint
+	 */
 	public PlayedPoint(PlayedPoint playedPoint) {
 		super(playedPoint.getX(), playedPoint.getY());
 		this.id = playedPoint.getId();
@@ -84,11 +96,5 @@ public class PlayedPoint extends Point{
 	
 	public void setEndOfLine(boolean isEndOfLine) {
 		this.isEndOfLine = isEndOfLine;
-	}
-	
-	public static void main(String[] args) {
-		PlayedPoint p = new PlayedPoint(0, 0);
-		p.addInvolvedDirection(Direction.DIAGONAL1);
-		System.out.println(p.getInvolvedDirections());
 	}
 }

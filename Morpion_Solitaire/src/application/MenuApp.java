@@ -241,18 +241,18 @@ public class MenuApp extends Application {
         hoverSound.setVolume(0.015);
         
      // Charger le fichier audio pour la musique de fond
-//        String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
-//        Media bgMedia = new Media(bgSoundFile);
-//        bgSound = new MediaPlayer(bgMedia);
-//        bgSound.setVolume(0.1);
-//        bgSound.play();
-//        bgSound.setOnEndOfMedia(new Runnable() {
-//            @Override
-//            public void run() {
-//                bgSound.seek(Duration.ZERO);
-//                bgSound.play();
-//            }
-//        });
+        String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
+        Media bgMedia = new Media(bgSoundFile);
+        bgSound = new MediaPlayer(bgMedia);
+        bgSound.setVolume(0.1);
+        bgSound.play();
+        bgSound.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                bgSound.seek(Duration.ZERO);
+                bgSound.play();
+            }
+        });
         
         primaryStage.setTitle("Morpion Solitaire");
         primaryStage.setScene(scene);

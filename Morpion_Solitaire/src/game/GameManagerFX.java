@@ -60,7 +60,6 @@ public class GameManagerFX {
     	score = 0;
         board.initGrid();
         this.board.updatePlayablePoints();
-        //this.board.drawGrid();
     }
     
     /**
@@ -75,7 +74,7 @@ public class GameManagerFX {
         	System.out.println("Point jouables et leurs lignes: " + this.board.getPlayablePoints());
         	System.out.println("Coups possible: " + this.board.getPossibleMoves());
 
-        	this.board.drawGrid();
+        	System.out.println(this.board);;
     	}
     }
 

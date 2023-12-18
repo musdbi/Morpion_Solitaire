@@ -2,8 +2,16 @@ package game;
 
 public class Mode {
 	
+	
+	/**
+	 * Is the number of points in lines
+	 */
 	private static int number = 5;
 	
+	
+	/**
+	 * Is the mode: joint or disjoint
+	 */
 	private static StringBuilder type = new StringBuilder("T");
 	
 	public static void setNumber(int newNumber) {

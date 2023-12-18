@@ -58,7 +58,7 @@ public class GraphicController {
                 item.setStyle(legendItemStyle);
             }
             
-//         // Axis labels color
+            // Axis labels color
             chart.getXAxis().setStyle("-fx-text-fill: white;");
             chart.getYAxis().setStyle("-fx-text-fill: white;");
 

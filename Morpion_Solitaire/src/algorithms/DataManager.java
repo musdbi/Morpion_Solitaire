@@ -20,8 +20,13 @@ public class DataManager {
 	/**
 	 * Id of the algorithm we are currently using.
 	 * This attribute is essentially use to ensure correct save of the score in the csv file.
-	 * Indeed, NMCS uses Random Algo. Therefore, we don't want the random algo to acess the inserData()
+	 * Indeed, NMCS uses Random Algo. Therefore, we don't want the random algo to access the inserData()
 	 * method when it is called by NMCS. @see RandomAlgorithm#algorithm()
+	 * 
+	 * 0: RandomAlgorithm i.e NMCS depth = 0
+	 * 1: NMCS depth = 1
+	 * 2: NMCS depth = 2
+	 * 3: NMCS depth = 3
 	 */
 	private static int currRunningAlgoId;
 	
@@ -41,6 +46,15 @@ public class DataManager {
         }
     }
 	
+	/**
+	 * Get the data from the csv file
+	 * 
+	 * @param algoId
+	 * @param mode
+	 * @return the list of score with the associated given algoId and mode
+	 * @throws CsvValidationException
+	 * @throws NumberFormatException
+	 */
 	public static List<Integer> getData(int algoId, String mode) throws CsvValidationException, NumberFormatException {
 		List<Integer> scores = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new FileReader(path))) {
@@ -58,8 +72,8 @@ public class DataManager {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-//        catch(NumberFormatException e2) {
-//        }
+        catch(NumberFormatException e2) {
+        }
         return scores;
     }
 	
@@ -108,13 +122,5 @@ public class DataManager {
 	
 	public static int getCurrRunningAlgo() {
 		return currRunningAlgoId;
-	}
-	
-	public static void main(String[] args) throws CsvValidationException, NumberFormatException {
-		System.out.println("Random algo: " + DataManager.calculateStatistics(0, "5T"));
-		System.out.println("NMCS depth 1: " + DataManager.calculateStatistics(1, "5T"));
-		System.out.println("NMCS depth 2: " + DataManager.calculateStatistics(2, "5T"));
-		System.out.println("NMCS depth 2: " + DataManager.calculateStatistics(3, "5T"));
-
 	}
 }
