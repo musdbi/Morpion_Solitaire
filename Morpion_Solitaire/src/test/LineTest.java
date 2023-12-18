@@ -1,7 +1,10 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -90,37 +93,34 @@ public class LineTest {
 		assertEquals(endsOfLine, line2.getEndsOfLine());
 	}
 	
-//	@Test
-//	public void testUpdatePlayedPoint() {
-//		Set<Point> points = new HashSet<>();
-//		points.add(p1);
-//		points.add(p2);
-//		points.add(p3);
-//		points.add(p4);
-//		points.add(p5);
-//		Line line1 = new Line(points, Direction.VERTICAL);
-//
-//		for (Point p: line1.getPoints()) {
-//			line1.updatePlayedPoint(p);
-//		}
-//		
-//		assertEquals(true, line1.hashCode() == line2.hashCode());
-//		assertEquals(false, line2.hashCode() == line3.hashCode());
-//	}
-	
-	
-//	@Test
-//	public void testDirection() {
-//		Set<Point> points = new HashSet<>();
-//		points.add(p1);
-//		points.add(p2);
-//		points.add(p3);
-//		points.add(p4);
-//		points.add(p5);
-//		
-//		System.out.println(points);
-//		Line line1 = new Line(points, Direction.VERTICAL);
-//		assertEquals(Direction.VERTICAL, line1.getDirection());
-//	}
+	@Test
+    public void testConstructorAndExceptions() {
+        Set<Point> points = new HashSet<>(Arrays.asList(p1, p2, p3, p4, p5));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Line(points, null);
+        });
+        assertTrue(exception.getMessage().contains("A line must be defined with a direction"));
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Line(new HashSet<>(), Direction.VERTICAL);
+        });
+        assertTrue(exception.getMessage().contains("A line should take a set of"));
+    }
+
+    @Test
+    public void testGetPointsAndDirection() {
+        Set<Point> points = new HashSet<>(Arrays.asList(p1, p2, p3, p4, p5));
+        Line line = new Line(points, Direction.VERTICAL);
+        assertEquals(points, line.getPoints());
+        assertEquals(Direction.VERTICAL, line.getDirection());
+    }
+
+    @Test
+    public void testDiagonalLineEnds() {
+        Set<Point> points = new HashSet<>(Arrays.asList(new Point(1,1), new Point(2,2), new Point(3,3), new Point(4,4), new Point(5,5)));
+        Line diagonalLine = new Line(points, Direction.DIAGONAL1);
+        Set<Point> expectedEnds = new HashSet<>(Arrays.asList(new Point(1,1), new Point(5,5)));
+        assertEquals(expectedEnds, diagonalLine.getEndsOfLine());
+    }
 
 }

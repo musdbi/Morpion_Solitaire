@@ -44,10 +44,22 @@ public class ModeController {
 	    stage.show();
 	}
 	
+	/**
+	 * Allows you to parameterize the music, i.e. trigger it if it is paused, or pause it if it is not.
+	 * @param event The event that triggered this method.
+	 */
+	
 	public void checkBGSound (ActionEvent event) {
 		if (MenuApp.bgSound.getStatus() == MediaPlayer.Status.PLAYING) MenuApp.bgSound.pause();
 		else MenuApp.bgSound.play();
 	}
+	
+	/**
+     * Changes the current scene to return to the main menu.
+     * This method is triggered by an action event, typically a button click.
+     *
+     * @param event The event that triggered this method.
+     */
 	
 	public void switchToMenu (ActionEvent event) {
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

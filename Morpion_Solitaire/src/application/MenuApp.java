@@ -49,6 +49,14 @@ public class MenuApp extends Application {
     private Pane root = new Pane();
     private VBox menuBox = new VBox(-5);
     private Line line;
+    
+    /**
+     * Creates the scene's main content for the main menu.
+     * This method initializes the background, title, animation line and menu items.
+     *
+     * @param primaryStage The main stage of the application.
+     * @return The parent (Pane) containing all the menu's user interface elements.
+     */
 
     private Parent createContent(Stage primaryStage) {
         addBackground();
@@ -64,6 +72,11 @@ public class MenuApp extends Application {
 
         return root;
     }
+    
+    /**
+     * Adds background to the main menu.
+     * The background is a colored rectangle covering the entire scene.
+     */
 
     private void addBackground() {
     	// Colors to blend
@@ -73,6 +86,11 @@ public class MenuApp extends Application {
 //        background.setEffect(new DropShadow(30, Color.WHITE));
 //        root.getChildren().add(background);
     }
+    
+    /**
+     * Adds title to main menu.
+     * The title is displayed with a drop shadow effect.
+     */
 
     private void addTitle() {
         Title title = new Title("MORPION SOLITAIRE");
@@ -82,6 +100,13 @@ public class MenuApp extends Application {
 
         root.getChildren().add(title);
     }
+    
+    /**
+     * Adds an animated line as a separator in the menu.
+     *
+     * @param x X position of line start.
+     * @param y Y position of line start.
+     */
 
     private void addLine(double x, double y) {
         line = new Line(x, y, x, y + 190);
@@ -92,6 +117,11 @@ public class MenuApp extends Application {
 
         root.getChildren().add(line);
     }
+    
+    /**
+     * Starts animation of line and menu items.
+     * Line expands and menu items slide into view.
+     */
 
     private void startAnimation() {
         ScaleTransition st = new ScaleTransition(Duration.seconds(1), line);
@@ -109,6 +139,15 @@ public class MenuApp extends Application {
         });
         st.play();
     }
+    
+    /**
+     * Adds menu items to the scene.
+     * Each item is an instance of MenuItem with an associated action.
+     *
+     * @param x X position for menu placement.
+     * @param y Y position for menu placement.
+     * @param primaryStage The application's main stage for navigating between scenes.
+     */
 
 	private void addMenu(double x, double y, Stage primaryStage) {
         menuBox.setTranslateX(x);
@@ -227,20 +266,20 @@ public class MenuApp extends Application {
     	primaryStage.getIcons().add(icon);
         Scene scene = new Scene(createContent(primaryStage));
         
-     // Fixer la taille de la fenêtre
+     // Set window size
         primaryStage.setWidth(WIDTH);
         primaryStage.setHeight(HEIGHT);
    
-     // Empêcher le redimensionnement de la fenêtre
+     // Prevent window resizing
         primaryStage.setResizable(false);
 
-     // Charger le fichier audio pour le son de survol
+     // Load audio file for hover sound
         String hoverSoundFile = getClass().getResource("res/hover.mp3").toExternalForm();
         Media hoverMedia = new Media(hoverSoundFile);
         hoverSound = new MediaPlayer(hoverMedia);
         hoverSound.setVolume(0.015);
-        
-     // Charger le fichier audio pour la musique de fond
+
+     // Load audio file for background music
         String bgSoundFile = getClass().getResource("res/bg_music.mp3").toExternalForm();
         Media bgMedia = new Media(bgSoundFile);
         bgSound = new MediaPlayer(bgMedia);

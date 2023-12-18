@@ -19,9 +19,20 @@ public class ScoreboardController {
 	    @FXML
 	    private ListView<String> scoreListView;
 	    
+	    /**
+	     * Initializes the controller and loads scores into the list.
+	     * This method is automatically called after loading the FXML file.
+	     */
+	    
 	    public void initialize() {
 	        loadScores();
 	    }
+	    
+	    /**
+	     * Loads scores from a text file and displays them in the list.
+	     * Scores are read from the file specified by path.
+	     * In the event of an error, an exception is raised and processed.
+	     */
 	    
 	    private void loadScores() {
 	        try {
@@ -33,6 +44,13 @@ public class ScoreboardController {
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    /**
+	     * Changes the current scene to return to the main menu.
+	     * This method is triggered by an action event, typically a button click.
+	     *
+	     * @param event The event that triggered this method.
+	     */
 	    
 		public void switchToMenu (ActionEvent event) {
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

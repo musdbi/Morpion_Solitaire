@@ -9,6 +9,14 @@ import javafx.scene.text.Text;
 
 public class MenuItem extends Pane {
     private Text text;
+    
+    /**
+     * Constructor for creating a menu item.
+     * Each MenuItem is composed of a background (Polygon) and a text (Text).
+     * The background changes color on mouseover.
+     *
+     * @param name The name that will be displayed on this menu item.
+     */
 
     public MenuItem(String name) {
     	 Polygon bg = new Polygon(
@@ -51,6 +59,12 @@ public class MenuItem extends Pane {
              bg.getPoints().setAll(originalPoints);
          });
      }
+    
+    /**
+     * Defines the action to be executed when this menu item is clicked.
+     * The action is a Runnable object that will be executed.
+     * @param action which will be the action executed when the button is clicked.
+     */
 
     public void setOnAction(Runnable action) {
         setOnMouseClicked(e -> action.run());
