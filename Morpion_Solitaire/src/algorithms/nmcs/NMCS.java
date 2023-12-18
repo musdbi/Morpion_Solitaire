@@ -83,6 +83,7 @@ public class NMCS implements ResearchAlgorithm{
 	    for (Future<Grid> future : futures) {
 	    	// Stop algo if end of time
 	    	if (System.currentTimeMillis() - debut > dureeMax) {
+	    		executor.shutdownNow();
                 break; 
             }
 	        try {
@@ -91,7 +92,8 @@ public class NMCS implements ResearchAlgorithm{
 	                bestGrid = currentChildGrid;
 	            }
 	        } catch (InterruptedException | ExecutionException e) {
-	            e.printStackTrace();
+	        	double elapsedTime = (System.currentTimeMillis() - debut) * 0.001;
+	            System.out.println("Time limit of "+ elapsedTime + " seconds was reached");
 	        }
 	    }
 
