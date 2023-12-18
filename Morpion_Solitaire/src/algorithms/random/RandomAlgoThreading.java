@@ -71,11 +71,11 @@ public class RandomAlgoThreading extends Thread{
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		Mode.setType("D");
-		RandomAlgoThreading randomMultiThread = new RandomAlgoThreading(new RandomAlgorithm(), 4, 100);
-		randomMultiThread.trainAlgorithm();
-		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
-		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");
-		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);
+//		Mode.setType("D");
+//		RandomAlgoThreading randomMultiThread = new RandomAlgoThreading(new RandomAlgorithm(), 4, 100);
+//		randomMultiThread.trainAlgorithm();
+//		System.out.println("Nombres d'itérations : par thread " + randomMultiThread.threadIterations);
+//		System.out.println("Sur "+ randomMultiThread.iterations + " coups:");
+//		System.out.println("Number of threads: " + randomMultiThread.numberOfThreads);
 	}
 }
