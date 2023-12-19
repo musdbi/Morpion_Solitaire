@@ -18,3 +18,8 @@ In the the "docs" folder you can find:
 1) The report of the development of the game: "Development_Report.pdf"
 2) A user guide for the application: "User_Guide.pdf"
 3) A class diagram: "class_diagram.png"
+
+## Data
+The folder data contains
+
+1) algo_scores.csv:
