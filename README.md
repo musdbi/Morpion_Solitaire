@@ -1,10 +1,9 @@
-# Morpion Solitaire - Java Course project
+# Morpion Solitaire - Java project: University of Paris Dauphine
 
 Our version of Morpion Solitaire
 
 ## Authors
 Mustapha Doubabi
-
 Pierre Neveu
 
 ## Launch
