@@ -10,7 +10,10 @@ Pierre Neveu
 
 The executable is "Morpion Solitaire.jar".
 1) Go to root directory
-2) java -jar "Morpion Solitaire.jar" OR double click
+```
+java -jar "Morpion Solitaire.jar"
+```
+OR double click
 
 ## Documentation
 In the the "docs" folder you can find:
