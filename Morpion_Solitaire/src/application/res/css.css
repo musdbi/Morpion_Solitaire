@@ -1,0 +1,51 @@
+.background {
+	-fx-background: #283943;
+}
+
+.back-to-menu {
+    -fx-background-color: rgba(0, 0, 0, 0.25);
+    -fx-border-color: #EEE8AA;
+    -fx-border-width: 1px;
+    -fx-padding: 3px 10px 3px 15px;
+    -fx-font-family: 'Penumbra Half Serif Std';
+    -fx-font-size: 10px;
+    -fx-shape: "M70,0 L10,0 L3,4 L10,8 L70,8 Z";
+    -fx-text-fill: #EEE8AA;
+    -fx-cursor: hand; /* Use 'hand' for pointer */
+    -fx-background-radius: 0 0 10 0; /* Adjust the clip-path effect with background-radius */
+    -fx-effect: null; /* Remove default focus outline */
+    -fx-transition: -fx-background-color 0.3s ease;
+}
+
+.back-to-menu:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.back-to-menu:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 2, 1, 0, 0);
+}
+
+.button{
+    -fx-background-color: rgba(0, 0, 0, 0.25);
+    -fx-border-color: #EEE8AA;
+    -fx-border-width: 1px;
+    -fx-font-family: 'Penumbra Half Serif Std';
+    -fx-font-size: 10px;
+    -fx-min-width: 60px; /* Define width */
+    -fx-min-height: 20px;
+    -fx-text-fill: #EEE8AA;
+    -fx-cursor: hand; /* Use 'hand' for pointer */
+    -fx-background-radius: 0 0 10 0; /* Adjust the clip-path effect with background-radius */
+    -fx-effect: null; /* Remove default focus outline */
+    -fx-transition: -fx-background-color 0.3s ease;
+}
+
+.button:hover:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 2, 1, 0, 0);
+}
+
+/* Remove background color of ListView */
+.list {
+    -fx-background-color: transparent;
+}
