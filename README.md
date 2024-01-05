@@ -3,8 +3,8 @@
 Our version of Morpion Solitaire
 
 ## Authors
-Mustapha Doubabi
-Pierre Neveu
+* Mustapha Doubabi
+* Pierre Neveu
 
 ## Launch
 
